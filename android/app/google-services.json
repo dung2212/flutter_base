@@ -1,0 +1,81 @@
+
+
+{
+  "project_info": {
+    "project_number": "614068426482",
+    "firebase_url": "https://meeyland.firebaseio.com",
+    "project_id": "meeyland",
+    "storage_bucket": "meeyland.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614068426482:android:4453eb77641ffc09ff226b",
+        "android_client_info": {
+          "package_name": "com.meeyland.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614068426482-r9viort0ljej2blbirud95jibthaq081.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meeyland.app",
+            "certificate_hash": "24f0d38622cdcfad23a8f239f8d337640bb2ad21"
+          }
+        },
+        {
+          "client_id": "614068426482-q0bikcn3j1e90g5abctp4ffhrvn085fb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meeyland.app",
+            "certificate_hash": "c7efdea07b3102eaaad8d81f59082e827ccbd1dc"
+          }
+        },
+        {
+          "client_id": "614068426482-4hlo20jtu8c4jqf80qos8l6d37o88vu3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meeyland.app",
+            "certificate_hash": "7e8a819bce4f71da174643f0c597b85882ccc2ef"
+          }
+        },
+        {
+          "client_id": "614068426482-jm6u7fu1c3dm8oqqivka68sc6mpd9uud.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meeyland.app",
+            "certificate_hash": "82c191c5c606c31de36337c64d5cd43ad36c083c"
+          }
+        },
+        {
+          "client_id": "614068426482-tm4o8c1dgeieabboeuj3511v1q7u3fv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6cYfYLaNTGsqopQgIJ0ExSh6QVyFHSIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614068426482-tm4o8c1dgeieabboeuj3511v1q7u3fv1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "614068426482-r832tc7eg50lt0epnd5ufbo7sud581fe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.meeyland.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
