@@ -1,3 +1,4 @@
+import 'package:FlutterBase/Utils/ResourceUtil.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterBase/Utils/Util.dart';
 import 'package:flutter_svg/flutter_svg.dart';

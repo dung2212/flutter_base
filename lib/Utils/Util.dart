@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:FlutterBase/Extends/ColorExtends.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,12 +12,17 @@ import 'package:url_launcher/url_launcher.dart';
 export 'DateTimeUtil.dart';
 export 'PreferUtil.dart';
 export 'ValidateUtil.dart';
-export 'ResourceUtil.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
 
 class Util {
+
+  static Color hexToColor(String code) {
+    //return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+    return ColorExtends(code);
+  }
+
   static bool stringNullOrEmpty(String value) {
     if (value == null || value.isEmpty) {
       return true;
@@ -440,6 +446,15 @@ class Util {
       textNew = textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
     }
     return textNew;
+  }
+
+  static String getUnitPrice(String price) {
+    print("price $price");
+    var arrayTachUnit = price.split(" ");
+    if (arrayTachUnit.length > 1) {
+      return arrayTachUnit[1];
+    }
+    return "";
   }
 }
 

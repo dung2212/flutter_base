@@ -1,3 +1,4 @@
+import 'package:FlutterBase/Utils/ResourceUtil.dart';
 import 'package:FlutterBase/Utils/Util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
