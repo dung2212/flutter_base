@@ -456,6 +456,16 @@ class Util {
     }
     return "";
   }
+
+  static String showValueDouble(double value, int places) {
+    var text = roundDouble(value, places).toString().replaceAll(".0", "");
+    return text;
+  }
+
+  static double roundDouble(double value, int places) {
+    double mod = pow(10.0, places);
+    return ((value * mod).round().toDouble() / mod);
+  }
 }
 
 class UserNameInfo {

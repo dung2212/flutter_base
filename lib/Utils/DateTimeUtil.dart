@@ -146,4 +146,40 @@ class DateTimeUtil {
     }
     return getDateTimeStartDay(date1).difference(getDateTimeStartDay(date2)).inDays;
   }
+
+  static String getTimeMinuteFromSecond(int second) {
+//    final duration = Duration(seconds: second);
+//    var time = duration.toString().split('.').first.padLeft(8, '0').substring(3);
+//    time = time.replaceAll(":0", "m");
+//    time = time.replaceAll(":", "m") + "s";
+//    time = time.replaceAll("m0s", "m");
+//    return time;
+    final duration = Duration(seconds: second);
+    var seconds = duration.inSeconds;
+    final days = seconds ~/ Duration.secondsPerDay;
+    seconds -= days * Duration.secondsPerDay;
+    final hours = seconds ~/ Duration.secondsPerHour;
+    seconds -= hours * Duration.secondsPerHour;
+    final minutes = seconds ~/ Duration.secondsPerMinute;
+    seconds -= minutes * Duration.secondsPerMinute;
+
+    final List<String> tokens = [];
+    if (days != 0) {
+      tokens.add('${days}d');
+    }
+    if (tokens.isNotEmpty || hours != 0) {
+      tokens.add('${hours}h');
+    }
+    if (tokens.isNotEmpty || minutes != 0) {
+      tokens.add('${minutes}m');
+    }
+    if (seconds != 0) {
+      tokens.add('${seconds}s');
+    }
+    if (tokens.length == 0) {
+      tokens.add('${seconds}s');
+    }
+
+    return tokens.join(':');
+  }
 }
