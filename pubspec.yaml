@@ -34,8 +34,6 @@ dependencies:
   flutter_secure_storage: ^3.3.3
   uuid: ^2.2.0
   encrypt: ^4.0.0
-  facebook_app_events: ^0.6.0
-  facebook_audience_network: ^0.6.2
   flutter:
     sdk: flutter
 
