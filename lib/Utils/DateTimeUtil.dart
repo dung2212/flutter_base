@@ -102,7 +102,7 @@ class DateTimeUtil {
 
   static int getTimeStamp(DateTime dateTime) {
     if (dateTime == null) return null;
-    return (dateTime.millisecondsSinceEpoch / 1000).toInt();
+    return dateTime.millisecondsSinceEpoch ~/ 1000;
   }
 
   static bool isSameDate(DateTime date1, DateTime date2) {

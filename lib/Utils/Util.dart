@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
@@ -251,6 +250,7 @@ class Util {
 //      case () :
 //        break;
 //    }
+  return "";
   }
 
   static String removeDecimalZeroFormat(double n) {
@@ -465,6 +465,11 @@ class Util {
   static double roundDouble(double value, int places) {
     double mod = pow(10.0, places);
     return ((value * mod).round().toDouble() / mod);
+  }
+
+  static String decodePhone(String phoneNumber) {
+    phoneNumber = phoneNumber.replaceRange(phoneNumber.length-3, phoneNumber.length, '***');
+    return phoneNumber;
   }
 }
 
