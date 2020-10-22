@@ -16,7 +16,6 @@ typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
 
 class Util {
-
   static Color hexToColor(String code) {
     //return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
     return ColorExtends(code);
@@ -250,7 +249,7 @@ class Util {
 //      case () :
 //        break;
 //    }
-  return "";
+    return "";
   }
 
   static String removeDecimalZeroFormat(double n) {
@@ -268,7 +267,6 @@ class Util {
     }
   }
 
-
   static UserNameInfo getFirstLastName(String fullName) {
     var info = UserNameInfo();
     if (fullName.length > 0) {
@@ -283,6 +281,7 @@ class Util {
     }
     return info;
   }
+
 //
 //  static String getYoutubeId(String url) {
 //    print("Youtube Link: $url}");
@@ -468,8 +467,19 @@ class Util {
   }
 
   static String decodePhone(String phoneNumber) {
-    phoneNumber = phoneNumber.replaceRange(phoneNumber.length-3, phoneNumber.length, '***');
+    phoneNumber = phoneNumber.replaceRange(phoneNumber.length - 3, phoneNumber.length, '***');
     return phoneNumber;
+  }
+
+  static String getFullPhoneWithCountryCode({String countryCode, String phoneNumber}) {
+    var phone = phoneNumber;
+    if (phoneNumber.length > 0) {
+      var split = phoneNumber.substring(0, 1);
+      if (split == "0") {
+        phone = phoneNumber.substring(1, phoneNumber.length);
+      }
+    }
+    return countryCode.replaceAll("+", "") + phone;
   }
 }
 
@@ -477,4 +487,3 @@ class UserNameInfo {
   String firstName = "";
   String lastName = "";
 }
-
