@@ -479,7 +479,7 @@ class Util {
         phone = phoneNumber.substring(1, phoneNumber.length);
       }
     }
-    return countryCode.replaceAll("+", "") + phone;
+    return countryCode + phone;
   }
 }
 
