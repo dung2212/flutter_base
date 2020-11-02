@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 export 'DateTimeUtil.dart';
 export 'PreferUtil.dart';
-export 'ValidateUtil.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
