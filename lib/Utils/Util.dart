@@ -488,7 +488,19 @@ class Util {
     return "";
   }
 
-  static Color getColorAvatarRandom() {
+  static Color getColorAvatarRandom(String name) {
+    var t = "abcdefghijklmnopqrstuvwxyz0123456789".toUpperCase();
+    var kyTu = getAvatarName(name).toUpperCase();
+    var index = 0;
+    for (var i = 0; i < t.length; i++) {
+      var charr = t.substring(i, i + 1);
+      if (charr == kyTu) {
+        index = i;
+        break;
+      }
+    }
+    print("kyTu $kyTu");
+
     var colors = [
       "#B71C1C",
       "#D32F2F",
@@ -583,8 +595,8 @@ class Util {
       "#607D8B",
       "#546E7A",
     ];
-    var rd = new Random.secure().nextInt(colors.length - 1);
-    return hexToColor(colors[rd]);
+    //var rd = new Random.secure().nextInt(colors.length - 1);
+    return hexToColor(colors[index]);
   }
 }
 
