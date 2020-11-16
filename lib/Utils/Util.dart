@@ -499,7 +499,6 @@ class Util {
         break;
       }
     }
-    print("kyTu $kyTu");
 
     var colors = [
       "#B71C1C",

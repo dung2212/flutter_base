@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+
 class DateTimeUtil {
   static String dateTimeToString(DateTime dateTime, String format) {
     if (dateTime == null) return null;
@@ -37,13 +38,13 @@ class DateTimeUtil {
     return dateTimeToString(dateTime, "HH:mm a");
   }
 
-  static String getDateTimeServerToDate(String dateTimeString) {
-    if (dateTimeString == null) return null;
-    var dateTime = stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    if (dateTime == null) {
-      return null;
-    }
-    return dateTimeToString(dateTime, "dd/MM/yyyy");
+  static String getDateTimeServerToDate(DateTime dateTime) {
+    if (dateTime == null) return '';
+    return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS'+07:00'");
+  }
+  static String getDateTimeSendServer(String dateTimeString) {
+    var dateTime = stringToDateTime(dateTimeString, "HH:mm dd-MM-yyyy");
+    return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS'+07:00'");
   }
 
   static String getDateTimeStringServer(DateTime dateTime) {
@@ -55,14 +56,24 @@ class DateTimeUtil {
     return dateTimeToString(dateTime, "dd/MM/yyyy' 'HH:mm");
   }
 
+  static String getDateTimeInteractive(DateTime dateTime) {
+    if (dateTime == null) return '';
+    return ' (' + dateTimeToString(dateTime, "HH:mm '-' dd/MM/yyyy") + ')';
+  }
+
   static String getDateTimeStamp(int time) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time*1000);
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time * 1000);
     return dateTimeToString(dateTime, "dd/MM/yyyy");
   }
 
   static String getDateTimeToDate(DateTime dateTime) {
     if (dateTime == null) return "";
-    return dateTimeToString(dateTime, "yyyy-MM-dd");
+    return dateTimeToString(dateTime, "dd/MM/yyyy");
+  }
+
+  static String getDateTimeFormat(DateTime dateTime, String format) {
+    if (dateTime == null) return null;
+    return dateTimeToString(dateTime, format);
   }
 
   static String getDateTimeTHG(String dateTimeString) {
@@ -81,7 +92,13 @@ class DateTimeUtil {
   }
 
   static String getFullDateTime(DateTime dateTime) {
-    return dateTime.day.toString() + " thg " + dateTime.month.toString() + ", " + dateTime.year.toString() + ", " + dateTimeToString(dateTime, "HH:mm:ss");
+    return dateTime.day.toString() +
+        " thg " +
+        dateTime.month.toString() +
+        ", " +
+        dateTime.year.toString() +
+        ", " +
+        dateTimeToString(dateTime, "HH:mm:ss");
   }
 
   static String getFullDateTimeStringServer(String dateTimeString) {
@@ -165,21 +182,21 @@ class DateTimeUtil {
 
     final List<String> tokens = [];
     if (days != 0) {
-      tokens.add('${days}d');
+      tokens.add('${days} ngày ');
     }
     if (tokens.isNotEmpty || hours != 0) {
-      tokens.add('${hours}h');
+      tokens.add('${hours} giờ ');
     }
     if (tokens.isNotEmpty || minutes != 0) {
-      tokens.add('${minutes}m');
+      tokens.add('${minutes} phút ');
     }
     if (seconds != 0) {
-      tokens.add('${seconds}s');
+      tokens.add('${seconds} giây ');
     }
     if (tokens.length == 0) {
-      tokens.add('${seconds}s');
+      tokens.add('${seconds} giây ');
     }
 
-    return tokens.join(':');
+    return tokens.join('');
   }
 }
