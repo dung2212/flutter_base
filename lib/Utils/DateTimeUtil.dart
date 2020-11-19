@@ -182,19 +182,19 @@ class DateTimeUtil {
 
     final List<String> tokens = [];
     if (days != 0) {
-      tokens.add('${days} ngày ');
+      tokens.add('${days}d ');
     }
     if (tokens.isNotEmpty || hours != 0) {
-      tokens.add('${hours} giờ ');
+      tokens.add('${hours}h ');
     }
     if (tokens.isNotEmpty || minutes != 0) {
-      tokens.add('${minutes} phút ');
+      tokens.add('${minutes}m ');
     }
     if (seconds != 0) {
-      tokens.add('${seconds} giây ');
+      tokens.add('${seconds}s ');
     }
     if (tokens.length == 0) {
-      tokens.add('${seconds} giây ');
+      tokens.add('${seconds}s ');
     }
 
     return tokens.join('');
