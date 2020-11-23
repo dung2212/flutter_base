@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
+import 'dart:io';
 import 'dart:ui' as ui show PointerDataPacket;
 import 'dart:ui';
 
@@ -28,9 +29,7 @@ class AutoSize {
   static Size getSize() {
     final Size size = window.physicalSize;
     if (size == Size.zero) return size;
-    final Size autoSize = size.width > size.height
-        ? new Size(size.width / getPixelRatio(), AutoSizeConfig.designWidth)
-        : new Size(AutoSizeConfig.designWidth, size.height / getPixelRatio());
+    final Size autoSize = size.width > size.height ? new Size(size.width / getPixelRatio(), AutoSizeConfig.designWidth) : new Size(AutoSizeConfig.designWidth, size.height / getPixelRatio());
     return autoSize;
   }
 
@@ -38,8 +37,7 @@ class AutoSize {
   /// get the adapted pixel density.
   static double getPixelRatio() {
     final Size size = window.physicalSize;
-    return (size.width > size.height ? size.height : size.width) /
-        AutoSizeConfig.designWidth;
+    return (size.width > size.height ? size.height : size.width) / AutoSizeConfig.designWidth;
   }
 }
 
@@ -66,15 +64,40 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   @override
   ViewConfiguration createViewConfiguration() {
     final double dpRatio = window.devicePixelRatio;
-    print(
-        "thll physicalSize: ${window.physicalSize}, size: ${window.physicalSize / dpRatio}, Ratio: ${dpRatio.toString()}  ");
+    print("thll physicalSize: ${window.physicalSize}, size: ${window.physicalSize / dpRatio}, Ratio: ${dpRatio.toString()}  ");
+    bool isTablet;
+    bool isPhone;
+    bool isIos = Platform.isIOS;
+    bool isAndroid = Platform.isAndroid;
+    bool isIphoneX = false;
+    bool hasNotch = false;
 
-    final Size size = window.physicalSize;
+    var size = window.physicalSize;
+    var width = size.width;
+    var height = size.height;
+
+    if (dpRatio < 2 && (width >= 1000 || height >= 1000)) {
+      isTablet = true;
+      isPhone = false;
+    } else if (dpRatio == 2 && (width >= 1920 || height >= 1920)) {
+      isTablet = true;
+      isPhone = false;
+    } else {
+      isTablet = false;
+      isPhone = true;
+    }
+    if(isTablet)
+      {
+        AutoSizeConfig.setDesignWH(width: 600);
+      }
+
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
-    print(
-        "thll ===autoSzie: ${AutoSize.getSize().toString()} , ratio: ${AutoSize.getPixelRatio()}");
+
+
+
+    print("thll ===autoSzie: ${AutoSize.getSize().toString()} , ratio: ${AutoSize.getPixelRatio()}");
     FlutterBase.screenSize = AutoSize.getSize();
     return ViewConfiguration(
       size: AutoSize.getSize(),
@@ -99,23 +122,20 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   void _handlePointerDataPacket(ui.PointerDataPacket packet) {
     // We convert pointer data to logical pixels so that e.g. the touch slop can be
     // defined in a device-independent manner.
-    _pendingPointerEvents.addAll(
-        PointerEventConverter.expand(packet.data, AutoSize.getPixelRatio()));
+    _pendingPointerEvents.addAll(PointerEventConverter.expand(packet.data, AutoSize.getPixelRatio()));
     if (!locked) _flushPointerEventQueue();
   }
 
   @override
   void cancelPointer(int pointer) {
     super.cancelPointer(pointer);
-    if (_pendingPointerEvents.isEmpty && !locked)
-      scheduleMicrotask(_flushPointerEventQueue);
+    if (_pendingPointerEvents.isEmpty && !locked) scheduleMicrotask(_flushPointerEventQueue);
     _pendingPointerEvents.addFirst(PointerCancelEvent(pointer: pointer));
   }
 
   void _flushPointerEventQueue() {
     assert(!locked);
-    while (_pendingPointerEvents.isNotEmpty)
-      _handlePointerEvent(_pendingPointerEvents.removeFirst());
+    while (_pendingPointerEvents.isNotEmpty) _handlePointerEvent(_pendingPointerEvents.removeFirst());
   }
 
   final Map<int, HitTestResult> _hitTests = <int, HitTestResult>{};
