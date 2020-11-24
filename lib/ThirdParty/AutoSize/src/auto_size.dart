@@ -73,7 +73,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     bool isIphoneX = false;
     bool hasNotch = false;
 
-    var size = window.physicalSize;
+    var size = window.physicalSize / dpRatio;
     var width = size.width;
     var height = size.height;
 
