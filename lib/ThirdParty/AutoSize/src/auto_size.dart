@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:ui' as ui show PointerDataPacket;
 import 'dart:ui';
 
+import 'package:FlutterBase/Utils/ScreenUtil.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -86,19 +87,18 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
       isTablet = false;
       isPhone = true;
     }
-    if(isTablet)
-      {
-        AutoSizeConfig.setDesignWH(width: 600);
-      }
-
+    if (isTablet) {
+      AutoSizeConfig.setDesignWH(width: 600);
+    }
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
 
-
-
     print("thll ===autoSzie: ${AutoSize.getSize().toString()} , ratio: ${AutoSize.getPixelRatio()}");
-    FlutterBase.screenSize = AutoSize.getSize();
+    ScreenUtil.screenSize = AutoSize.getSize();
+    ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
+    ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
+    ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
     return ViewConfiguration(
       size: AutoSize.getSize(),
       devicePixelRatio: AutoSize.getPixelRatio(),
