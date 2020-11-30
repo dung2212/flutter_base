@@ -34,7 +34,8 @@ class DateTimeUtil {
 
   static String getDateTimeServerToHour(String dateTimeString) {
     if (dateTimeString == null) return "";
-    var dateTime = stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    var dateTime =
+        stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     return dateTimeToString(dateTime, "HH:mm a");
   }
 
@@ -42,6 +43,7 @@ class DateTimeUtil {
     if (dateTime == null) return '';
     return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS'+07:00'");
   }
+
   static String getDateTimeSendServer(String dateTimeString) {
     var dateTime = stringToDateTime(dateTimeString, "HH:mm dd-MM-yyyy");
     return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS'+07:00'");
@@ -84,7 +86,11 @@ class DateTimeUtil {
   }
 
   static String getFullDate(DateTime dateTime) {
-    return dateTime.day.toString() + " thg " + dateTime.month.toString() + ", " + dateTime.year.toString();
+    return dateTime.day.toString() +
+        " thg " +
+        dateTime.month.toString() +
+        ", " +
+        dateTime.year.toString();
   }
 
   static String getFullTime(DateTime dateTime) {
@@ -114,7 +120,8 @@ class DateTimeUtil {
 
   static DateTime getDateTimeEndDay(DateTime dateTime) {
     if (dateTime == null) return null;
-    return DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 0, 0);
+    return DateTime(
+        dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 0, 0);
   }
 
   static int getTimeStamp(DateTime dateTime) {
@@ -129,7 +136,9 @@ class DateTimeUtil {
     if (date1 == null || date2 == null) {
       return false;
     }
-    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
   }
 
   static int isSameOnlyHourAndMinute(DateTime date1, DateTime date2) {
@@ -161,7 +170,9 @@ class DateTimeUtil {
     if (date1 == null || date2 == null) {
       return 0;
     }
-    return getDateTimeStartDay(date1).difference(getDateTimeStartDay(date2)).inDays;
+    return getDateTimeStartDay(date1)
+        .difference(getDateTimeStartDay(date2))
+        .inDays;
   }
 
   static String getTimeMinuteFromSecond(int second) {
@@ -198,5 +209,16 @@ class DateTimeUtil {
     }
 
     return tokens.join('');
+  }
+
+  static DateTime firstDayOfMonth(DateTime month) {
+    return DateTime.utc(month.year, month.month, 1, 12);
+  }
+
+  static DateTime lastDayOfMonth(DateTime month) {
+    final date = month.month < 12
+        ? DateTime.utc(month.year, month.month + 1, 1, 12)
+        : DateTime.utc(month.year + 1, 1, 1, 12);
+    return date.subtract(const Duration(days: 1));
   }
 }
