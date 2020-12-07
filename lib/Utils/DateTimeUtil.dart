@@ -29,24 +29,24 @@ class DateTimeUtil {
   static DateTime getDateTimeServer(String dateTimeString) {
     if (dateTimeString == null) return null;
 
-    return stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    return stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
   }
 
   static String getDateTimeServerToHour(String dateTimeString) {
     if (dateTimeString == null) return "";
     var dateTime =
-        stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
     return dateTimeToString(dateTime, "HH:mm a");
   }
 
   static String getDateTimeServerToDate(DateTime dateTime) {
     if (dateTime == null) return '';
-    return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS'+07:00'");
+    return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS");
   }
 
   static String getDateTimeSendServer(String dateTimeString) {
     var dateTime = stringToDateTime(dateTimeString, "HH:mm dd-MM-yyyy");
-    return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS'+07:00'");
+    return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS");
   }
 
   static String getDateTimeStringServer(DateTime dateTime) {
