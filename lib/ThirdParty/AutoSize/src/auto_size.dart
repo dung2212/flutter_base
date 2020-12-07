@@ -77,7 +77,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     var width = size.width;
     var height = size.height;
 
-    if (dpRatio < 2 && (width >= 1000 || height >= 1000)) {
+    if (dpRatio <= 2 && (width >= 1000 || height >= 1000)) {
       isTablet = true;
       isPhone = false;
     } else if (dpRatio == 2 && (width >= 1920 || height >= 1920)) {
