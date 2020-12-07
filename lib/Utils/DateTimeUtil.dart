@@ -26,19 +26,6 @@ class DateTimeUtil {
     return DateTime(dateTime.year, dateTime.month + value, dateTime.day);
   }
 
-  static DateTime getDateTimeServer(String dateTimeString) {
-    if (dateTimeString == null) return null;
-
-    return stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-  }
-
-  static String getDateTimeServerToHour(String dateTimeString) {
-    if (dateTimeString == null) return "";
-    var dateTime =
-        stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-    return dateTimeToString(dateTime, "HH:mm a");
-  }
-
   static String getDateTimeServerToDate(DateTime dateTime) {
     if (dateTime == null) return '';
     return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS");
@@ -105,12 +92,6 @@ class DateTimeUtil {
         dateTime.year.toString() +
         ", " +
         dateTimeToString(dateTime, "HH:mm:ss");
-  }
-
-  static String getFullDateTimeStringServer(String dateTimeString) {
-    var dateTime = getDateTimeServer(dateTimeString);
-
-    return getFullDateTime(dateTime);
   }
 
   static DateTime getDateTimeStartDay(DateTime dateTime) {
