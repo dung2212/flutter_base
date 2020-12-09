@@ -6,6 +6,7 @@ class ScreenUtil {
   static double heightBottomSafeArea = 0;
   static double heightBottomSafeAreaKeyboard = 0;
   static double pixelRatio = 1;
+  static double autoSizeRatio = 1;
   static Size screenSize;
   static MediaQueryData mediaQueryDataApp;
 

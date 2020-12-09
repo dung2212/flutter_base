@@ -97,6 +97,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     print("thll ===autoSzie: ${AutoSize.getSize().toString()} , ratio: ${AutoSize.getPixelRatio()}");
     ScreenUtil.screenSize = AutoSize.getSize();
     ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
+    ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
     ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
     ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
     return ViewConfiguration(
