@@ -80,13 +80,13 @@ class PreferUtil {
     }
   }
 
-  static Future setString(String key, String stringValue, {bool isSecure, String userId}) async {
+  static Future setString(String key, String stringValue, {bool isSecure = false, String userId}) async {
     final prefs = await SharedPreferences.getInstance();
     var valueNew = _valueEncrypt(key, stringValue, isSecure: isSecure, userId: userId);
     prefs.setString(key, valueNew);
   }
 
-  static Future<String> getString(String key, {bool isSecure, String userId}) async {
+  static Future<String> getString(String key, {bool isSecure = false, String userId}) async {
     final prefs = await SharedPreferences.getInstance();
     final value = prefs.getString(key) ?? "";
     var valueNew = _valueEncrypt(key, value, isSecure: isSecure, userId: userId);
