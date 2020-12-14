@@ -1,7 +1,13 @@
+import 'dart:convert';
+
+import 'package:FlutterBase/Utils/CryptoUtil.dart';
+import 'package:crypto/crypto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferUtil {
-  static Future<bool> checkKey(String key) async {
+  static String keySecure = "p@123";
+
+  static Future<bool> checkKey(String key, {bool isSecure, String userId}) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.containsKey(key);
   }
@@ -65,27 +71,30 @@ class PreferUtil {
   }
 
   //String
-  static Future createString(String key, String stringValue) async {
+  static Future createString(String key, String stringValue, {bool isSecure = false, String userId}) async {
+    var keyNew = _getKey(key, isSecure: isSecure, userId: userId);
     final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey(key)) {
-      prefs.setString(key, stringValue);
+    if (!prefs.containsKey(keyNew)) {
+      var valueNew = _valueEncrypt(key, stringValue, isSecure: isSecure, userId: userId);
+      prefs.setString(keyNew, valueNew);
     }
   }
 
-  static Future setString(String key, String stringValue) async {
+  static Future setString(String key, String stringValue, {bool isSecure, String userId}) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, stringValue);
+    var valueNew = _valueEncrypt(key, stringValue, isSecure: isSecure, userId: userId);
+    prefs.setString(key, valueNew);
   }
 
-  static Future<String> getString(String key) async {
+  static Future<String> getString(String key, {bool isSecure, String userId}) async {
     final prefs = await SharedPreferences.getInstance();
     final value = prefs.getString(key) ?? "";
-    return value;
+    var valueNew = _valueEncrypt(key, value, isSecure: isSecure, userId: userId);
+    return valueNew ?? "";
   }
 
   //List String
-  static Future createListString(
-      String key, List<String> listStringValue) async {
+  static Future createListString(String key, List<String> listStringValue) async {
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey(key)) {
       prefs.setStringList(key, listStringValue);
@@ -101,5 +110,34 @@ class PreferUtil {
     final prefs = await SharedPreferences.getInstance();
     final value = prefs.getStringList(key) ?? List<String>();
     return value;
+  }
+
+  static String _getKey(String key, {bool isSecure = false, String userId}) {
+    if (isSecure) {
+      var keyString = keySecure + userId ?? "" + key;
+      return "s_" + md5.convert(utf8.encode(keyString)).toString();
+    } else if (userId != null) {
+      return "u_$userId" + "_$key";
+    }
+    return key;
+  }
+
+  static String _getKeyCrypt(String key, {String userId}) {
+    var keyString = keySecure + userId ?? "" + key;
+    return "k_" + md5.convert(utf8.encode(keyString)).toString();
+  }
+
+  static String _valueEncrypt(String key, String stringValue, {bool isSecure = false, String userId}) {
+    if (isSecure) {
+      return CryptoUtil.encryptAESCryptoJS(stringValue, _getKeyCrypt(key, userId: userId));
+    }
+    return stringValue;
+  }
+
+  static String _valueDecrypt(String key, String stringValue, {bool isSecure = false, String userId}) {
+    if (isSecure) {
+      return CryptoUtil.decryptAESCryptoJS(stringValue, _getKeyCrypt(key, userId: userId));
+    }
+    return stringValue;
   }
 }
