@@ -266,21 +266,6 @@ class Util {
     }
   }
 
-  static UserNameInfo getFirstLastName(String fullName) {
-    var info = UserNameInfo();
-    if (fullName.length > 0) {
-      var array = fullName.split(" ");
-      if (array.length <= 1) {
-        info.firstName = fullName.trim();
-        info.lastName = "";
-      } else {
-        info.firstName = array[array.length - 1];
-        info.lastName = fullName.substring(0, fullName.length - info.firstName.length).trim();
-      }
-    }
-    return info;
-  }
-
 //
 //  static String getYoutubeId(String url) {
 //    print("Youtube Link: $url}");
@@ -597,9 +582,4 @@ class Util {
     //var rd = new Random.secure().nextInt(colors.length - 1);
     return hexToColor(colors[index]);
   }
-}
-
-class UserNameInfo {
-  String firstName = "";
-  String lastName = "";
 }
