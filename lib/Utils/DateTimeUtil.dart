@@ -157,12 +157,7 @@ class DateTimeUtil {
   }
 
   static String getTimeMinuteFromSecond(int second) {
-//    final duration = Duration(seconds: second);
-//    var time = duration.toString().split('.').first.padLeft(8, '0').substring(3);
-//    time = time.replaceAll(":0", "m");
-//    time = time.replaceAll(":", "m") + "s";
-//    time = time.replaceAll("m0s", "m");
-//    return time;
+    if (second == null) return '';
     final duration = Duration(seconds: second);
     var seconds = duration.inSeconds;
     final days = seconds ~/ Duration.secondsPerDay;
