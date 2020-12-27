@@ -65,7 +65,6 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   @override
   ViewConfiguration createViewConfiguration() {
     final double dpRatio = window.devicePixelRatio;
-    print("thll physicalSize: ${window.physicalSize}, size: ${window.physicalSize / dpRatio}, Ratio: ${dpRatio.toString()}  ");
     bool isTablet;
     bool isPhone;
     bool isIos = Platform.isIOS;
@@ -94,7 +93,6 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
       return super.createViewConfiguration();
     }
 
-    print("thll ===autoSzie: ${AutoSize.getSize().toString()} , ratio: ${AutoSize.getPixelRatio()}");
     ScreenUtil.screenSize = AutoSize.getSize();
     ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
     ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
