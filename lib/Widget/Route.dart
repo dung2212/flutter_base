@@ -55,6 +55,11 @@ final Animatable<Offset> _kBottomUpTween = Tween<Offset>(
   end: Offset.zero,
 );
 
+Future<T> pushWithoutAnimation<T extends Object>(BuildContext context, Widget page,
+        {bool rootNavigator = false}) =>
+    Navigator.of(context, rootNavigator: rootNavigator)
+        .push(CupertinoNoAnimPageRoute<T>(builder: (BuildContext context) => page));
+
 // Custom decoration from no shadow to page shadow mimicking iOS page
 // transitions using gradients.
 final DecorationTween _kGradientShadowTween = DecorationTween(
