@@ -22,7 +22,7 @@ class CryptoUtil{
           createUint8ListFromString("Salted__") + salt + encrypted.bytes);
       return base64.encode(encryptedBytesWithSalt);
     } catch (error) {
-      throw error;
+      return null;
     }
   }
 
@@ -43,7 +43,7 @@ class CryptoUtil{
       encrypter.decrypt64(base64.encode(encryptedBytes), iv: iv);
       return decrypted;
     } catch (error) {
-      throw error;
+      return null;
     }
   }
 
