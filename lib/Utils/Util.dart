@@ -477,7 +477,7 @@ class Util {
     var t = "abcdefghijklmnopqrstuvwxyz0123456789".toUpperCase();
     var kyTu = getAvatarName(name).toUpperCase();
     var index = 0;
-    for (var i = 0; i < t.length; i++) {
+    for (var i = 0; i < t.length-1; i++) {
       var charr = t.substring(i, i + 1);
       if (charr == kyTu) {
         index = i;
