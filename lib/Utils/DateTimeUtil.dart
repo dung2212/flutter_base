@@ -101,8 +101,7 @@ class DateTimeUtil {
 
   static DateTime getDateTimeEndDay(DateTime dateTime) {
     if (dateTime == null) return null;
-    return DateTime(
-        dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 0, 0);
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 0, 0);
   }
 
   static int getTimeStamp(DateTime dateTime) {
@@ -117,9 +116,7 @@ class DateTimeUtil {
     if (date1 == null || date2 == null) {
       return false;
     }
-    return date1.year == date2.year &&
-        date1.month == date2.month &&
-        date1.day == date2.day;
+    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
   }
 
   static int isSameOnlyHourAndMinute(DateTime date1, DateTime date2) {
@@ -151,9 +148,7 @@ class DateTimeUtil {
     if (date1 == null || date2 == null) {
       return 0;
     }
-    return getDateTimeStartDay(date1)
-        .difference(getDateTimeStartDay(date2))
-        .inDays;
+    return getDateTimeStartDay(date1).difference(getDateTimeStartDay(date2)).inDays;
   }
 
   static String getTimeMinuteFromSecond(int second) {
@@ -196,5 +191,13 @@ class DateTimeUtil {
         ? DateTime.utc(month.year, month.month + 1, 1, 12)
         : DateTime.utc(month.year + 1, 1, 1, 12);
     return date.subtract(const Duration(days: 1));
+  }
+
+  static DateTime findFirstDateOfTheWeek(DateTime dateTime) {
+    return dateTime.subtract(Duration(days: dateTime.weekday - 1));
+  }
+
+  static DateTime findLastDateOfTheWeek(DateTime dateTime) {
+    return dateTime.add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
   }
 }
