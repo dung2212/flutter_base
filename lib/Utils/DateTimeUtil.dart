@@ -193,7 +193,7 @@ class DateTimeUtil {
     return date.subtract(const Duration(days: 1));
   }
 
-  static DateTime findFirstDateOfTheWeek(DateTime dateTime) {
+  static DateTime findFirstDateOfTheWeek(DateTime dateTime, {int offset = 1}) {
     return dateTime.subtract(Duration(days: dateTime.weekday - 1));
   }
 
