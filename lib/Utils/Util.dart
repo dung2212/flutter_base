@@ -43,7 +43,8 @@ class Util {
   }
 
   static bool isEmail(String em) {
-    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    String p =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = new RegExp(p);
     return regExp.hasMatch(em);
   }
@@ -182,14 +183,20 @@ class Util {
   static String getInitials(String nameString) {
     if (nameString.isEmpty) return " ";
 
-    List<String> nameArray = nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
-    String initials = ((nameArray[0])[0] != null ? (nameArray[0])[0] : " ") + (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
+    List<String> nameArray =
+        nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
+    String initials = ((nameArray[0])[0] != null ? (nameArray[0])[0] : " ") +
+        (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
 
     return initials;
   }
 
   static void showToast(String message) {
-    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black);
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black);
   }
 
   static String intToPrice(int price) {
@@ -208,16 +215,21 @@ class Util {
 
   static String intToAreaDouble(dynamic price) {
     if (price == null) return '';
-    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '').format(price).replaceAll(',00', '');
+    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '')
+        .format(price)
+        .replaceAll(',00', '');
     final oCcy = new NumberFormat("#,##0.00", "VN");
     var string = oCcy.format(price);
     return string;
   }
 
   static String getUrlInString(String text) {
-    final urlRegExp = new RegExp(r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
+    final urlRegExp = new RegExp(
+        r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
     Iterable<RegExpMatch> matches = urlRegExp.allMatches(text);
-    String url = matches.isEmpty ? '' : text.substring(matches.first.start, matches.first.end);
+    String url = matches.isEmpty
+        ? ''
+        : text.substring(matches.first.start, matches.first.end);
     return !url.contains('http') && url.isNotEmpty ? 'https://' + url : url;
   }
 
@@ -426,7 +438,8 @@ class Util {
 
     for (int i = 0; i < arr1.length; i++) {
       textNew = textNew.replaceAll(arr1[i], arr2[i]);
-      textNew = textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
+      textNew =
+          textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
     }
     return textNew;
   }
@@ -451,11 +464,13 @@ class Util {
   }
 
   static String decodePhone(String phoneNumber) {
-    phoneNumber = phoneNumber.replaceRange(phoneNumber.length - 3, phoneNumber.length, '***');
+    phoneNumber = phoneNumber.replaceRange(
+        phoneNumber.length - 3, phoneNumber.length, '***');
     return phoneNumber;
   }
 
-  static String getFullPhoneWithCountryCode({String countryCode, String phoneNumber}) {
+  static String getFullPhoneWithCountryCode(
+      {String countryCode, String phoneNumber}) {
     var phone = phoneNumber;
     if (phoneNumber.length > 0) {
       var split = phoneNumber.substring(0, 1);
@@ -474,112 +489,20 @@ class Util {
   }
 
   static Color getColorAvatarRandom(String name) {
-    var t = "abcdefghijklmnopqrstuvwxyz0123456789".toUpperCase();
-    var kyTu = getAvatarName(name).toUpperCase();
-    var index = 0;
-    for (var i = 0; i < t.length-1; i++) {
-      var charr = t.substring(i, i + 1);
-      if (charr == kyTu) {
-        index = i;
-        break;
-      }
-    }
-
     var colors = [
-      "#B71C1C",
-      "#D32F2F",
-      "#C62828",
-      "#D50000",
-      "#FF1744",
-      "#C2185B",
-      "#AD1457",
-      "#880E4F",
-      "#C51162",
-      "#F50057",
-      "#BA68C8",
-      "#AB47BC",
-      "#9C27B0",
-      "#8E24AA",
-      "#7B1FA2",
-      "#6A1B9A",
-      "#4A148C",
-      "#EA80FC",
-      "#E040FB",
-      "#D500F9",
-      "#AA00FF",
-      "#9575CD",
-      "#7E57C2",
-      "#673AB7",
-      "#5E35B1",
-      "#512DA8",
-      "#4527A0",
-      "#311B92",
-      "#B388FF",
-      "#7C4DFF",
-      "#651FFF",
-      "#6200EA",
-      "#7986CB",
-      "#42A5F5",
-      "#2196F3",
-      "#1976D2",
-      "#0D47A1",
-      "#82B1FF",
-      "#2979FF",
-      "#2962FF",
-      "#039BE5",
-      "#0288D1",
-      "#0277BD",
-      "#01579B",
-      "#80D8FF",
-      "#40C4FF",
-      "#00B0FF",
-      "#0097A7",
-      "#00838F",
-      "#00B8D4",
-      "#00897B",
-      "#64FFDA",
-      "#1DE9B6",
-      "#00BFA5",
-      "#00897B",
-      "#009688",
-      "#81C784",
-      "#66BB6A",
-      "#4CAF50",
-      "#43A047",
-      "#00C853",
-      "#8BC34A",
-      "#7CB342",
-      "#64DD17",
-      "#76FF03",
-      "#C0CA33",
-      "#AFB42B",
-      "#9E9D24",
-      "#AEEA00",
-      "#F57F17",
-      "#F9A825",
-      "#FBC02D",
-      "#FDD835",
-      "#FFB300",
-      "#FFA000",
-      "#FF8F00",
-      "#FF6F00",
-      "#FFAB00",
-      "#FF9800",
-      "#F57C00",
-      "#FF9100",
-      "#A1887F",
-      "#8D6E63",
-      "#795548",
-      "#9E9E9E",
-      "#757575",
-      "#616161",
-      "#B0BEC5",
-      "#90A4AE",
-      "#78909C",
-      "#607D8B",
-      "#546E7A",
+      "#ffe9e7",
+      "#e9f0ff",
+      "#fcf8cd",
+      "#edfafa",
+      "#ecf7e5",
+      "#fadff3",
+      "#ececff",
+      "#f1e5fb",
+      "#f3f7cd",
+      "#ffeee0"
     ];
-    //var rd = new Random.secure().nextInt(colors.length - 1);
-    return hexToColor(colors[index]);
+    var rng = new Random().nextInt(10);
+    print("============================ rng $rng");
+    return hexToColor(colors[rng]);
   }
 }
