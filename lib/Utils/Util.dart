@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
-
+import 'dart:io' show Platform;
+import 'package:device_info/device_info.dart';
 import 'package:FlutterBase/Extends/ColorExtends.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
@@ -10,7 +11,8 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 export 'DateTimeUtil.dart';
 export 'PreferUtil.dart';
-
+import 'package:flutter/services.dart';
+import 'package:FlutterBase/Utils/SecureStorageUtil.dart';
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
 
@@ -504,5 +506,23 @@ class Util {
     var rng = new Random().nextInt(10);
     print("============================ rng $rng");
     return hexToColor(colors[rng]);
+  }
+  static Future<String> getDeviceIdentifier() async {
+    String identifier;
+    final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
+    try {
+      if (Platform.isAndroid) {
+        var build = await deviceInfoPlugin.androidInfo;
+        identifier = build.androidId; //UUID for Android
+      } else if (Platform.isIOS) {
+//        var data = await deviceInfoPlugin.iosInfo;
+//        identifier = data.identifierForVendor; //UUID for iOS
+        return SecureStorageUtil.deviceId;
+      }
+    } on PlatformException {
+      print('Failed to get platform version');
+    }
+    print('identifier= ' + identifier);
+    return identifier;
   }
 }
