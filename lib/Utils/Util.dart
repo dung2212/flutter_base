@@ -13,7 +13,6 @@ export 'DateTimeUtil.dart';
 export 'PreferUtil.dart';
 import 'package:flutter/services.dart';
 import 'package:FlutterBase/Utils/SecureStorageUtil.dart';
-
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
 
@@ -508,7 +507,6 @@ class Util {
     print("============================ rng $rng");
     return hexToColor(colors[rng]);
   }
-
   static Future<String> getDeviceIdentifier() async {
     String identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
