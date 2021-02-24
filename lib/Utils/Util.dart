@@ -530,6 +530,7 @@ class Util {
     if (listColor8.contains(firstCharName)) return hexToColor(colors[7]);
     if (listColor9.contains(firstCharName)) return hexToColor(colors[8]);
     if (listColor10.contains(firstCharName)) return hexToColor(colors[9]);
+    return hexToColor(colors[0]);
   }
 
   static Future<String> getDeviceIdentifier() async {
