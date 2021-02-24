@@ -36,7 +36,6 @@ dependencies:
   path_provider: ^1.6.24
   device_info: ^1.0.0
 
-
   flutter:
     sdk: flutter
 
