@@ -13,6 +13,7 @@ export 'DateTimeUtil.dart';
 export 'PreferUtil.dart';
 import 'package:flutter/services.dart';
 import 'package:FlutterBase/Utils/SecureStorageUtil.dart';
+
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
 
@@ -503,10 +504,34 @@ class Util {
       "#f3f7cd",
       "#ffeee0"
     ];
-    var rng = new Random().nextInt(10);
-    print("============================ rng $rng");
-    return hexToColor(colors[rng]);
+    var listColor1 = ["a", "b", "c", "d"];
+    var listColor2 = ["e", "f", "g", "h"];
+    var listColor3 = ["i", "j", "k", "l"];
+    var listColor4 = ["m", "n", "o", "p"];
+    var listColor5 = ["q", "r", "s", "t"];
+    var listColor6 = [
+      "u",
+      "v",
+      "w",
+    ];
+    var listColor7 = ["y", "z", "s"];
+    var listColor8 = ["0", "1", "2", "3"];
+    var listColor9 = ["4", "5", "6", "7"];
+    var listColor10 = ["8", "9"];
+    var firstCharName = name[0].toLowerCase();
+
+    if (listColor1.contains(firstCharName)) return hexToColor(colors[0]);
+    if (listColor2.contains(firstCharName)) return hexToColor(colors[1]);
+    if (listColor3.contains(firstCharName)) return hexToColor(colors[2]);
+    if (listColor4.contains(firstCharName)) return hexToColor(colors[3]);
+    if (listColor5.contains(firstCharName)) return hexToColor(colors[4]);
+    if (listColor6.contains(firstCharName)) return hexToColor(colors[5]);
+    if (listColor7.contains(firstCharName)) return hexToColor(colors[6]);
+    if (listColor8.contains(firstCharName)) return hexToColor(colors[7]);
+    if (listColor9.contains(firstCharName)) return hexToColor(colors[8]);
+    if (listColor10.contains(firstCharName)) return hexToColor(colors[9]);
   }
+
   static Future<String> getDeviceIdentifier() async {
     String identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
