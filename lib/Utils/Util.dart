@@ -46,8 +46,7 @@ class Util {
   }
 
   static bool isEmail(String em) {
-    String p =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = new RegExp(p);
     return regExp.hasMatch(em);
   }
@@ -186,20 +185,14 @@ class Util {
   static String getInitials(String nameString) {
     if (nameString.isEmpty) return " ";
 
-    List<String> nameArray =
-        nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
-    String initials = ((nameArray[0])[0] != null ? (nameArray[0])[0] : " ") +
-        (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
+    List<String> nameArray = nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
+    String initials = ((nameArray[0])[0] != null ? (nameArray[0])[0] : " ") + (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
 
     return initials;
   }
 
   static void showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black);
+    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black);
   }
 
   static String intToPrice(int price) {
@@ -218,21 +211,16 @@ class Util {
 
   static String intToAreaDouble(dynamic price) {
     if (price == null) return '';
-    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '')
-        .format(price)
-        .replaceAll(',00', '');
+    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '').format(price).replaceAll(',00', '');
     final oCcy = new NumberFormat("#,##0.00", "VN");
     var string = oCcy.format(price);
     return string;
   }
 
   static String getUrlInString(String text) {
-    final urlRegExp = new RegExp(
-        r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
+    final urlRegExp = new RegExp(r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
     Iterable<RegExpMatch> matches = urlRegExp.allMatches(text);
-    String url = matches.isEmpty
-        ? ''
-        : text.substring(matches.first.start, matches.first.end);
+    String url = matches.isEmpty ? '' : text.substring(matches.first.start, matches.first.end);
     return !url.contains('http') && url.isNotEmpty ? 'https://' + url : url;
   }
 
@@ -441,8 +429,7 @@ class Util {
 
     for (int i = 0; i < arr1.length; i++) {
       textNew = textNew.replaceAll(arr1[i], arr2[i]);
-      textNew =
-          textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
+      textNew = textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
     }
     return textNew;
   }
@@ -467,13 +454,11 @@ class Util {
   }
 
   static String decodePhone(String phoneNumber) {
-    phoneNumber = phoneNumber.replaceRange(
-        phoneNumber.length - 3, phoneNumber.length, '***');
+    phoneNumber = phoneNumber.replaceRange(phoneNumber.length - 3, phoneNumber.length, '***');
     return phoneNumber;
   }
 
-  static String getFullPhoneWithCountryCode(
-      {String countryCode, String phoneNumber}) {
+  static String getFullPhoneWithCountryCode({String countryCode, String phoneNumber}) {
     var phone = phoneNumber;
     if (phoneNumber.length > 0) {
       var split = phoneNumber.substring(0, 1);
@@ -492,18 +477,7 @@ class Util {
   }
 
   static Color getColorAvatarRandom(String name) {
-    var colors = [
-      "#ffe9e7",
-      "#e9f0ff",
-      "#fcf8cd",
-      "#edfafa",
-      "#ecf7e5",
-      "#fadff3",
-      "#ececff",
-      "#f1e5fb",
-      "#f3f7cd",
-      "#ffeee0"
-    ];
+    var colors = ["#ffe9e7", "#e9f0ff", "#fcf8cd", "#edfafa", "#ecf7e5", "#fadff3", "#ececff", "#f1e5fb", "#f3f7cd", "#ffeee0"];
     var listColor1 = ["a", "b", "c", "d"];
     var listColor2 = ["e", "f", "g", "h"];
     var listColor3 = ["i", "j", "k", "l"];
@@ -549,5 +523,19 @@ class Util {
     }
     print('identifier= ' + identifier);
     return identifier;
+  }
+
+  //kiểm tra chữ bắt đầu trong đoạn text: Ví dụ: check chữ Dung có ở đầu câu DungDepTrai không
+  static bool checkTextBegin(String textBegin, String textFull) {
+    if (textBegin == null || textFull == null) return false;
+    if (textBegin.length >= textFull.length) return textBegin == textFull;
+    var cutTextFull = textFull.substring(0, textBegin.length);
+    return textBegin == cutTextFull;
+  }
+
+  //kiểm tra text này có phải url không
+  static bool isValidUrl(String url) {
+    bool _validURL = Uri.parse(url).isAbsolute;
+    return _validURL;
   }
 }
