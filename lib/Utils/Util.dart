@@ -30,6 +30,7 @@ class Util {
     return false;
   }
 
+  //Làm tròn
   static double round(double val, int places) {
     double mod = pow(10.0, places);
     return ((val * mod).round().toDouble() / mod);
