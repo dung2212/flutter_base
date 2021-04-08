@@ -13,6 +13,7 @@ export 'DateTimeUtil.dart';
 export 'PreferUtil.dart';
 import 'package:flutter/services.dart';
 import 'package:FlutterBase/Utils/SecureStorageUtil.dart';
+export 'package:FlutterBase/Extends/StringExtend.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
