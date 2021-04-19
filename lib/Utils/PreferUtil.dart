@@ -81,14 +81,16 @@ class PreferUtil {
   }
 
   static Future setString(String key, String stringValue, {bool isSecure = false, String userId}) async {
+    var keyNew = _getKey(key, isSecure: isSecure, userId: userId);
     final prefs = await SharedPreferences.getInstance();
     var valueNew = _valueEncrypt(key, stringValue, isSecure: isSecure, userId: userId);
-    prefs.setString(key, valueNew);
+    prefs.setString(keyNew, valueNew);
   }
 
   static Future<String> getString(String key, {bool isSecure = false, String userId}) async {
+    var keyNew = _getKey(key, isSecure: isSecure, userId: userId);
     final prefs = await SharedPreferences.getInstance();
-    final value = prefs.getString(key) ?? "";
+    final value = prefs.getString(keyNew) ?? "";
     var valueNew = _valueDecrypt(key, value, isSecure: isSecure, userId: userId);
     return valueNew ?? "";
   }
@@ -114,10 +116,8 @@ class PreferUtil {
 
   static String _getKey(String key, {bool isSecure = false, String userId}) {
     if (isSecure) {
-      var keyString = keySecure + userId ?? "" + key;
+      var keyString = "k_$keySecure${userId ?? ""}$key";
       return "s_" + md5.convert(utf8.encode(keyString)).toString();
-    } else if (userId != null) {
-      return "u_$userId" + "_$key";
     }
     return key;
   }
