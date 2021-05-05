@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 extension StringExtend on String {
   String base64Encode() {
@@ -14,5 +15,9 @@ extension StringExtend on String {
   int toInt() {
     if (this == null) return null;
     return int.tryParse(this);
+  }
+
+  String toMd5() {
+    return md5.convert(utf8.encode(this)).toString();
   }
 }
