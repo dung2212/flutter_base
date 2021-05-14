@@ -494,7 +494,7 @@ class Util {
     var listColor8 = ["0", "1", "2", "3"];
     var listColor9 = ["4", "5", "6", "7"];
     var listColor10 = ["8", "9"];
-    var firstCharName = name[0].toLowerCase();
+    var firstCharName = (name.trim().isEmpty) ? '0' : name[0].toLowerCase();//fuck
 
     if (listColor1.contains(firstCharName)) return hexToColor(colors[0]);
     if (listColor2.contains(firstCharName)) return hexToColor(colors[1]);
