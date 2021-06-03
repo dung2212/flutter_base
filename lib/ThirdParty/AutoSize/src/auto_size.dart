@@ -17,9 +17,9 @@ import 'package:FlutterBase/FlutterBase.dart';
 /// width 设计稿尺寸 宽 dp or pt。
 /// height 设计稿尺寸 高 dp or pt。
 ///
-void runAutoSizeApp(Widget app, {double width, double height}) {
+void runAutoSizeApp(Widget app, {required double width, double? height}) {
   AutoSizeConfig.setDesignWH(width: width, height: height);
-  AutoSizeWidgetsFlutterBinding.ensureInitialized()
+  AutoSizeWidgetsFlutterBinding.ensureInitialized()!
     ..attachRootWidget(app)
     ..scheduleWarmUpFrame();
 }
@@ -57,7 +57,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   /// In the `flutter_test` framework, [testWidgets] initializes the
   /// binding instance to a [TestWidgetsFlutterBinding], not a
   /// [AutoSizeWidgetsFlutterBinding].
-  static WidgetsBinding ensureInitialized() {
+  static WidgetsBinding? ensureInitialized() {
     if (WidgetsBinding.instance == null) AutoSizeWidgetsFlutterBinding();
     return WidgetsBinding.instance;
   }
@@ -141,7 +141,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
 
   void _handlePointerEvent(PointerEvent event) {
     assert(!locked);
-    HitTestResult result;
+    HitTestResult? result;
     if (event is PointerDownEvent) {
       assert(!_hitTests.containsKey(event.pointer));
       result = HitTestResult();
@@ -152,12 +152,12 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
         return true;
       }());
     } else if (event is PointerUpEvent || event is PointerCancelEvent) {
-      result = _hitTests.remove(event.pointer);
+      result = _hitTests.remove(event.pointer)!;
     } else if (event.down) {
-      result = _hitTests[event.pointer];
+      result = _hitTests[event.pointer]!;
     } else {
       return; // We currently ignore add, remove, and hover move events.
     }
-    if (result != null) dispatchEvent(event, result);
+    dispatchEvent(event, result);
   }
 }

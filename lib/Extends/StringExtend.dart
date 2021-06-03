@@ -12,8 +12,7 @@ extension StringExtend on String {
     return stringToBase64.decode(this);
   }
 
-  int toInt() {
-    if (this == null) return null;
+  int? toInt() {
     return int.tryParse(this);
   }
 

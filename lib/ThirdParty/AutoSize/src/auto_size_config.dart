@@ -10,7 +10,7 @@ class AutoSizeConfig {
 
   /// 配置设计稿尺寸 屏幕 宽，高.
   /// Configuration design draft size  screen width, height, density.
-  static void setDesignWH({double width, double height}) {
+  static void setDesignWH({double? width, double? height}) {
     _designWidth = width ?? _designWidth;
     _designHeight = height ?? _designHeight;
   }

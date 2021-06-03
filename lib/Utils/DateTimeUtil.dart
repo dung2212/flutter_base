@@ -1,15 +1,14 @@
 import 'package:intl/intl.dart';
 
 class DateTimeUtil {
-  static String dateTimeToString(DateTime dateTime, String format) {
+  static String? dateTimeToString(DateTime? dateTime, String format) {
     if (dateTime == null) return null;
     var formatter = new DateFormat(format);
     return formatter.format(dateTime);
   }
 
-  static DateTime stringToDateTime(String dateTimeString, String format) {
+  static DateTime? stringToDateTime(String? dateTimeString, String format) {
     if (dateTimeString == null) return null;
-
     var formatter = new DateFormat(format);
     return formatter.parse(dateTimeString);
   }
@@ -26,100 +25,102 @@ class DateTimeUtil {
     return DateTime(dateTime.year, dateTime.month + value, dateTime.day);
   }
 
-  static String getDateTimeServerToDate(DateTime dateTime) {
+  static String? getDateTimeServerToDate(DateTime? dateTime) {
     if (dateTime == null) return '';
     return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS");
   }
 
-  static String getDateTimeSendServer(String dateTimeString) {
+  static String? getDateTimeSendServer(String dateTimeString) {
     var dateTime = stringToDateTime(dateTimeString, "HH:mm dd-MM-yyyy");
     return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS");
   }
 
-  static String getDateTimeStringServer(DateTime dateTime) {
+  static String? getDateTimeStringServer(DateTime dateTime) {
     return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss");
   }
 
-  static String getDateTimePayment(DateTime dateTime, {int hour = 0}) {
+  static String? getDateTimePayment(DateTime dateTime, {int hour = 0}) {
     dateTime = dateTime.subtract(new Duration(hours: hour));
     return dateTimeToString(dateTime, "dd/MM/yyyy' 'HH:mm");
   }
 
-  static String getDateTimeInteractive(DateTime dateTime) {
+  static String? getDateTimeInteractive(DateTime? dateTime) {
     if (dateTime == null) return '';
-    return ' (' + dateTimeToString(dateTime, "HH:mm '-' dd/MM/yyyy") + ')';
+    return ' (${dateTimeToString(dateTime, "HH:mm '-' dd/MM/yyyy") ?? ""})';
   }
 
-  static String getDateTimeStamp(int time) {
+  static String? getDateTimeStamp(int time) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time * 1000);
     return dateTimeToString(dateTime, "dd/MM/yyyy");
   }
 
-  static String getDateTimeToDate(DateTime dateTime) {
+  static String? getDateTimeToDate(DateTime? dateTime) {
     if (dateTime == null) return "";
     return dateTimeToString(dateTime, "dd/MM/yyyy");
   }
 
-  static String getDateTimeFormat(DateTime dateTime, String format) {
+  static String? getDateTimeFormat(DateTime? dateTime, String format) {
     if (dateTime == null) return null;
     return dateTimeToString(dateTime, format);
   }
 
-  static String getDateTimeTHG(String dateTimeString) {
+  static String? getDateTimeTHG(String? dateTimeString) {
     if (dateTimeString == null) return "";
     if (dateTimeString.isEmpty) return "";
     var dateTime = stringToDateTime(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss");
     return getFullDate(dateTime);
   }
 
-  static String getFullDate(DateTime dateTime) {
-    return dateTime.day.toString() +
+  static String? getFullDate(DateTime? dateTime) {
+    if (dateTime == null) return null;
+    return dateTime!.day.toString() +
         " thg " +
-        dateTime.month.toString() +
+        dateTime!.month.toString() +
         ", " +
-        dateTime.year.toString();
+        dateTime!.year.toString();
   }
 
   static String getFullTime(DateTime dateTime) {
     return dateTime.hour.toString() + " : " + dateTime.minute.toString();
   }
 
-  static String getFullDateTime(DateTime dateTime) {
-    return dateTime.day.toString() +
-        " thg " +
-        dateTime.month.toString() +
-        ", " +
-        dateTime.year.toString() +
-        ", " +
-        dateTimeToString(dateTime, "HH:mm:ss");
+  static String? getFullDateTime(DateTime? dateTime) {
+    if (dateTime == null) return null;
+    return dateTime!.day.toString() +
+            " thg " +
+            dateTime!.month.toString() +
+            ", " +
+            dateTime!.year.toString() +
+            ", " +
+            dateTimeToString(dateTime, "HH:mm:ss")!;
   }
 
   static DateTime getDateTimeStartDay(DateTime dateTime) {
-    if (dateTime == null) return null;
     return DateTime(dateTime.year, dateTime.month, dateTime.day, 0, 0, 0, 0, 0);
   }
 
   static DateTime getDateTimeEndDay(DateTime dateTime) {
-    if (dateTime == null) return null;
-    return DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 0, 0);
+    return DateTime(
+        dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 0, 0);
   }
 
   static int getTimeStamp(DateTime dateTime) {
-    if (dateTime == null) return null;
     return dateTime.millisecondsSinceEpoch ~/ 1000;
   }
 
-  static bool isSameDate(DateTime date1, DateTime date2) {
+  static bool isSameDate(DateTime? date1, DateTime? date2) {
     if (date1 == null && date2 == null) {
       return true;
     }
     if (date1 == null || date2 == null) {
       return false;
     }
-    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
   }
 
-  static int isSameOnlyHourAndMinute(DateTime date1, DateTime date2) {
+  static int isSameOnlyHourAndMinute(DateTime? date1, DateTime? date2) {
     if (date1 == null && date2 == null) {
       return 0;
     }
@@ -141,18 +142,19 @@ class DateTimeUtil {
     return 0;
   }
 
-  static int compareOnlyDay(DateTime date1, DateTime date2) {
+  static int compareOnlyDay(DateTime? date1, DateTime? date2) {
     if (date1 == null && date2 == null) {
       return 0;
     }
     if (date1 == null || date2 == null) {
       return 0;
     }
-    return getDateTimeStartDay(date1).difference(getDateTimeStartDay(date2)).inDays;
+    return getDateTimeStartDay(date1)
+        .difference(getDateTimeStartDay(date2))
+        .inDays;
   }
 
   static String getTimeMinuteFromSecond(int second) {
-    if (second == null) return '';
     final duration = Duration(seconds: second);
     var seconds = duration.inSeconds;
     final days = seconds ~/ Duration.secondsPerDay;
@@ -198,6 +200,7 @@ class DateTimeUtil {
   }
 
   static DateTime findLastDateOfTheWeek(DateTime dateTime) {
-    return dateTime.add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
+    return dateTime
+        .add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
   }
 }

@@ -5,7 +5,7 @@ import 'package:FlutterBase/ThirdParty/AutoSize/auto_size.dart';
 import 'package:FlutterBase/Utils/ScreenUtil.dart';
 
 class FlutterBase {
-  static String keyEncrypt;
+  static String? keyEncrypt;
 
   static init() {
     ScreenUtil.pixelRatio = AutoSize.getPixelRatio();

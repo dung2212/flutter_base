@@ -24,7 +24,7 @@ class Util {
     return ColorExtends(code);
   }
 
-  static bool stringNullOrEmpty(String value) {
+  static bool stringNullOrEmpty(String? value) {
     if (value == null || value.isEmpty) {
       return true;
     }
@@ -33,11 +33,11 @@ class Util {
 
   //Làm tròn
   static double round(double val, int places) {
-    double mod = pow(10.0, places);
+    var mod = pow(10.0, places);
     return ((val * mod).round().toDouble() / mod);
   }
 
-  static bool validEmailPhone(String value) {
+  static bool validEmailPhone(String? value) {
     if (value == null || value.isEmpty) {
       return false;
     }
@@ -65,7 +65,7 @@ class Util {
   }
 
   static String getUnitName(
-    double value, {
+    double? value, {
     isDetail = false, //show chi tiết về đơn vị hay không
   }) {
     if (value == null) {
@@ -105,7 +105,7 @@ class Util {
     return priceView;
   }
 
-  static String getUnitDistance(double value) {
+  static String getUnitDistance(double? value) {
     if (value == null) {
       return "";
     }
@@ -138,13 +138,13 @@ class Util {
     return text;
   }
 
-  static String acronymString(String text) //viết tắt
+  static String acronymString(String? text) //viết tắt
   {
     if (text == null) return '';
     if (text.length <= 1) {
       return text;
     }
-    var listString = new List<String>();
+    var listString = <String>[];
     var array = text.split(" ");
     for (var t in array) {
       if (t.length > 0) {
@@ -172,23 +172,23 @@ class Util {
   static String parseHtmlString(String htmlString) {
     var document = parse(htmlString);
 
-    String parsedString = parse(document.body.text).documentElement.text;
+    String parsedString = parse(document.body!.text).documentElement!.text;
 
     return parsedString;
   }
 
-  static String getFullName(String firstName, String lastName) {
+  static String getFullName(String? firstName, String? lastName) {
     lastName = lastName ?? "";
     firstName = firstName ?? "";
     var fullName = lastName.trim() + " " + firstName.trim();
     return fullName.trim();
   }
 
-  static String getInitials(String nameString) {
-    if (nameString.isEmpty) return " ";
+  static String getInitials(String? nameString) {
+    if (nameString == null || nameString!.isEmpty) return " ";
 
     List<String> nameArray = nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
-    String initials = ((nameArray[0])[0] != null ? (nameArray[0])[0] : " ") + (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
+    String initials = ((nameArray[0])[0]) + (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
 
     return initials;
   }
@@ -197,7 +197,7 @@ class Util {
     Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black);
   }
 
-  static String intToPrice(int price) {
+  static String intToPrice(int? price) {
     if (price == null) return '0';
     final oCcy = new NumberFormat("#,###");
     var string = oCcy.format(price);
@@ -260,7 +260,7 @@ class Util {
     return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 1);
   }
 
-  static launchURL(String url, {Map<String, String> headers}) async {
+  static launchURL(String url, {Map<String, String>? headers}) async {
     if (!url.contains('http')) url = 'http://' + url;
     if (await canLaunch(url)) {
       await launch(
@@ -451,7 +451,7 @@ class Util {
   }
 
   static double roundDouble(double value, int places) {
-    double mod = pow(10.0, places);
+    var mod = pow(10.0, places);
     return ((value * mod).round().toDouble() / mod);
   }
 
@@ -460,7 +460,7 @@ class Util {
     return phoneNumber;
   }
 
-  static String getFullPhoneWithCountryCode({String countryCode, String phoneNumber}) {
+  static String getFullPhoneWithCountryCode({required String countryCode,required String phoneNumber}) {
     var phone = phoneNumber;
     if (phoneNumber.length > 0) {
       var split = phoneNumber.substring(0, 1);
@@ -509,7 +509,7 @@ class Util {
     return hexToColor(colors[0]);
   }
 
-  static Future<String> getDeviceIdentifier() async {
+  static Future<String?> getDeviceIdentifier() async {
     String identifier;
     final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
     try {
@@ -519,17 +519,17 @@ class Util {
       } else if (Platform.isIOS) {
 //        var data = await deviceInfoPlugin.iosInfo;
 //        identifier = data.identifierForVendor; //UUID for iOS
-        return SecureStorageUtil.deviceId;
+        return SecureStorageUtil.deviceId ?? "";
       }
     } on PlatformException {
       print('Failed to get platform version');
     }
-    print('identifier= ' + identifier);
-    return identifier;
+    //print('identifier= ' + identifier);
+    return null;
   }
 
   //kiểm tra chữ bắt đầu trong đoạn text: Ví dụ: check chữ Dung có ở đầu câu DungDepTrai không
-  static bool checkTextBegin(String textBegin, String textFull) {
+  static bool checkTextBegin(String? textBegin, String? textFull) {
     if (textBegin == null || textFull == null) return false;
     if (textBegin.length >= textFull.length) return textBegin == textFull;
     var cutTextFull = textFull.substring(0, textBegin.length);

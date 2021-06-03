@@ -346,7 +346,6 @@ class CupertinoNoAnimPageRoute<T> extends PageRoute<T> with CupertinoRouteTransi
   })  : assert(builder != null),
         assert(maintainState != null),
         assert(fullscreenDialog != null),
-        assert(opaque),
         super(settings: settings, fullscreenDialog: fullscreenDialog);
 
   /// Builds the primary contents of the route.
@@ -373,7 +372,6 @@ class _PageBasedCupertinoPageRoute<T> extends PageRoute<T> with CupertinoRouteTr
   _PageBasedCupertinoPageRoute({
     @required CupertinoPage<T> page,
   })  : assert(page != null),
-        assert(opaque),
         super(settings: page);
 
   CupertinoPage<T> get _page => settings as CupertinoPage<T>;

@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:uuid/uuid.dart';
 
 class SecureStorageUtil {
-  static String deviceId;
+  static String? deviceId;
   static String Key_DeviceId = "deviceId";
   static var uuid = Uuid();
 
@@ -12,7 +12,7 @@ class SecureStorageUtil {
     if (!await checkKey(Key_DeviceId)) {
       var id = uuid.v5("meeyland", "meeyland_app");
       deviceId = id;
-      createString(Key_DeviceId, deviceId);
+      createString(Key_DeviceId, deviceId!);
     } else {
       deviceId = await getString(Key_DeviceId);
     }
@@ -42,7 +42,7 @@ class SecureStorageUtil {
 
   static Future<String> getString(String key) async {
     final storage = new FlutterSecureStorage();
-    String value = await storage.read(key: key);
+    String? value = await storage.read(key: key);
     return value ?? "";
   }
 }
