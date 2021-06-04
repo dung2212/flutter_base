@@ -185,7 +185,7 @@ class Util {
   }
 
   static String getInitials(String? nameString) {
-    if (nameString == null || nameString!.isEmpty) return " ";
+    if (nameString == null || nameString.isEmpty) return " ";
 
     List<String> nameArray = nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
     String initials = ((nameArray[0])[0]) + (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);

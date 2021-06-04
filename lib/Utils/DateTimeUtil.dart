@@ -73,11 +73,11 @@ class DateTimeUtil {
 
   static String? getFullDate(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime!.day.toString() +
+    return dateTime.day.toString() +
         " thg " +
-        dateTime!.month.toString() +
+        dateTime.month.toString() +
         ", " +
-        dateTime!.year.toString();
+        dateTime.year.toString();
   }
 
   static String getFullTime(DateTime dateTime) {
@@ -86,11 +86,11 @@ class DateTimeUtil {
 
   static String? getFullDateTime(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime!.day.toString() +
+    return dateTime.day.toString() +
             " thg " +
-            dateTime!.month.toString() +
+            dateTime.month.toString() +
             ", " +
-            dateTime!.year.toString() +
+            dateTime.year.toString() +
             ", " +
             dateTimeToString(dateTime, "HH:mm:ss")!;
   }
