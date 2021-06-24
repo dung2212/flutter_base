@@ -49,7 +49,8 @@ class Util {
   }
 
   static bool isEmail(String em) {
-    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    String p =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = new RegExp(p);
     return regExp.hasMatch(em);
   }
@@ -221,7 +222,8 @@ class Util {
   }
 
   static String getUrlInString(String text) {
-    final urlRegExp = new RegExp(r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
+    final urlRegExp = new RegExp(
+        r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
     Iterable<RegExpMatch> matches = urlRegExp.allMatches(text);
     String url = matches.isEmpty ? '' : text.substring(matches.first.start, matches.first.end);
     return !url.contains('http') && url.isNotEmpty ? 'https://' + url : url;
@@ -461,7 +463,7 @@ class Util {
     return phoneNumber;
   }
 
-  static String getFullPhoneWithCountryCode({required String countryCode,required String phoneNumber}) {
+  static String getFullPhoneWithCountryCode({required String countryCode, required String phoneNumber}) {
     var phone = phoneNumber;
     if (phoneNumber.length > 0) {
       var split = phoneNumber.substring(0, 1);
@@ -495,7 +497,7 @@ class Util {
     var listColor8 = ["0", "1", "2", "3"];
     var listColor9 = ["4", "5", "6", "7"];
     var listColor10 = ["8", "9"];
-    var firstCharName = (name.trim().isEmpty) ? '0' : name[0].toLowerCase();//fuck
+    var firstCharName = (name.trim().isEmpty) ? '0' : name[0].toLowerCase(); //fuck
 
     if (listColor1.contains(firstCharName)) return hexToColor(colors[0]);
     if (listColor2.contains(firstCharName)) return hexToColor(colors[1]);
@@ -541,5 +543,12 @@ class Util {
   static bool isValidUrl(String url) {
     bool _validURL = Uri.parse(url).isAbsolute;
     return _validURL;
+  }
+
+  //lấy random String theo số lượng ký tự
+  static getRandomString({required int length}) {
+    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    Random _rnd = Random();
+    return String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
 }

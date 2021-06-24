@@ -1,6 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+import 'Util.dart';
+
 //Format nhận số thập phân đổi tất cả dấu phẩy thành dấu chấm
 class CommaTextInputFormatter extends TextInputFormatter {
   @override
@@ -62,5 +64,21 @@ class LengthLimitingTextFieldFormatterFixed extends LengthLimitingTextInputForma
       return LengthLimitingTextInputFormatter.truncate(newValue, maxLength!);
     }
     return newValue;
+  }
+}
+
+//định dạng tiền
+class CurrencyTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    // remove characters to convert the value to double (because one of those may appear in the keyboard)
+    String newText = newValue.text.replaceAll('.', '').replaceAll(',', '').replaceAll('_', '').replaceAll('-', '');
+    String value = newText;
+    int cursorPosition = newText.length;
+    if (newText.isNotEmpty) {
+      value = Util.intToPriceDouble(newText.toInt());
+      cursorPosition = value.length;
+    }
+    return TextEditingValue(text: value, selection: TextSelection.collapsed(offset: cursorPosition));
   }
 }

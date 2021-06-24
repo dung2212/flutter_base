@@ -184,6 +184,18 @@ class DateTimeUtil {
     return tokens.join('');
   }
 
+  static String getTimeInSecond(int second) {
+    var duration = Duration(seconds: second);
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    if(duration.inHours == 0)
+      {
+        return "$twoDigitMinutes:$twoDigitSeconds";
+      }
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
+
   static DateTime firstDayOfMonth(DateTime month) {
     return DateTime.utc(month.year, month.month, 1, 0);
   }
