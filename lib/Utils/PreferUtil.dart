@@ -26,9 +26,9 @@ class PreferUtil {
     prefs.setInt(key, intValue);
   }
 
-  static Future<int> getInt(String key) async {
+  static Future<int?> getInt(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    final value = prefs.getInt(key) ?? 0;
+    final value = prefs.getInt(key);
     return value;
   }
 
@@ -45,9 +45,9 @@ class PreferUtil {
     prefs.setDouble(key, doubleValue);
   }
 
-  static Future<double> getDouble(String key) async {
+  static Future<double?> getDouble(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    final value = prefs.getDouble(key) ?? 0;
+    final value = prefs.getDouble(key);
     return value;
   }
 
@@ -64,9 +64,9 @@ class PreferUtil {
     prefs.setBool(key, boolValue);
   }
 
-  static Future<bool> getBool(String key) async {
+  static Future<bool?> getBool(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    final value = prefs.getBool(key) ?? false;
+    final value = prefs.getBool(key);
     return value;
   }
 

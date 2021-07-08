@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:FlutterBase/Utils/SecureStorageUtil.dart';
 export 'package:FlutterBase/Extends/StringExtend.dart';
 export 'package:FlutterBase/Extends/DoubleExtend.dart';
+import 'package:path/path.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
@@ -550,5 +551,10 @@ class Util {
     const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     Random _rnd = Random();
     return String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  }
+
+  static String getFileExtension({required String fileName})
+  {
+    return "";
   }
 }
