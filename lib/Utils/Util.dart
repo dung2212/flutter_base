@@ -194,7 +194,7 @@ class Util {
   }
 
   static void showToast(String message) {
-    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black, );
+    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black, timeInSecForIosWeb: 3);
   }
 
   static String intToPrice(int price) {
