@@ -553,8 +553,29 @@ class Util {
     return String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
 
-  static String getFileExtension({required String fileName})
-  {
+  static String getFileExtension({required String fileName}) {
     return "";
   }
+
+  static _UserNameInfo getFirstLastName(String fullName) {
+    var info = _UserNameInfo();
+    if (fullName.length > 0) {
+      var array = fullName.split(" ");
+      if (array.length <= 1) {
+        info.firstName = fullName.trim();
+        info.lastName = "";
+      } else {
+        info.firstName = array[array.length - 1];
+        info.lastName = fullName.substring(0, fullName.length - info.firstName.length).trim();
+      }
+    }
+    print("firstName: " + info.firstName);
+    print("lastName: " + info.lastName);
+    return info;
+  }
+}
+
+class _UserNameInfo {
+  String firstName = "";
+  String lastName = "";
 }
