@@ -557,6 +557,10 @@ class Util {
     return "";
   }
 
+  static String getFileNameInPath({required String path}) {
+    return basename(path);
+  }
+
   static _UserNameInfo getFirstLastName(String fullName) {
     var info = _UserNameInfo();
     if (fullName.length > 0) {
@@ -572,6 +576,37 @@ class Util {
     print("firstName: " + info.firstName);
     print("lastName: " + info.lastName);
     return info;
+  }
+
+  static String getYoutubeId({required String url}) {
+    print("Youtube Link: $url}");
+
+    if (url.contains("youtu.be")) {
+      var array = url.split("youtu.be/");
+      if (array.length > 1) {
+        print("Youtube Id: ${array[1]}");
+        return array[1];
+      }
+    }
+    var youtubeId = _convertUrlToId(url) ?? "";
+    print("Youtube Id: $youtubeId");
+    return youtubeId;
+  }
+
+  static String? _convertUrlToId(String url, {bool trimWhitespaces = true}) {
+    if (!url.contains("http") && (url.length == 11)) return url;
+    if (trimWhitespaces) url = url.trim();
+
+    for (var exp in [
+      RegExp(r"^https:\/\/(?:www\.|m\.)?youtube\.com\/watch\?v=([_\-a-zA-Z0-9]{11}).*$"),
+      RegExp(r"^https:\/\/(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/embed\/([_\-a-zA-Z0-9]{11}).*$"),
+      RegExp(r"^https:\/\/youtu\.be\/([_\-a-zA-Z0-9]{11}).*$")
+    ]) {
+      Match? match = exp.firstMatch(url);
+      if (match != null && match.groupCount >= 1) return match.group(1);
+    }
+
+    return null;
   }
 }
 
