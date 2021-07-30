@@ -17,6 +17,14 @@ class DateTimeUtil {
     return DateTime(dateTime.year + value, dateTime.month, dateTime.day);
   }
 
+  static DateTime getDateTimeLaterMinute(DateTime dateTime, int value) {
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, dateTime.hour, dateTime.minute + value);
+  }
+
+  static DateTime getDateTimeLaterHour(DateTime dateTime, int value) {
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, dateTime.hour + value);
+  }
+
   static DateTime getDateTimeLaterDay(DateTime dateTime, int value) {
     return DateTime(dateTime.year, dateTime.month, dateTime.day + value);
   }
@@ -73,11 +81,7 @@ class DateTimeUtil {
 
   static String? getFullDate(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime.day.toString() +
-        " thg " +
-        dateTime.month.toString() +
-        ", " +
-        dateTime.year.toString();
+    return dateTime.day.toString() + " thg " + dateTime.month.toString() + ", " + dateTime.year.toString();
   }
 
   static String getFullTime(DateTime dateTime) {
@@ -87,12 +91,12 @@ class DateTimeUtil {
   static String? getFullDateTime(DateTime? dateTime) {
     if (dateTime == null) return null;
     return dateTime.day.toString() +
-            " thg " +
-            dateTime.month.toString() +
-            ", " +
-            dateTime.year.toString() +
-            ", " +
-            dateTimeToString(dateTime, "HH:mm:ss")!;
+        " thg " +
+        dateTime.month.toString() +
+        ", " +
+        dateTime.year.toString() +
+        ", " +
+        dateTimeToString(dateTime, "HH:mm:ss")!;
   }
 
   static DateTime getDateTimeStartDay(DateTime dateTime) {
@@ -100,8 +104,7 @@ class DateTimeUtil {
   }
 
   static DateTime getDateTimeEndDay(DateTime dateTime) {
-    return DateTime(
-        dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 0, 0);
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, 23, 59, 59, 0, 0);
   }
 
   static int getTimeStamp(DateTime dateTime) {
@@ -115,9 +118,7 @@ class DateTimeUtil {
     if (date1 == null || date2 == null) {
       return false;
     }
-    return date1.year == date2.year &&
-        date1.month == date2.month &&
-        date1.day == date2.day;
+    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
   }
 
   static int isSameOnlyHourAndMinute(DateTime? date1, DateTime? date2) {
@@ -149,9 +150,7 @@ class DateTimeUtil {
     if (date1 == null || date2 == null) {
       return 0;
     }
-    return getDateTimeStartDay(date1)
-        .difference(getDateTimeStartDay(date2))
-        .inDays;
+    return getDateTimeStartDay(date1).difference(getDateTimeStartDay(date2)).inDays;
   }
 
   static String getTimeMinuteFromSecond(int second) {
@@ -189,10 +188,9 @@ class DateTimeUtil {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    if(duration.inHours == 0)
-      {
-        return "$twoDigitMinutes:$twoDigitSeconds";
-      }
+    if (duration.inHours == 0) {
+      return "$twoDigitMinutes:$twoDigitSeconds";
+    }
     return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
@@ -201,9 +199,7 @@ class DateTimeUtil {
   }
 
   static DateTime lastDayOfMonth(DateTime month) {
-    final date = month.month < 12
-        ? DateTime.utc(month.year, month.month + 1, 1, 24)
-        : DateTime.utc(month.year + 1, 1, 1, 24);
+    final date = month.month < 12 ? DateTime.utc(month.year, month.month + 1, 1, 24) : DateTime.utc(month.year + 1, 1, 1, 24);
     return date.subtract(const Duration(days: 1));
   }
 
@@ -212,8 +208,7 @@ class DateTimeUtil {
   }
 
   static DateTime findLastDateOfTheWeek(DateTime dateTime) {
-    return dateTime
-        .add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
+    return dateTime.add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
   }
 
   static String readTimestamp(int timestamp) {
@@ -223,7 +218,10 @@ class DateTimeUtil {
     var diff = now.difference(date);
     var time = '';
 
-    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
+    if (diff.inSeconds <= 0 ||
+        diff.inSeconds > 0 && diff.inMinutes == 0 ||
+        diff.inMinutes > 0 && diff.inHours == 0 ||
+        diff.inHours > 0 && diff.inDays == 0) {
       time = format.format(date);
       time = "Hôm nay";
     } else if (diff.inDays > 0 && diff.inDays < 7) {
@@ -232,20 +230,20 @@ class DateTimeUtil {
       } else {
         time = diff.inDays.toString() + ' Ngày trước';
       }
-    }else if (diff.inDays > 365){
+    } else if (diff.inDays > 365) {
       // return "${(diff.inDays / 365).floor()} ${(diff.inDays / 365).floor() == 1 ? "year" : "years"} ago";
       time = "${(diff.inDays / 365).floor()} inday ${diff.inDays}";
-    } else{
+    } else {
       if (diff.inDays == 7) {
         time = (diff.inDays / 7).floor().toString() + ' Tuần trước';
       } else {
-
         time = (diff.inDays / 7).floor().toString() + ' Tuần trước';
       }
     }
 
     return time;
   }
+
   static String displayTimeAgoFromTimestamp(String timestamp) {
     final year = int.parse(timestamp.substring(0, 4));
     final month = int.parse(timestamp.substring(5, 7));
