@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
 import 'dart:io' show Platform;
-import 'package:CenHomesPostUp/Model/DataChooseModel.dart';
 import 'package:device_info/device_info.dart';
 import 'package:FlutterBase/Extends/ColorExtends.dart';
 import 'package:flutter/material.dart';
@@ -610,30 +609,7 @@ class Util {
     return null;
   }
 
-  static List<DataChooseModel> getListTransaction() {
-    List<DataChooseModel> list = [];
-    list.add(DataChooseModel(title: "Chưa có giao dịch", id: "0"));
-    list.add(DataChooseModel(title: "1- 5 giao dịch", id: "1-5"));
-    list.add(DataChooseModel(title: "6 - 20 giao dịch", id: "6-20"));
-    list.add(DataChooseModel(title: "Trên 20 giao dịch", id: "tren-20"));
-    return list;
-  }
-  static List<DataChooseModel> getListWork() {
-    List<DataChooseModel> list = [];
-    list.add(DataChooseModel(title: "Chuyên viên tư vấn", id: "sale"));
-    list.add(DataChooseModel(title: "Chuyên viên văn phòng", id: "office"));
-    list.add(DataChooseModel(title: "Khác", id: "other"));
-    return list;
-  }
-  static List<DataChooseModel> getListEducate() {
-    List<DataChooseModel> list = [];
-    list.add(DataChooseModel(title: "Trung học", id: "thpt"));
-    list.add(DataChooseModel(title: "Trung cấp", id: "trung_cap"));
-    list.add(DataChooseModel(title: "Cao đẳng", id: "cao_dang"));
-    list.add(DataChooseModel(title: "Đại học", id: "dai_hoc"));
-    list.add(DataChooseModel(title: "Khác", id: "khac"));
-    return list;
-  }
+
 }
 
 class _UserNameInfo {
