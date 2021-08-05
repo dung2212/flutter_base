@@ -82,3 +82,23 @@ class CurrencyTextInputFormatter extends TextInputFormatter {
     return TextEditingValue(text: value, selection: TextSelection.collapsed(offset: cursorPosition));
   }
 }
+
+//Định dạng số dương
+class PositiveNumbersTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    // remove characters to convert the value to double (because one of those may appear in the keyboard)
+    String newText = newValue.text.replaceAll('.', '').replaceAll(',', '').replaceAll('_', '').replaceAll('-', '');
+    String value = newText;
+    int cursorPosition = newText.length;
+
+    if (newText.isNotEmpty) {
+      if (newValue.text.contains(",")) {
+        newText = newValue.text.replaceFirst(RegExp(','), '.');
+      }
+      value = newText.toDouble() == null ? "" : Util.doubleToString(newText.toDouble()!);
+      cursorPosition = value.length;
+    }
+    return TextEditingValue(text: value, selection: TextSelection.collapsed(offset: cursorPosition));
+  }
+}
