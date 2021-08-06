@@ -204,14 +204,14 @@ class Util {
     if (price == null) return '0';
     final oCcy = new NumberFormat("#,###");
     var string = oCcy.format(price);
-    return string.replaceAll(",", ".");
+    return string;//.replaceAll(",", ".");
   }
 
   static String intToPriceDouble(dynamic price) {
     if (price == null) return '';
     final oCcy = new NumberFormat("#,###");
     var string = oCcy.format(price);
-    return string.replaceAll(",", ".");
+    return string;//.replaceAll(",", ".");
   }
 
   static String intToAreaDouble(dynamic price) {
