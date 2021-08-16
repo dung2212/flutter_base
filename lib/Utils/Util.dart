@@ -519,7 +519,8 @@ class Util {
     try {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;
-        identifier = build.androidId; //UUID for Android
+        //identifier = build.androidId; //UUID for Android
+        return build.androidId;
       } else if (Platform.isIOS) {
 //        var data = await deviceInfoPlugin.iosInfo;
 //        identifier = data.identifierForVendor; //UUID for iOS

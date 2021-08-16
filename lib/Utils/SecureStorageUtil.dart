@@ -10,7 +10,7 @@ class SecureStorageUtil {
   static Future init() async {
     //print("==============================uuid============================== $id");
     if (!await checkKey(Key_DeviceId)) {
-      var id = uuid.v5("meeyland", "meeyland_app");
+      var id = uuid.v5("dungdeptrai", "name");
       deviceId = id;
       createString(Key_DeviceId, deviceId!);
     } else {
