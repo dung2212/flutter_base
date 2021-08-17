@@ -190,14 +190,20 @@ class Util {
   static String getInitials(String? nameString) {
     if (nameString == null || nameString.isEmpty) return " ";
 
-    List<String> nameArray = nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
-    String initials = ((nameArray[0])[0]) + (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
+    List<String> nameArray =
+        nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
+    String initials = ((nameArray[0])[0]) +
+        (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
 
     return initials;
   }
 
   static void showToast(String message) {
-    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black);
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black);
   }
 
   static String intToPrice(int? price) {
@@ -216,7 +222,9 @@ class Util {
 
   static String intToAreaDouble(dynamic price) {
     if (price == null) return '';
-    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '').format(price).replaceAll(',00', '');
+    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '')
+        .format(price)
+        .replaceAll(',00', '');
     final oCcy = new NumberFormat("#,##0.00", "VN");
     var string = oCcy.format(price);
     return string;
@@ -226,7 +234,9 @@ class Util {
     final urlRegExp = new RegExp(
         r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
     Iterable<RegExpMatch> matches = urlRegExp.allMatches(text);
-    String url = matches.isEmpty ? '' : text.substring(matches.first.start, matches.first.end);
+    String url = matches.isEmpty
+        ? ''
+        : text.substring(matches.first.start, matches.first.end);
     return !url.contains('http') && url.isNotEmpty ? 'https://' + url : url;
   }
 
@@ -435,7 +445,8 @@ class Util {
 
     for (int i = 0; i < arr1.length; i++) {
       textNew = textNew.replaceAll(arr1[i], arr2[i]);
-      textNew = textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
+      textNew =
+          textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
     }
     return textNew;
   }
@@ -460,11 +471,13 @@ class Util {
   }
 
   static String decodePhone(String phoneNumber) {
-    phoneNumber = phoneNumber.replaceRange(phoneNumber.length - 3, phoneNumber.length, '***');
+    phoneNumber = phoneNumber.replaceRange(
+        phoneNumber.length - 3, phoneNumber.length, '***');
     return phoneNumber;
   }
 
-  static String getFullPhoneWithCountryCode({required String countryCode, required String phoneNumber}) {
+  static String getFullPhoneWithCountryCode(
+      {required String countryCode, required String phoneNumber}) {
     var phone = phoneNumber;
     if (phoneNumber.length > 0) {
       var split = phoneNumber.substring(0, 1);
@@ -483,7 +496,18 @@ class Util {
   }
 
   static Color getColorAvatarRandom(String name) {
-    var colors = ["#ffe9e7", "#e9f0ff", "#fcf8cd", "#edfafa", "#ecf7e5", "#fadff3", "#ececff", "#f1e5fb", "#f3f7cd", "#ffeee0"];
+    var colors = [
+      "#ffe9e7",
+      "#e9f0ff",
+      "#fcf8cd",
+      "#edfafa",
+      "#ecf7e5",
+      "#fadff3",
+      "#ececff",
+      "#f1e5fb",
+      "#f3f7cd",
+      "#ffeee0"
+    ];
     var listColor1 = ["a", "b", "c", "d"];
     var listColor2 = ["e", "f", "g", "h"];
     var listColor3 = ["i", "j", "k", "l"];
@@ -498,7 +522,8 @@ class Util {
     var listColor8 = ["0", "1", "2", "3"];
     var listColor9 = ["4", "5", "6", "7"];
     var listColor10 = ["8", "9"];
-    var firstCharName = (name.trim().isEmpty) ? '0' : name[0].toLowerCase(); //fuck
+    var firstCharName =
+        (name.trim().isEmpty) ? '0' : name[0].toLowerCase(); //fuck
 
     if (listColor1.contains(firstCharName)) return hexToColor(colors[0]);
     if (listColor2.contains(firstCharName)) return hexToColor(colors[1]);
@@ -549,9 +574,11 @@ class Util {
 
   //lấy random String theo số lượng ký tự
   static getRandomString({required int length}) {
-    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    const _chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     Random _rnd = Random();
-    return String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
 
   static String getFileExtension({required String fileName}) {
@@ -571,7 +598,9 @@ class Util {
         info.lastName = "";
       } else {
         info.firstName = array[array.length - 1];
-        info.lastName = fullName.substring(0, fullName.length - info.firstName.length).trim();
+        info.lastName = fullName
+            .substring(0, fullName.length - info.firstName.length)
+            .trim();
       }
     }
     print("firstName: " + info.firstName);
@@ -599,8 +628,10 @@ class Util {
     if (trimWhitespaces) url = url.trim();
 
     for (var exp in [
-      RegExp(r"^https:\/\/(?:www\.|m\.)?youtube\.com\/watch\?v=([_\-a-zA-Z0-9]{11}).*$"),
-      RegExp(r"^https:\/\/(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/embed\/([_\-a-zA-Z0-9]{11}).*$"),
+      RegExp(
+          r"^https:\/\/(?:www\.|m\.)?youtube\.com\/watch\?v=([_\-a-zA-Z0-9]{11}).*$"),
+      RegExp(
+          r"^https:\/\/(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/embed\/([_\-a-zA-Z0-9]{11}).*$"),
       RegExp(r"^https:\/\/youtu\.be\/([_\-a-zA-Z0-9]{11}).*$")
     ]) {
       Match? match = exp.firstMatch(url);
@@ -609,6 +640,7 @@ class Util {
 
     return null;
   }
+
   static String convertVNtoEN(final String text) {
     String _vietnamese = 'aAeEoOuUiIdDyY^^';
     dynamic _vietnameseRegex = <RegExp>[
@@ -639,6 +671,7 @@ class Util {
     }
     return result;
   }
+
 
 }
 
