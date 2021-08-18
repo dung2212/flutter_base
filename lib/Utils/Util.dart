@@ -205,6 +205,13 @@ class Util {
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black);
   }
+  static void showToastCenter(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.grey);
+  }
 
   static String intToPrice(int? price) {
     if (price == null) return '0';
