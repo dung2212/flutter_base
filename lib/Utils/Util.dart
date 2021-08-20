@@ -32,7 +32,12 @@ class Util {
     }
     return false;
   }
-
+  static String get appId {
+    if (Platform.isAndroid) {
+      return "1:23717077432:android:7fa0efd6376c35c7012f4d";
+    }
+    return "1:23717077432:ios:102de510f874c026012f4d";
+  }
   //Làm tròn
   static double round(double val, int places) {
     var mod = pow(10.0, places);
@@ -66,7 +71,39 @@ class Util {
     final pattern = RegExp('.{1,500}'); // 800 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
-
+  static bool checkNewVersionWithOldVersion(
+  {required String oldVersion, required String newVersion}) {
+    if (oldVersion.length == 0) {
+      return false;
+    }
+    if (newVersion.length == 0) {
+      return false;
+    }
+    var arrayOld = oldVersion.split(".");
+    var arrayNew = newVersion.split(".");
+    var arrayCount = 0;
+    if (arrayOld.length == 0) {
+      return false;
+    }
+    if (arrayNew.length == 0) {
+      return false;
+    }
+    if (arrayOld.length > arrayNew.length) {
+      arrayCount = arrayNew.length;
+    } else {
+      arrayCount = arrayOld.length;
+    }
+    for (int i = 0; i < arrayCount; i++) {
+      var numberOld = int.parse(arrayOld[i]);
+      var numberNew = int.parse(arrayNew[i]);
+      if (numberNew > numberOld) {
+        return true;
+      } else if (numberNew < numberOld) {
+        return false;
+      }
+    }
+    return false;
+  }
   static String getUnitName(
     double? value, {
     isDetail = false, //show chi tiết về đơn vị hay không
