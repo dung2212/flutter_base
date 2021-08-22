@@ -716,6 +716,11 @@ class Util {
     return result;
   }
 
+  static double toPrecision(double d, int i) {
+    double mod = pow(10.0, i) as double;
+    return ((d * mod).round().toDouble() / mod);
+  }
+
 
 }
 
