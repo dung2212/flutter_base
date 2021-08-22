@@ -135,9 +135,6 @@ class Util {
     } else if (price >= 1000) {
       var priceNew = price / 1000;
       var priceString = doubleToString(round(priceNew, 2));
-      print("priceString: $priceString");
-      print("priceNew: $priceNew");
-
       priceView = "$priceString$k";
     } else {
       priceView = "$price$unit";
@@ -496,7 +493,7 @@ class Util {
   }
 
   static String getUnitPrice(String price) {
-    print("price $price");
+
     var arrayTachUnit = price.split(" ");
     if (arrayTachUnit.length > 1) {
       return arrayTachUnit[1];
