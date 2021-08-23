@@ -32,12 +32,6 @@ class Util {
     }
     return false;
   }
-  static String get appId {
-    if (Platform.isAndroid) {
-      return "1:23717077432:android:7fa0efd6376c35c7012f4d";
-    }
-    return "1:23717077432:ios:102de510f874c026012f4d";
-  }
   //Làm tròn
   static double round(double val, int places) {
     var mod = pow(10.0, places);
