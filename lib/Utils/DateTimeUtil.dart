@@ -87,6 +87,10 @@ class DateTimeUtil {
     if (dateTime == null) return null;
     return dateTime.day.toString() + "/" + dateTime.month.toString() + "/" + dateTime.year.toString() + " - " +dateTime.hour.toString()+":"+dateTime.minute.toString();
   }
+  static String? getFullDateAndTimeSecond(DateTime? dateTime) {
+    if (dateTime == null) return null;
+    return dateTime.day.toString() + "/" + dateTime.month.toString() + "/" + dateTime.year.toString() + " - " +dateTime.hour.toString()+":"+dateTime.minute.toString()+":"+dateTime.second.toString();
+  }
 
   static String getFullTime(DateTime dateTime) {
     return dateTime.hour.toString() + " : " + dateTime.minute.toString();
