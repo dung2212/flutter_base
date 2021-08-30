@@ -638,14 +638,10 @@ class Util {
             .trim();
       }
     }
-    print("firstName: " + info.firstName);
-    print("lastName: " + info.lastName);
     return info;
   }
 
   static String getYoutubeId({required String url}) {
-    print("Youtube Link: $url}");
-
     if (url.contains("youtu.be")) {
       var array = url.split("youtu.be/");
       if (array.length > 1) {
@@ -654,7 +650,6 @@ class Util {
       }
     }
     var youtubeId = _convertUrlToId(url) ?? "";
-    print("Youtube Id: $youtubeId");
     return youtubeId;
   }
 
