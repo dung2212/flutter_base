@@ -638,8 +638,7 @@ class Util {
             .trim();
       }
     }
-    print("firstName: " + info.firstName);
-    print("lastName: " + info.lastName);
+
     return info;
   }
 
