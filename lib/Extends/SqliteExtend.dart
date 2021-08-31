@@ -6,7 +6,6 @@ enum SqliteDataType {
 
 class SqliteColumn {
   final String columnName;
-  final String defaultValue;
   final SqliteDataType dataType;
   final bool primaryKey;
   final bool autoincrement;
@@ -26,7 +25,6 @@ class SqliteColumn {
 
   SqliteColumn({
    required this.columnName,
-   required this.defaultValue,
     this.dataType = SqliteDataType.text,
     this.primaryKey = false,
     this.autoincrement = false,
