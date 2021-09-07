@@ -8,6 +8,7 @@ class SqliteColumn {
   final String columnName;
   final SqliteDataType dataType;
   final bool primaryKey;
+  final String defaultValue;
   final bool autoincrement;
 
   String get dataTypeString {
@@ -25,6 +26,7 @@ class SqliteColumn {
 
   SqliteColumn({
    required this.columnName,
+    required this.defaultValue,
     this.dataType = SqliteDataType.text,
     this.primaryKey = false,
     this.autoincrement = false,
