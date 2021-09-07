@@ -32,6 +32,7 @@ class Util {
     }
     return false;
   }
+
   //Làm tròn
   static double round(double val, int places) {
     var mod = pow(10.0, places);
@@ -65,8 +66,8 @@ class Util {
     final pattern = RegExp('.{1,500}'); // 800 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
-  static bool checkNewVersionWithOldVersion(
-  {required String oldVersion, required String newVersion}) {
+
+  static bool checkNewVersionWithOldVersion({required String oldVersion, required String newVersion}) {
     if (oldVersion.length == 0) {
       return false;
     }
@@ -98,6 +99,7 @@ class Util {
     }
     return false;
   }
+
   static String getUnitName(
     double? value, {
     isDetail = false, //show chi tiết về đơn vị hay không
@@ -218,27 +220,18 @@ class Util {
   static String getInitials(String? nameString) {
     if (nameString == null || nameString.isEmpty) return " ";
 
-    List<String> nameArray =
-        nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
-    String initials = ((nameArray[0])[0]) +
-        (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
+    List<String> nameArray = nameString.replaceAll(new RegExp(r"\s+\b|\b\s"), " ").split(" ");
+    String initials = ((nameArray[0])[0]) + (nameArray.length == 1 ? " " : (nameArray[nameArray.length - 1])[0]);
 
     return initials;
   }
 
   static void showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black);
+    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black);
   }
+
   static void showToastCenter(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.grey);
+    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER, backgroundColor: Colors.grey);
   }
 
   static String intToPrice(int? price) {
@@ -257,9 +250,7 @@ class Util {
 
   static String intToAreaDouble(dynamic price) {
     if (price == null) return '';
-    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '')
-        .format(price)
-        .replaceAll(',00', '');
+    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '').format(price).replaceAll(',00', '');
     final oCcy = new NumberFormat("#,##0.00", "VN");
     var string = oCcy.format(price);
     return string;
@@ -269,9 +260,7 @@ class Util {
     final urlRegExp = new RegExp(
         r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
     Iterable<RegExpMatch> matches = urlRegExp.allMatches(text);
-    String url = matches.isEmpty
-        ? ''
-        : text.substring(matches.first.start, matches.first.end);
+    String url = matches.isEmpty ? '' : text.substring(matches.first.start, matches.first.end);
     return !url.contains('http') && url.isNotEmpty ? 'https://' + url : url;
   }
 
@@ -480,14 +469,12 @@ class Util {
 
     for (int i = 0; i < arr1.length; i++) {
       textNew = textNew.replaceAll(arr1[i], arr2[i]);
-      textNew =
-          textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
+      textNew = textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
     }
     return textNew;
   }
 
   static String getUnitPrice(String price) {
-
     var arrayTachUnit = price.split(" ");
     if (arrayTachUnit.length > 1) {
       return arrayTachUnit[1];
@@ -506,13 +493,11 @@ class Util {
   }
 
   static String decodePhone(String phoneNumber) {
-    phoneNumber = phoneNumber.replaceRange(
-        phoneNumber.length - 3, phoneNumber.length, '***');
+    phoneNumber = phoneNumber.replaceRange(phoneNumber.length - 3, phoneNumber.length, '***');
     return phoneNumber;
   }
 
-  static String getFullPhoneWithCountryCode(
-      {required String countryCode, required String phoneNumber}) {
+  static String getFullPhoneWithCountryCode({required String countryCode, required String phoneNumber}) {
     var phone = phoneNumber;
     if (phoneNumber.length > 0) {
       var split = phoneNumber.substring(0, 1);
@@ -531,46 +516,46 @@ class Util {
   }
 
   static Color getColorAvatarRandom(String name) {
-    var colors = [
-      "#ffe9e7",
-      "#e9f0ff",
-      "#fcf8cd",
-      "#edfafa",
-      "#ecf7e5",
-      "#fadff3",
-      "#ececff",
-      "#f1e5fb",
-      "#f3f7cd",
-      "#ffeee0"
-    ];
-    var listColor1 = ["a", "b", "c", "d"];
-    var listColor2 = ["e", "f", "g", "h"];
-    var listColor3 = ["i", "j", "k", "l"];
-    var listColor4 = ["m", "n", "o", "p"];
-    var listColor5 = ["q", "r", "s", "t"];
-    var listColor6 = [
-      "u",
-      "v",
-      "w",
-    ];
-    var listColor7 = ["y", "z", "s"];
-    var listColor8 = ["0", "1", "2", "3"];
-    var listColor9 = ["4", "5", "6", "7"];
-    var listColor10 = ["8", "9"];
-    var firstCharName =
-        (name.trim().isEmpty) ? '0' : name[0].toLowerCase(); //fuck
-
-    if (listColor1.contains(firstCharName)) return hexToColor(colors[0]);
-    if (listColor2.contains(firstCharName)) return hexToColor(colors[1]);
-    if (listColor3.contains(firstCharName)) return hexToColor(colors[2]);
-    if (listColor4.contains(firstCharName)) return hexToColor(colors[3]);
-    if (listColor5.contains(firstCharName)) return hexToColor(colors[4]);
-    if (listColor6.contains(firstCharName)) return hexToColor(colors[5]);
-    if (listColor7.contains(firstCharName)) return hexToColor(colors[6]);
-    if (listColor8.contains(firstCharName)) return hexToColor(colors[7]);
-    if (listColor9.contains(firstCharName)) return hexToColor(colors[8]);
-    if (listColor10.contains(firstCharName)) return hexToColor(colors[9]);
-    return hexToColor(colors[0]);
+    var listColor = {
+      "a": "#FFC312",
+      "b": "#C4E538",
+      "c": "#12CBC4",
+      "d": "#FDA7DF",
+      "e": "#82589F",
+      "f": "#F79F1F",
+      "g": "#A3CB38",
+      "h": "#1289A7",
+      "i": "#D980FA",
+      "j": "#B53471",
+      "k": "#EE5A24",
+      "l": "#009432",
+      "m": "#0652DD",
+      "n": "#9980FA",
+      "o": "#833471",
+      "p": "#EA2027",
+      "q": "#006266",
+      "r": "#1B1464",
+      "s": "#5758BB",
+      "t": "#FEA47F",
+      "u": "#25CCF7",
+      "v": "#EAB543",
+      "w": "#55E6C1",
+      "0": "#F97F51",
+      "1": "#1B9CFC",
+      "2": "#58B19F",
+      "3": "#2C3A47",
+      "4": "#B33771",
+      "5": "#3B3B98",
+      "7": "#182C61",
+      "8": "#6D214F",
+      "9": "#FC427B",
+    };
+    var charr = getAvatarName(name).toLowerCase();
+    var hex = listColor[charr];
+    if (hex == null || hex.isEmpty) {
+      return hexToColor("FC427B");
+    }
+    return hexToColor(hex);
   }
 
   static Future<String?> getDeviceIdentifier() async {
@@ -609,11 +594,9 @@ class Util {
 
   //lấy random String theo số lượng ký tự
   static getRandomString({required int length}) {
-    const _chars =
-        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     Random _rnd = Random();
-    return String.fromCharCodes(Iterable.generate(
-        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+    return String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
 
   static String getFileExtension({required String fileName}) {
@@ -633,9 +616,7 @@ class Util {
         info.lastName = "";
       } else {
         info.firstName = array[array.length - 1];
-        info.lastName = fullName
-            .substring(0, fullName.length - info.firstName.length)
-            .trim();
+        info.lastName = fullName.substring(0, fullName.length - info.firstName.length).trim();
       }
     }
     return info;
@@ -658,10 +639,8 @@ class Util {
     if (trimWhitespaces) url = url.trim();
 
     for (var exp in [
-      RegExp(
-          r"^https:\/\/(?:www\.|m\.)?youtube\.com\/watch\?v=([_\-a-zA-Z0-9]{11}).*$"),
-      RegExp(
-          r"^https:\/\/(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/embed\/([_\-a-zA-Z0-9]{11}).*$"),
+      RegExp(r"^https:\/\/(?:www\.|m\.)?youtube\.com\/watch\?v=([_\-a-zA-Z0-9]{11}).*$"),
+      RegExp(r"^https:\/\/(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/embed\/([_\-a-zA-Z0-9]{11}).*$"),
       RegExp(r"^https:\/\/youtu\.be\/([_\-a-zA-Z0-9]{11}).*$")
     ]) {
       Match? match = exp.firstMatch(url);
@@ -706,8 +685,6 @@ class Util {
     double mod = pow(10.0, i) as double;
     return ((d * mod).round().toDouble() / mod);
   }
-
-
 }
 
 class _UserNameInfo {
