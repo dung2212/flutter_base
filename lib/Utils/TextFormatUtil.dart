@@ -29,12 +29,13 @@ TextInputFormatter NumberTextInputFormatter() {
 
 //Chỉ nhận số có 1 dấu .
 TextInputFormatter NumberTextInputFormatterDoubleOnly() {
-  FilteringTextInputFormatter.allow(RegExp(r"[0-9.]"));
+//  FilteringTextInputFormatter.allow(RegExp(r"[0-9.]"));
   return TextInputFormatter.withFunction((oldValue, newValue) {
     try {
-      final text = newValue.text;
+      final text = newValue.text.replaceAll(",", ".");
+      TextSelection newSelection = newValue.selection;
       if (text.isNotEmpty) double.parse(text);
-      return newValue;
+      return TextEditingValue(text: text, selection: newSelection);
     } catch (e) {}
     return oldValue;
   });
