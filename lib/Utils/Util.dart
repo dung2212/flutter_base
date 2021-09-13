@@ -685,6 +685,19 @@ class Util {
     double mod = pow(10.0, i) as double;
     return ((d * mod).round().toDouble() / mod);
   }
+
+  static Map<String, String>? getParamInUrl({required String? url}) {
+    if (url == null) return null;
+    var uri = Uri.dataFromString(url);
+    if (uri.queryParameters.keys.length == 0) return null;
+    return uri.queryParameters;
+  }
+
+  static String? getValueInParamUrl({required String? url, required String key}) {
+    if (url == null) return null;
+    var param = getParamInUrl(url: url);
+    if (param != null) return param[key];
+  }
 }
 
 class _UserNameInfo {
