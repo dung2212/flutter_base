@@ -686,6 +686,7 @@ class Util {
     return ((d * mod).round().toDouble() / mod);
   }
 
+  //lấy list param trong url get
   static Map<String, String>? getParamInUrl({required String? url}) {
     if (url == null) return null;
     var uri = Uri.dataFromString(url);
@@ -693,10 +694,23 @@ class Util {
     return uri.queryParameters;
   }
 
+  //lấy giá trị trong param url get
   static String? getValueInParamUrl({required String? url, required String key}) {
     if (url == null) return null;
     var param = getParamInUrl(url: url);
     if (param != null) return param[key];
+  }
+
+  //lấy text quá số ký tự
+  static String? getTextOverWithLength({required String? text, required int length}) {
+    if (text != null) {
+      if (text.trim().length < length + 1) {
+        return text;
+      } else {
+        return "${text.trim().substring(0, length)}...";
+      }
+    }
+    return null;
   }
 }
 
