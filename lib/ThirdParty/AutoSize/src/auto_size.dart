@@ -152,12 +152,13 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
         return true;
       }());
     } else if (event is PointerUpEvent || event is PointerCancelEvent) {
-      result = _hitTests.remove(event.pointer)!;
+      result = _hitTests.remove(event.pointer);
     } else if (event.down) {
-      result = _hitTests[event.pointer]!;
+      result = _hitTests[event.pointer];
     } else {
       return; // We currently ignore add, remove, and hover move events.
     }
+    if(result == null)return;
     dispatchEvent(event, result);
   }
 }
