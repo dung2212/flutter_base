@@ -26,7 +26,7 @@ dependencies:
   crypto: 3.0.1
   url_launcher: 6.0.9
   #sliding_up_panel: 1.0.2
-  logger: 1.0.0
+  logger: ^1.1.0
   uni_links: 0.5.1
   flutter_secure_storage: 4.2.0
   uuid: 3.0.4
