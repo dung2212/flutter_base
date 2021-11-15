@@ -86,9 +86,15 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
       isTablet = false;
       isPhone = true;
     }
-    if (isTablet) {
+    if (AutoSize.getSize().width < size.width) {
+      AutoSizeConfig.setDesignWH(width: size.width);
+    } else if (size.width > 600) {
       AutoSizeConfig.setDesignWH(width: 600);
     }
+    // if (isTablet) {
+    //   AutoSizeConfig.setDesignWH(width: 600);
+    // }
+
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
@@ -102,6 +108,11 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
       size: AutoSize.getSize(),
       devicePixelRatio: AutoSize.getPixelRatio(),
     );
+
+    // return ViewConfiguration(
+    //   size: size,
+    //   devicePixelRatio: dpRatio,
+    // );
   }
 
   @override
@@ -158,7 +169,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     } else {
       return; // We currently ignore add, remove, and hover move events.
     }
-    if(result == null)return;
+    if (result == null) return;
     dispatchEvent(event, result);
   }
 }
