@@ -30,7 +30,9 @@ class AutoSize {
   static Size getSize() {
     final Size size = window.physicalSize;
     if (size == Size.zero) return size;
-    final Size autoSize = size.width > size.height ? new Size(size.width / getPixelRatio(), AutoSizeConfig.designWidth) : new Size(AutoSizeConfig.designWidth, size.height / getPixelRatio());
+    final Size autoSize = size.width > size.height
+        ? new Size(size.width / getPixelRatio(), AutoSizeConfig.designWidth)
+        : new Size(AutoSizeConfig.designWidth, size.height / getPixelRatio());
     return autoSize;
   }
 
@@ -86,9 +88,9 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
       isTablet = false;
       isPhone = true;
     }
-    if (AutoSize.getSize().width < size.width) {
+    if (AutoSize.getSize().width < size.width && !isTablet) {
       AutoSizeConfig.setDesignWH(width: size.width);
-    } else if (size.width > 600) {
+    } else if (size.width > 600 || isTablet) {
       AutoSizeConfig.setDesignWH(width: 600);
     }
     // if (isTablet) {
@@ -98,15 +100,18 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
+    //if (!ScreenUtil.isGetPixelRatio) {
+      ScreenUtil.screenSize = AutoSize.getSize();
+      ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
+      ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
+      ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
+      ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
+      //ScreenUtil.isGetPixelRatio = true;
+    //}
 
-    ScreenUtil.screenSize = AutoSize.getSize();
-    ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
-    ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
-    ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
-    ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
     return ViewConfiguration(
-      size: AutoSize.getSize(),
-      devicePixelRatio: AutoSize.getPixelRatio(),
+      size: ScreenUtil.screenSize ?? size,
+      devicePixelRatio: ScreenUtil.pixelRatio,
     );
 
     // return ViewConfiguration(

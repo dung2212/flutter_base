@@ -2,6 +2,7 @@ import 'package:FlutterBase/ThirdParty/AutoSize/auto_size.dart';
 import 'package:flutter/material.dart';
 
 class ScreenUtil {
+  static bool isGetPixelRatio = false;
   static double heightTopSafeArea = 0;
   static double heightBottomSafeArea = 0;
   static double heightBottomSafeAreaKeyboard = 0;
