@@ -16,11 +16,16 @@ import 'package:FlutterBase/Utils/SecureStorageUtil.dart';
 export 'package:FlutterBase/Extends/StringExtend.dart';
 export 'package:FlutterBase/Extends/DoubleExtend.dart';
 import 'package:path/path.dart';
+import 'package:uuid/uuid.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
 
 class Util {
+  static String getUuid() {
+    return Uuid().v4();
+  }
+
   static Color hexToColor(String code) {
     //return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
     return ColorExtends(code);
