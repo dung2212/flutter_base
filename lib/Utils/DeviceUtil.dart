@@ -12,13 +12,13 @@ class DeviceUtil {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      deviceName = androidInfo.model;
-      deviceVersion = androidInfo.version.baseOS;
+      deviceName = "${androidInfo.brand}_${androidInfo.model}";
+      deviceVersion = androidInfo.version.release;
     }
     if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       deviceName = iosInfo.utsname.machine;
-      deviceVersion = iosInfo.utsname.version;
+      deviceVersion = iosInfo.systemVersion;
     }
     deviceId = await Util.getDeviceIdentifier();
   }
