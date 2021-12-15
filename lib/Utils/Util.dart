@@ -162,7 +162,7 @@ class Util {
     return priceView;
   }
 
-  static String doubleToString(double value) {
+  static String doubleToString(dynamic value) {
     return value.toString().replaceAll(RegExp(r"([.]*0)(?!.*\d)"), "");
   }
 

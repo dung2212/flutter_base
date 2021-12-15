@@ -33,6 +33,13 @@ class DateTimeUtil {
     return DateTime(dateTime.year, dateTime.month + value, dateTime.day);
   }
 
+  static String? getDateShowWithString(String? dateTime) {
+    if (dateTime == null) return '';
+    var _dateTime = DateTime.tryParse(dateTime);
+    if (_dateTime == null) return '';
+    return dateTimeToString(_dateTime, "dd/MM/yyyy");
+  }
+
   static String? getDateTimeServerToDate(DateTime? dateTime) {
     if (dateTime == null) return '';
     return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS");
