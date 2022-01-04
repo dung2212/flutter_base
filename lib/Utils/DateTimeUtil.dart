@@ -40,6 +40,13 @@ class DateTimeUtil {
     return dateTimeToString(_dateTime, "dd/MM/yyyy");
   }
 
+  static String? getDateTimeShowWithString(String? dateTime) {
+    if (dateTime == null) return '';
+    var _dateTime = DateTime.tryParse(dateTime);
+    if (_dateTime == null) return '';
+    return dateTimeToString(_dateTime, "HH:mm dd/MM/yyyy");
+  }
+
   static String? getDateTimeServerToDate(DateTime? dateTime) {
     if (dateTime == null) return '';
     return dateTimeToString(dateTime, "yyyy-MM-dd'T'HH:mm:ss.SSS");

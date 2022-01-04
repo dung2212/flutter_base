@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'dart:io' show Platform;
+import 'package:FlutterBase/Extends/StringExtend.dart';
 import 'package:device_info/device_info.dart';
 import 'package:FlutterBase/Extends/ColorExtends.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,11 @@ class Util {
       return true;
     }
     return false;
+  }
+
+  static int getFirstVersionOS() {
+    String osVersion = Platform.operatingSystemVersion;
+    return osVersion.split(".").first.toInt()!;
   }
 
   //Làm tròn
