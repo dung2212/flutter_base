@@ -97,13 +97,33 @@ class DateTimeUtil {
     if (dateTime == null) return null;
     return dateTime.day.toString() + " thg " + dateTime.month.toString() + ", " + dateTime.year.toString();
   }
+
   static String? getFullDateAndTime(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime.day.toString() + "/" + dateTime.month.toString() + "/" + dateTime.year.toString() + " - " +dateTime.hour.toString()+":"+dateTime.minute.toString();
+    return dateTime.day.toString() +
+        "/" +
+        dateTime.month.toString() +
+        "/" +
+        dateTime.year.toString() +
+        " - " +
+        dateTime.hour.toString() +
+        ":" +
+        dateTime.minute.toString();
   }
+
   static String? getFullDateAndTimeSecond(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime.day.toString() + "/" + dateTime.month.toString() + "/" + dateTime.year.toString() + " - " +dateTime.hour.toString()+":"+dateTime.minute.toString()+":"+dateTime.second.toString();
+    return dateTime.day.toString() +
+        "/" +
+        dateTime.month.toString() +
+        "/" +
+        dateTime.year.toString() +
+        " - " +
+        dateTime.hour.toString() +
+        ":" +
+        dateTime.minute.toString() +
+        ":" +
+        dateTime.second.toString();
   }
 
   static String getFullTime(DateTime dateTime) {
@@ -201,8 +221,33 @@ class DateTimeUtil {
     if (tokens.length == 0) {
       tokens.add('${seconds}s ');
     }
+    //xử lý nếu giá trị cuối là 0 thì bỏ đi
+    //VD 1h0p thì remove 0p đi
+    if (tokens.length >= 2) {
+      if (tokens.last == "0s") {
+        tokens.removeLast();
+      }
+      if (tokens.last.trim() == "0m") {
+        tokens.removeLast();
+      }
+      if (tokens.last.trim() == "0h") {
+        tokens.removeLast();
+      }
+      if (tokens.last.trim() == "0d") {
+        tokens.removeLast();
+      }
+    }
 
     return tokens.join('');
+  }
+
+  static String getTimeMinuteFromSecondVN(int second) {
+    var value = getTimeMinuteFromSecond(second);
+    value = value.replaceAll("d", " ngày");
+    value = value.replaceAll("h", " giờ");
+    value = value.replaceAll("m", " phút");
+    value = value.replaceAll("s", " giây");
+    return value.trim();
   }
 
   static String getTimeInSecond(int second) {
@@ -306,6 +351,7 @@ class DateTimeUtil {
 
     return timeAgo + ' trước';
   }
+
   static String displayTimeAgoFromTimestampMonth(String timestamp) {
     final year = int.parse(timestamp.substring(0, 4));
     final month = int.parse(timestamp.substring(5, 7));
