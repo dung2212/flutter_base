@@ -2,8 +2,8 @@ import 'dart:async';
 
 class DeBouncerDuration {
   Duration delay;
-  Timer _timer;
-  Function _callback;
+  Timer? _timer;
+  Function? _callback;
 
   DeBouncerDuration({this.delay = const Duration(milliseconds: 500)});
 
@@ -16,12 +16,12 @@ class DeBouncerDuration {
 
   void cancel() {
     if (_timer != null) {
-      _timer.cancel();
+      _timer!.cancel();
     }
   }
 
   void flush() {
-    this._callback();
+    this._callback!();
     this.cancel();
   }
 }

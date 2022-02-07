@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DashLineWidget extends StatelessWidget {
   final Color color;
 
-  DashLineWidget({Key key, this.color = Colors.grey});
+  DashLineWidget({Key? key, this.color = Colors.grey});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class DashedLinePainter extends CustomPainter {
 
   final Color color;
 
-  DashedLinePainter({Key key, this.color});
+  DashedLinePainter({Key? key,required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {

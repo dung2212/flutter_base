@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PreferUtil {
   static String keySecure = "p@123";
 
-  static Future<bool> checkKey(String key, {bool isSecure, String userId}) async {
+  static Future<bool> checkKey(String key, {bool isSecure = false, String? userId}) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.containsKey(key);
   }
@@ -26,9 +26,9 @@ class PreferUtil {
     prefs.setInt(key, intValue);
   }
 
-  static Future<int> getInt(String key) async {
+  static Future<int?> getInt(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    final value = prefs.getInt(key) ?? 0;
+    final value = prefs.getInt(key);
     return value;
   }
 
@@ -45,9 +45,9 @@ class PreferUtil {
     prefs.setDouble(key, doubleValue);
   }
 
-  static Future<double> getDouble(String key) async {
+  static Future<double?> getDouble(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    final value = prefs.getDouble(key) ?? 0;
+    final value = prefs.getDouble(key);
     return value;
   }
 
@@ -64,30 +64,30 @@ class PreferUtil {
     prefs.setBool(key, boolValue);
   }
 
-  static Future<bool> getBool(String key) async {
+  static Future<bool?> getBool(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    final value = prefs.getBool(key) ?? false;
+    final value = prefs.getBool(key);
     return value;
   }
 
   //String
-  static Future createString(String key, String stringValue, {bool isSecure = false, String userId}) async {
+  static Future createString(String key, String stringValue, {bool isSecure = false, String? userId}) async {
     var keyNew = _getKey(key, isSecure: isSecure, userId: userId);
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey(keyNew)) {
       var valueNew = _valueEncrypt(key, stringValue, isSecure: isSecure, userId: userId);
-      prefs.setString(keyNew, valueNew);
+      prefs.setString(keyNew, valueNew ?? "");
     }
   }
 
-  static Future setString(String key, String stringValue, {bool isSecure = false, String userId}) async {
+  static Future setString(String key, String stringValue, {bool isSecure = false, String? userId}) async {
     var keyNew = _getKey(key, isSecure: isSecure, userId: userId);
     final prefs = await SharedPreferences.getInstance();
     var valueNew = _valueEncrypt(key, stringValue, isSecure: isSecure, userId: userId);
-    prefs.setString(keyNew, valueNew);
+    prefs.setString(keyNew, valueNew ?? "");
   }
 
-  static Future<String> getString(String key, {bool isSecure = false, String userId}) async {
+  static Future<String> getString(String key, {bool isSecure = false, String? userId}) async {
     var keyNew = _getKey(key, isSecure: isSecure, userId: userId);
     final prefs = await SharedPreferences.getInstance();
     final value = prefs.getString(keyNew) ?? "";
@@ -110,11 +110,11 @@ class PreferUtil {
 
   static Future<List<String>> getListString(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    final value = prefs.getStringList(key) ?? List<String>();
+    final value = prefs.getStringList(key) ?? <String>[];
     return value;
   }
 
-  static String _getKey(String key, {bool isSecure = false, String userId}) {
+  static String _getKey(String key, {bool isSecure = false, String? userId}) {
     if (isSecure) {
       var keyString = "k_$keySecure${userId ?? ""}$key";
       return "s_" + md5.convert(utf8.encode(keyString)).toString();
@@ -122,19 +122,19 @@ class PreferUtil {
     return key;
   }
 
-  static String _getKeyCrypt(String key, {String userId = ""}) {
+  static String _getKeyCrypt(String key, {String? userId = ""}) {
     var keyString = "$keySecure${userId ?? ""}$key";
     return "k_" + md5.convert(utf8.encode(keyString)).toString();
   }
 
-  static String _valueEncrypt(String key, String stringValue, {bool isSecure = false, String userId}) {
+  static String? _valueEncrypt(String key, String stringValue, {bool isSecure = false, String? userId}) {
     if (isSecure) {
       return CryptoUtil.encryptAESCryptoJS(stringValue, _getKeyCrypt(key, userId: userId));
     }
     return stringValue;
   }
 
-  static String _valueDecrypt(String key, String stringValue, {bool isSecure = false, String userId}) {
+  static String? _valueDecrypt(String key, String stringValue, {bool isSecure = false, String? userId}) {
     if (isSecure) {
       return CryptoUtil.decryptAESCryptoJS(stringValue, _getKeyCrypt(key, userId: userId));
     }

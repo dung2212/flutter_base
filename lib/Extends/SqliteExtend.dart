@@ -6,9 +6,9 @@ enum SqliteDataType {
 
 class SqliteColumn {
   final String columnName;
-  final String defaultValue;
   final SqliteDataType dataType;
   final bool primaryKey;
+  final String defaultValue;
   final bool autoincrement;
 
   String get dataTypeString {
@@ -25,9 +25,9 @@ class SqliteColumn {
   }
 
   SqliteColumn({
-    this.columnName,
-    this.defaultValue,
-    this.dataType,
+   required this.columnName,
+    required this.defaultValue,
+    this.dataType = SqliteDataType.text,
     this.primaryKey = false,
     this.autoincrement = false,
   });
@@ -38,9 +38,9 @@ class SqliteColumn {
 
   static String generateCrateTable(String tableName, List<SqliteColumn> listColumn) {
     String query = "CREATE TABLE if not exists $tableName (";
-    var arrayStringValue = new List<String>();
+    var arrayStringValue = <String>[];
     for (var cl in listColumn) {
-      var list = new List<String>();
+      var list = <String>[];
       list.add(cl.columnName);
       list.add(cl.dataTypeString);
       if (cl.primaryKey) list.add("primary key");
@@ -53,7 +53,7 @@ class SqliteColumn {
   }
 
   static List<String> generateListColumn(List<SqliteColumn> listColumn) {
-    var list = new List<String>();
+    var list = <String>[];
     for (var cl in listColumn) {
       list.add(cl.columnName);
     }

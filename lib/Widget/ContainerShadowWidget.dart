@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ContainerShadowWidget extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final double height;
 
-  ContainerShadowWidget({this.child, this.height});
+  ContainerShadowWidget({this.child,required this.height});
 
   @override
   Widget build(BuildContext context) {

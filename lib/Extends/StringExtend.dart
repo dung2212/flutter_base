@@ -12,12 +12,22 @@ extension StringExtend on String {
     return stringToBase64.decode(this);
   }
 
-  int toInt() {
-    if (this == null) return null;
+  int? toInt() {
     return int.tryParse(this);
+  }
+
+  double? toDouble() {
+    return double.tryParse(this);
   }
 
   String toMd5() {
     return md5.convert(utf8.encode(this)).toString();
+  }
+
+  bool isNumber() {
+    RegExp _numeric = RegExp(r'^-?[0-9]+$');
+
+    /// check if the string contains only numbers
+    return _numeric.hasMatch(this);
   }
 }

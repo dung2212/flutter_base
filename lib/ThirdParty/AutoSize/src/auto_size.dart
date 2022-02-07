@@ -17,9 +17,9 @@ import 'package:FlutterBase/FlutterBase.dart';
 /// width 设计稿尺寸 宽 dp or pt。
 /// height 设计稿尺寸 高 dp or pt。
 ///
-void runAutoSizeApp(Widget app, {double width, double height}) {
+void runAutoSizeApp(Widget app, {required double width, double? height}) {
   AutoSizeConfig.setDesignWH(width: width, height: height);
-  AutoSizeWidgetsFlutterBinding.ensureInitialized()
+  AutoSizeWidgetsFlutterBinding.ensureInitialized()!
     ..attachRootWidget(app)
     ..scheduleWarmUpFrame();
 }
@@ -30,7 +30,9 @@ class AutoSize {
   static Size getSize() {
     final Size size = window.physicalSize;
     if (size == Size.zero) return size;
-    final Size autoSize = size.width > size.height ? new Size(size.width / getPixelRatio(), AutoSizeConfig.designWidth) : new Size(AutoSizeConfig.designWidth, size.height / getPixelRatio());
+    final Size autoSize = size.width > size.height
+        ? new Size(size.width / getPixelRatio(), AutoSizeConfig.designWidth)
+        : new Size(AutoSizeConfig.designWidth, size.height / getPixelRatio());
     return autoSize;
   }
 
@@ -57,7 +59,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   /// In the `flutter_test` framework, [testWidgets] initializes the
   /// binding instance to a [TestWidgetsFlutterBinding], not a
   /// [AutoSizeWidgetsFlutterBinding].
-  static WidgetsBinding ensureInitialized() {
+  static WidgetsBinding? ensureInitialized() {
     if (WidgetsBinding.instance == null) AutoSizeWidgetsFlutterBinding();
     return WidgetsBinding.instance;
   }
@@ -86,22 +88,36 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
       isTablet = false;
       isPhone = true;
     }
-    if (isTablet) {
+    if (AutoSize.getSize().width < size.width && !isTablet) {
+      AutoSizeConfig.setDesignWH(width: size.width);
+    } else if (size.width > 600 || isTablet) {
       AutoSizeConfig.setDesignWH(width: 600);
     }
+    // if (isTablet) {
+    //   AutoSizeConfig.setDesignWH(width: 600);
+    // }
+
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
+    //if (!ScreenUtil.isGetPixelRatio) {
+      ScreenUtil.screenSize = AutoSize.getSize();
+      ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
+      ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
+      ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
+      ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
+      //ScreenUtil.isGetPixelRatio = true;
+    //}
 
-    ScreenUtil.screenSize = AutoSize.getSize();
-    ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
-    ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
-    ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
-    ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
     return ViewConfiguration(
-      size: AutoSize.getSize(),
-      devicePixelRatio: AutoSize.getPixelRatio(),
+      size: ScreenUtil.screenSize ?? size,
+      devicePixelRatio: ScreenUtil.pixelRatio,
     );
+
+    // return ViewConfiguration(
+    //   size: size,
+    //   devicePixelRatio: dpRatio,
+    // );
   }
 
   @override
@@ -141,7 +157,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
 
   void _handlePointerEvent(PointerEvent event) {
     assert(!locked);
-    HitTestResult result;
+    HitTestResult? result;
     if (event is PointerDownEvent) {
       assert(!_hitTests.containsKey(event.pointer));
       result = HitTestResult();
@@ -158,6 +174,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     } else {
       return; // We currently ignore add, remove, and hover move events.
     }
-    if (result != null) dispatchEvent(event, result);
+    if (result == null) return;
+    dispatchEvent(event, result);
   }
 }

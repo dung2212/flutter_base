@@ -8,7 +8,8 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 
 class CryptoUtil{
 
-  static String encryptAESCryptoJS(String plainText, String passphrase) {
+  static String? encryptAESCryptoJS(String plainText, String passphrase) {
+
     try {
       final salt = genRandomWithNonZero(8);
       var keyndIV = deriveKeyAndIV(passphrase, salt);
@@ -26,7 +27,7 @@ class CryptoUtil{
     }
   }
 
-  static String decryptAESCryptoJS(String encrypted, String passphrase) {
+  static String? decryptAESCryptoJS(String encrypted, String passphrase) {
     try {
       Uint8List encryptedBytesWithSalt = base64.decode(encrypted);
 
@@ -63,7 +64,8 @@ class CryptoUtil{
         preHash = Uint8List.fromList(
             password + salt);
 
-      currentHash = md5.convert(preHash).bytes;
+      //currentHash =  md5.convert(preHash).bytes;
+      currentHash = Uint8List.fromList(md5.convert(preHash.toList()).bytes)  ;
       concatenatedHashes = Uint8List.fromList(concatenatedHashes + currentHash);
       if (concatenatedHashes.length >= 48) enoughBytesForKey = true;
     }
