@@ -310,7 +310,8 @@ class Util {
   }
 
   static launchURL(String url, {Map<String, String>? headers}) async {
-    if (!url.contains('http')) url = 'http://' + url;
+    debugPrint("launchURL: $launchURL");
+    //if (!url.contains('http')) url = 'http://' + url;
     if (await canLaunch(url)) {
       await launch(
         url,
