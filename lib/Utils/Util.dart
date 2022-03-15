@@ -238,7 +238,8 @@ class Util {
   }
 
   static void showToast(String message) {
-    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black, timeInSecForIosWeb: 3);
+    Fluttertoast.showToast(
+        msg: message, toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black, timeInSecForIosWeb: 3);
   }
 
   static void showToastCenter(String message) {
@@ -249,14 +250,14 @@ class Util {
     if (price == null) return '0';
     final oCcy = new NumberFormat("#,###");
     var string = oCcy.format(price);
-    return string.replaceAll(",", ".");
+    return string;
   }
 
   static String intToPriceDouble(dynamic price) {
     if (price == null) return '';
     final oCcy = new NumberFormat("#,###");
     var string = oCcy.format(price);
-    return string.replaceAll(",", ".");
+    return string;
   }
 
   static String intToAreaDouble(dynamic price) {
@@ -289,7 +290,7 @@ class Util {
   }
 
   static callPhoneNumber(String phoneNumber) async {
-    var url = 'tel:' + phoneNumber;
+    var url = 'tel:' + phoneNumber.replaceAll(" ", "");
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -723,6 +724,36 @@ class Util {
       }
     }
     return null;
+  }
+
+  static DateTime? currentBackPressTime;//thời gian ấn nút back
+  static Future<bool> willPopMainPage({
+    required int tabIndexSelected, //tab đang được select
+    required List<int> listTab, //danh sách index tab đc select
+    Function(int index)? onWillSelectIndex,
+    String message = "Chạm lần nữa để thoát",
+    int durationSecondBack = 2,
+  }) {
+    if (tabIndexSelected != 0) {
+      var index = 0;
+      if (listTab.length > 1) {
+        index = listTab[listTab.length - 2];
+        listTab.removeLast();
+      }
+      if (index == 0) {
+        listTab.clear();
+      }
+      onWillSelectIndex?.call(index);
+      return Future.value(false);
+    }
+
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null || now.difference(currentBackPressTime!) > Duration(seconds: durationSecondBack)) {
+      currentBackPressTime = now;
+      Util.showToastCenter(message);
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
 }
 
