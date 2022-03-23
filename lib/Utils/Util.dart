@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'dart:io' show Platform;
+import 'package:FlutterBase/Extends/DoubleExtend.dart';
 import 'package:FlutterBase/Extends/StringExtend.dart';
 import 'package:device_info/device_info.dart';
 import 'package:FlutterBase/Extends/ColorExtends.dart';
@@ -28,24 +29,39 @@ class Util {
   }
 
   static Color hexToColor(String code) {
-    //return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
     return ColorExtends(code);
   }
 
-  static bool stringNullOrEmpty(String? value) {
-    if (value == null || value.isEmpty) {
-      return true;
+  static String colorToHex(
+    Color color, {
+    bool leadingHashSign = true, //có hiển thị dấu #
+    bool isShowAlpha = true, //có hiển thị mã alpha
+  }) {
+    if (isShowAlpha) {
+      return '${leadingHashSign ? '#' : ''}'
+          '${color.alpha.toRadixString(16).padLeft(2, '0')}'
+          '${color.red.toRadixString(16).padLeft(2, '0')}'
+          '${color.green.toRadixString(16).padLeft(2, '0')}'
+          '${color.blue.toRadixString(16).padLeft(2, '0')}';
+    } else {
+      return '${leadingHashSign ? '#' : ''}'
+          '${color.red.toRadixString(16).padLeft(2, '0')}'
+          '${color.green.toRadixString(16).padLeft(2, '0')}'
+          '${color.blue.toRadixString(16).padLeft(2, '0')}';
     }
-    return false;
   }
 
+  //lấy version của hệ điều hành
   static int getFirstVersionOS() {
     String osVersion = Platform.operatingSystemVersion;
     return osVersion.split(".").first.toInt()!;
   }
 
   //Làm tròn
-  static double round(double val, int places) {
+  static double round(
+    double val, //giá trị
+    int places, //số ký tự làm tròn
+  ) {
     var mod = pow(10.0, places);
     return ((val * mod).round().toDouble() / mod);
   }
@@ -60,11 +76,12 @@ class Util {
       return isEmail(value);
   }
 
-  static bool isEmail(String em) {
+  //kiểm tra có phải định dạng không
+  static bool isEmail(String email) {
     String p =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = new RegExp(p);
-    return regExp.hasMatch(em);
+    return regExp.hasMatch(email);
   }
 
   static bool validateMobile(String value) {
@@ -78,6 +95,7 @@ class Util {
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
 
+  //so sánh version
   static bool checkNewVersionWithOldVersion({required String oldVersion, required String newVersion}) {
     if (oldVersion.length == 0) {
       return false;
@@ -155,7 +173,6 @@ class Util {
     }
     var km = "km";
     var m = "m";
-
     var price = value.toInt();
     var priceView = "";
     if (price >= 1000) {
@@ -172,6 +189,7 @@ class Util {
     return value.toString().replaceAll(RegExp(r"([.]*0)(?!.*\d)"), "");
   }
 
+  //chuyển tất cả về chữ thường, chữ đầu tiên là chữ hoa
   static String toLowerCaseNormalType(String value) {
     var text = value.toLowerCase();
     if (value.length > 0) {
@@ -182,6 +200,7 @@ class Util {
     return text;
   }
 
+  //viết tắt
   static String acronymString(String? text) //viết tắt
   {
     if (text == null) return '';
@@ -215,9 +234,7 @@ class Util {
 
   static String parseHtmlString(String htmlString) {
     var document = parse(htmlString);
-
     String parsedString = parse(document.body!.text).documentElement!.text;
-
     return parsedString;
   }
 
@@ -338,155 +355,6 @@ class Util {
 //    return youtubeId;
 //  }
 
-  //bỏ dấu tiếng viejt
-  static String nonUnicode(String text) {
-    var textNew = text;
-    var arr1 = [
-      "á",
-      "à",
-      "ả",
-      "ã",
-      "ạ",
-      "â",
-      "ấ",
-      "ầ",
-      "ẩ",
-      "ẫ",
-      "ậ",
-      "ă",
-      "ắ",
-      "ằ",
-      "ẳ",
-      "ẵ",
-      "ặ",
-      "đ",
-      "é",
-      "è",
-      "ẻ",
-      "ẽ",
-      "ẹ",
-      "ê",
-      "ế",
-      "ề",
-      "ể",
-      "ễ",
-      "ệ",
-      "í",
-      "ì",
-      "ỉ",
-      "ĩ",
-      "ị",
-      "ó",
-      "ò",
-      "ỏ",
-      "õ",
-      "ọ",
-      "ô",
-      "ố",
-      "ồ",
-      "ổ",
-      "ỗ",
-      "ộ",
-      "ơ",
-      "ớ",
-      "ờ",
-      "ở",
-      "ỡ",
-      "ợ",
-      "ú",
-      "ù",
-      "ủ",
-      "ũ",
-      "ụ",
-      "ư",
-      "ứ",
-      "ừ",
-      "ử",
-      "ữ",
-      "ự",
-      "ý",
-      "ỳ",
-      "ỷ",
-      "ỹ",
-      "ỵ"
-    ];
-    var arr2 = [
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "a",
-      "d",
-      "e",
-      "e",
-      "e",
-      "e",
-      "e",
-      "e",
-      "e",
-      "e",
-      "e",
-      "e",
-      "e",
-      "i",
-      "i",
-      "i",
-      "i",
-      "i",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "o",
-      "u",
-      "u",
-      "u",
-      "u",
-      "u",
-      "u",
-      "u",
-      "u",
-      "u",
-      "u",
-      "u",
-      "y",
-      "y",
-      "y",
-      "y",
-      "y"
-    ];
-
-    for (int i = 0; i < arr1.length; i++) {
-      textNew = textNew.replaceAll(arr1[i], arr2[i]);
-      textNew = textNew.replaceAll(arr1[i].toUpperCase(), arr2[i].toUpperCase());
-    }
-    return textNew;
-  }
-
   static String getUnitPrice(String price) {
     var arrayTachUnit = price.split(" ");
     if (arrayTachUnit.length > 1) {
@@ -495,8 +363,9 @@ class Util {
     return "";
   }
 
-  static String showValueDouble(double value, int places) {
-    var text = roundDouble(value, places).toString().replaceAll(".0", "");
+  static String showValueDouble(double? value, int places) {
+    if (value == null) return "";
+    var text = roundDouble(value, places).toStringRound() ?? "";
     return text;
   }
 
@@ -726,7 +595,7 @@ class Util {
     return null;
   }
 
-  static DateTime? currentBackPressTime;//thời gian ấn nút back
+  static DateTime? currentBackPressTime; //thời gian ấn nút back
   static Future<bool> willPopMainPage({
     required int tabIndexSelected, //tab đang được select
     required List<int> listTab, //danh sách index tab đc select

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:FlutterBase/Utils/Util.dart';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
 
 extension StringExtend on String {
   String base64Encode() {
@@ -20,14 +22,37 @@ extension StringExtend on String {
     return double.tryParse(this);
   }
 
+  //lấy giá trị từ TextInput nhập tiền
+  int? toIntPrice() {
+    var value = this.trim().replaceAll(",", "");
+    return int.tryParse(value);
+  }
+
+  //lấy giá trị từ TextInput nhập tiền
+  double? toDoublePrice() {
+    var value = this.trim().replaceAll(",", "");
+    return double.tryParse(this);
+  }
+
   String toMd5() {
     return md5.convert(utf8.encode(this)).toString();
   }
 
+  //kiểm tra string này có phải số không
   bool isNumber() {
     RegExp _numeric = RegExp(r'^-?[0-9]+$');
 
     /// check if the string contains only numbers
     return _numeric.hasMatch(this);
+  }
+
+  //chuyển mã hex sang color
+  Color get toColor {
+    return Util.hexToColor(this);
+  }
+
+  //chuyển tiếng việt sang tiếng anh
+  String get toEN {
+    return Util.convertVNtoEN(this);
   }
 }
