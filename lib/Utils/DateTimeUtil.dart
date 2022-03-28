@@ -1,6 +1,11 @@
 import 'package:intl/intl.dart';
 
 class DateTimeUtil {
+  static DateTime? tryParse(String? dateTimeString) {
+    if (dateTimeString == null) return null;
+    return DateTime.tryParse(dateTimeString);
+  }
+
   static String? dateTimeToString(DateTime? dateTime, String format) {
     if (dateTime == null) return null;
     var formatter = new DateFormat(format);
@@ -38,6 +43,11 @@ class DateTimeUtil {
     var _dateTime = DateTime.tryParse(dateTime);
     if (_dateTime == null) return '';
     return dateTimeToString(_dateTime, "dd/MM/yyyy");
+  }
+
+  static String showDateNormalWithDateTime(DateTime? dateTime) {
+    if (dateTime == null) return '';
+    return dateTimeToString(dateTime, "dd/MM/yyyy") ?? "";
   }
 
   static String? getDateTimeShowWithString(String? dateTime) {
