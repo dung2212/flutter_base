@@ -73,6 +73,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     bool isAndroid = Platform.isAndroid;
     bool isIphoneX = false;
     bool hasNotch = false;
+    bool isLandscape = false;
 
     var size = window.physicalSize / dpRatio;
     var width = size.width;
@@ -93,6 +94,10 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     } else if (size.width > 600 || isTablet) {
       AutoSizeConfig.setDesignWH(width: 600);
     }
+
+    if (width > height) {
+      isLandscape = true;
+    }
     // if (isTablet) {
     //   AutoSizeConfig.setDesignWH(width: 600);
     // }
@@ -100,14 +105,24 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
-    //if (!ScreenUtil.isGetPixelRatio) {
+    if (!ScreenUtil.isGetPixelRatio) {
       ScreenUtil.screenSize = AutoSize.getSize();
+      ScreenUtil.screenSizeLandscape = Size(
+        ScreenUtil.screenSize!.height,
+        ScreenUtil.screenSize!.width,
+      );
       ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
       ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
       ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
       ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
-      //ScreenUtil.isGetPixelRatio = true;
-    //}
+      ScreenUtil.isGetPixelRatio = true;
+    }
+    if (isLandscape) {
+      return ViewConfiguration(
+        size: ScreenUtil.screenSizeLandscape ?? size,
+        devicePixelRatio: ScreenUtil.pixelRatio,
+      );
+    }
 
     return ViewConfiguration(
       size: ScreenUtil.screenSize ?? size,
@@ -137,7 +152,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   void _handlePointerDataPacket(ui.PointerDataPacket packet) {
     // We convert pointer data to logical pixels so that e.g. the touch slop can be
     // defined in a device-independent manner.
-    _pendingPointerEvents.addAll(PointerEventConverter.expand(packet.data, AutoSize.getPixelRatio()));
+    _pendingPointerEvents.addAll(PointerEventConverter.expand(packet.data, ScreenUtil.pixelRatio));
     if (!locked) _flushPointerEventQueue();
   }
 
