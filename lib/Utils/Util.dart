@@ -40,8 +40,10 @@ class Util {
   }
 
   static int getFirstVersionOS() {
-    String osVersion = Platform.operatingSystemVersion;
-    return osVersion.split(".").first.toInt()!;
+    String osVersion = Platform.operatingSystemVersion.replaceAll("Version", "").trim();
+    var version = osVersion.split(".").first.toInt() ?? 0;
+    print("getFirstVersionOS $version");
+    return version;
   }
 
   //Làm tròn
