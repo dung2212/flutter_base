@@ -9,6 +9,7 @@ class ScreenUtil {
   static double pixelRatio = 1;
   static double autoSizeRatio = 1;
   static Size? screenSize;
+  static Size? screenSizeLandscape;
   static MediaQueryData? mediaQueryDataApp;
 
   static void initSize(BuildContext context) {
