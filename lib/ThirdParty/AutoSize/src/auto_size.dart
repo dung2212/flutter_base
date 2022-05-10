@@ -68,39 +68,28 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   ViewConfiguration createViewConfiguration() {
     final double dpRatio = window.devicePixelRatio;
     bool isTablet;
-    bool isPhone;
-    bool isIos = Platform.isIOS;
-    bool isAndroid = Platform.isAndroid;
-    bool isIphoneX = false;
-    bool hasNotch = false;
     bool isLandscape = false;
 
     var size = window.physicalSize / dpRatio;
     var width = size.width;
     var height = size.height;
 
+    if (width > height) {
+      isLandscape = true;
+    }
+
     if (dpRatio <= 2 && (width >= 1000 || height >= 1000)) {
       isTablet = true;
-      isPhone = false;
     } else if (dpRatio == 2 && (width >= 1920 || height >= 1920)) {
       isTablet = true;
-      isPhone = false;
     } else {
       isTablet = false;
-      isPhone = true;
     }
     if (AutoSize.getSize().width < size.width && !isTablet) {
       AutoSizeConfig.setDesignWH(width: size.width);
     } else if (size.width > 600 || isTablet) {
       AutoSizeConfig.setDesignWH(width: 600);
     }
-
-    if (width > height) {
-      isLandscape = true;
-    }
-    // if (isTablet) {
-    //   AutoSizeConfig.setDesignWH(width: 600);
-    // }
 
     if (size == Size.zero) {
       return super.createViewConfiguration();
@@ -128,11 +117,6 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
       size: ScreenUtil.screenSize ?? size,
       devicePixelRatio: ScreenUtil.pixelRatio,
     );
-
-    // return ViewConfiguration(
-    //   size: size,
-    //   devicePixelRatio: dpRatio,
-    // );
   }
 
   @override
