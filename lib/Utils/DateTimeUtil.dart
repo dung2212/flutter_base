@@ -50,9 +50,14 @@ class DateTimeUtil {
     return dateTimeToString(dateTime, "dd/MM/yyyy") ?? "";
   }
 
-  static String? getDateTimeShowWithString(String? dateTime) {
+  static String? getDateTimeShowWithString(String? dateTime, {bool isToLocal = false}) {
     if (dateTime == null) return '';
-    var _dateTime = DateTime.tryParse(dateTime);
+    DateTime? _dateTime;
+    if (isToLocal) {
+      _dateTime = DateTime.tryParse(dateTime)?.toLocal();
+    } else {
+      _dateTime = DateTime.tryParse(dateTime);
+    }
     if (_dateTime == null) return '';
     return dateTimeToString(_dateTime, "HH:mm dd/MM/yyyy");
   }
