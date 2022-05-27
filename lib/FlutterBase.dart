@@ -6,7 +6,7 @@ import 'package:FlutterBase/Utils/DeviceUtil.dart';
 import 'package:FlutterBase/Utils/ScreenUtil.dart';
 
 class FlutterBase {
-  static String? keyEncrypt;
+  static String keyEncrypt = "P@123123123";
 
   static init() {
     ScreenUtil.pixelRatio = AutoSize.getPixelRatio();

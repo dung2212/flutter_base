@@ -1,12 +1,11 @@
 import 'dart:convert';
 
+import 'package:FlutterBase/FlutterBase.dart';
 import 'package:FlutterBase/Utils/CryptoUtil.dart';
 import 'package:crypto/crypto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferUtil {
-  static String keySecure = "p@123";
-
   static Future<bool> checkKey(String key, {bool isSecure = false, String? userId}) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.containsKey(key);
@@ -116,14 +115,14 @@ class PreferUtil {
 
   static String _getKey(String key, {bool isSecure = false, String? userId}) {
     if (isSecure) {
-      var keyString = "k_$keySecure${userId ?? ""}$key";
+      var keyString = "k_${FlutterBase.keyEncrypt}${userId ?? ""}$key";
       return "s_" + md5.convert(utf8.encode(keyString)).toString();
     }
     return key;
   }
 
   static String _getKeyCrypt(String key, {String? userId = ""}) {
-    var keyString = "$keySecure${userId ?? ""}$key";
+    var keyString = "${FlutterBase.keyEncrypt}${userId ?? ""}$key";
     return "k_" + md5.convert(utf8.encode(keyString)).toString();
   }
 
