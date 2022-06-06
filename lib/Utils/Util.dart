@@ -18,6 +18,7 @@ import 'package:FlutterBase/Utils/SecureStorageUtil.dart';
 export 'package:FlutterBase/Extends/StringExtend.dart';
 export 'package:FlutterBase/Extends/DoubleExtend.dart';
 import 'package:path/path.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:uuid/uuid.dart';
 
 typedef VoidOnAction = void Function();
@@ -32,7 +33,8 @@ class Util {
     return ColorExtends(code);
   }
 
-  static String colorToHex(Color color, {
+  static String colorToHex(
+    Color color, {
     bool leadingHashSign = true, //có hiển thị dấu #
     bool isShowAlpha = true, //có hiển thị mã alpha
   }) {
@@ -53,18 +55,16 @@ class Util {
   //lấy version của hệ điều hành
   static int getFirstVersionOS() {
     String osVersion = Platform.operatingSystemVersion.replaceAll("Version", "").trim();
-    var version = osVersion
-        .split(".")
-        .first
-        .toInt() ?? 0;
+    var version = osVersion.split(".").first.toInt() ?? 0;
     print("getFirstVersionOS $version");
     return version;
   }
 
   //Làm tròn
-  static double round(double val, //giá trị
-      int places, //số ký tự làm tròn
-      ) {
+  static double round(
+    double val, //giá trị
+    int places, //số ký tự làm tròn
+  ) {
     var mod = pow(10.0, places);
     return ((val * mod).round().toDouble() / mod);
   }
@@ -132,7 +132,8 @@ class Util {
     return false;
   }
 
-  static String getUnitName(double? value, {
+  static String getUnitName(
+    double? value, {
     isDetail = false, //show chi tiết về đơn vị hay không
   }) {
     if (value == null) {
@@ -219,18 +220,18 @@ class Util {
     return listString.join("").trim().toUpperCase();
   }
 
-  static Size textSize(String text,
-      TextStyle style, {
-        int maxLine = 1,
-        double minWidth = 0,
-        double maxWidth = double.infinity,
-      }) {
+  static Size textSize(
+    String text,
+    TextStyle style, {
+    int maxLine = 1,
+    double minWidth = 0,
+    double maxWidth = double.infinity,
+  }) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(text: text, style: style),
       maxLines: maxLine,
       textDirection: material.TextDirection.ltr,
-    )
-      ..layout(minWidth: minWidth, maxWidth: maxWidth);
+    )..layout(minWidth: minWidth, maxWidth: maxWidth);
     return textPainter.size;
   }
 
@@ -258,11 +259,7 @@ class Util {
 
   static void showToast(String message) {
     Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black,
-        timeInSecForIosWeb: 3);
+        msg: message, toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black, timeInSecForIosWeb: 3);
   }
 
   static void showToastCenter(String message) {
@@ -305,19 +302,27 @@ class Util {
   }
 
   static openURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    debugPrint("openURL: $url");
+    var _url = Uri.tryParse(Uri.encodeFull(url));
+    if (_url != null) {
+      if (!await launchUrl(_url)) throw 'Could not launch $_url';
     } else {
-      Util.showToast("Error");
+      throw 'Could not openURL $url';
     }
   }
 
   static callPhoneNumber(String phoneNumber) async {
     var url = 'tel:' + phoneNumber.replaceAll(" ", "");
-    if (await canLaunch(url)) {
-      await launch(url);
+    openURL(url);
+  }
+
+  static launchURL(String url) async {
+    debugPrint("launchURL: $url");
+    var _url = Uri.tryParse(Uri.encodeFull(url));
+    if (_url != null) {
+      if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) throw 'Could not openURL $_url';
     } else {
-      Util.showToast("Error");
+      throw 'Could not openURL $url';
     }
   }
 
@@ -331,17 +336,6 @@ class Util {
 
   static String removeDecimalZeroFormat(double n) {
     return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 1);
-  }
-
-  static launchURL(String url, {Map<String, String>? headers}) async {
-    debugPrint("launchURL: $url");
-    var _url = Uri.tryParse(url);
-    if (_url != null) {
-      if (!await launchUrl(_url)) throw 'Could not launch $_url';
-    }
-    else {
-      throw 'Could not launch $url';
-    }
   }
 
 //
@@ -396,9 +390,7 @@ class Util {
   }
 
   static String getAvatarName(String name) {
-    if (name
-        .trim()
-        .length > 0) {
+    if (name.trim().length > 0) {
       return name.substring(0, 1);
     }
     return "";
@@ -477,9 +469,7 @@ class Util {
 
   //kiểm tra text này có phải url không
   static bool isValidUrl(String url) {
-    bool _validURL = Uri
-        .parse(url)
-        .isAbsolute;
+    bool _validURL = Uri.parse(url).isAbsolute;
     return _validURL;
   }
 
@@ -595,9 +585,7 @@ class Util {
   //lấy text quá số ký tự
   static String? getTextOverWithLength({required String? text, required int length}) {
     if (text != null) {
-      if (text
-          .trim()
-          .length < length + 1) {
+      if (text.trim().length < length + 1) {
         return text;
       } else {
         return "${text.trim().substring(0, length)}...";
