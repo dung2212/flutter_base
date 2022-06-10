@@ -38,16 +38,16 @@ class DateTimeUtil {
     return DateTime(dateTime.year, dateTime.month + value, dateTime.day);
   }
 
-  static String? getDateShowWithString(String? dateTime) {
+  static String? getDateShowWithString(String? dateTime, {bool isToLocal = false}) {
     if (dateTime == null) return '';
-    var _dateTime = DateTime.tryParse(dateTime);
+    DateTime? _dateTime;
+    if (isToLocal) {
+      _dateTime = DateTime.tryParse(dateTime)?.toLocal();
+    } else {
+      _dateTime = DateTime.tryParse(dateTime);
+    }
     if (_dateTime == null) return '';
-    return dateTimeToString(_dateTime, "dd/MM/yyyy");
-  }
-
-  static String showDateNormalWithDateTime(DateTime? dateTime) {
-    if (dateTime == null) return '';
-    return dateTimeToString(dateTime, "dd/MM/yyyy") ?? "";
+    return DateTimeUtil.dateTimeToString(_dateTime, "dd/MM/yyyy");
   }
 
   static String? getDateTimeShowWithString(String? dateTime, {bool isToLocal = false}) {
@@ -60,6 +60,11 @@ class DateTimeUtil {
     }
     if (_dateTime == null) return '';
     return dateTimeToString(_dateTime, "HH:mm dd/MM/yyyy");
+  }
+
+  static String showDateNormalWithDateTime(DateTime? dateTime) {
+    if (dateTime == null) return '';
+    return dateTimeToString(dateTime, "dd/MM/yyyy") ?? "";
   }
 
   static String? getDateTimeServerToDate(DateTime? dateTime) {
