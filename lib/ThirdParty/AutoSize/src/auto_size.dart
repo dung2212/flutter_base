@@ -3,14 +3,11 @@ import 'dart:collection';
 import 'dart:io';
 import 'dart:ui' as ui show PointerDataPacket;
 import 'dart:ui';
-
 import 'package:FlutterBase/Utils/ScreenUtil.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-
 import 'auto_size_config.dart';
-import 'package:FlutterBase/FlutterBase.dart';
 
 /// runAutoSizeApp.
 ///
@@ -59,9 +56,19 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   /// In the `flutter_test` framework, [testWidgets] initializes the
   /// binding instance to a [TestWidgetsFlutterBinding], not a
   /// [AutoSizeWidgetsFlutterBinding].
+  static T? _ambiguate<T>(T? value) => value;
+
   static WidgetsBinding? ensureInitialized() {
-    if (WidgetsBinding.instance == null) AutoSizeWidgetsFlutterBinding();
-    return WidgetsBinding.instance;
+    // print("WidgetsBinding.instance ${WidgetsBinding.instance}");
+    // if (_ambiguate(WidgetsBinding.instance) == null) AutoSizeWidgetsFlutterBinding();
+    return _ambiguate(WidgetsBinding.instance)!;
+  }
+  static init(){
+    WidgetsFlutterBinding.ensureInitialized();
+  }
+  static void attachRootWidgets(Widget widget) {
+    _ambiguate(WidgetsBinding.instance)!.attachRootWidget(widget);
+    _ambiguate(WidgetsBinding.instance)!.scheduleWarmUpFrame();
   }
 
   @override
@@ -177,4 +184,6 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     if (result == null) return;
     dispatchEvent(event, result);
   }
+
+
 }

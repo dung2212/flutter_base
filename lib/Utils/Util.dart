@@ -238,7 +238,9 @@ class Util {
   }
 
   static void showToast(String message) {
-    Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black);
+    Fluttertoast.showToast(msg: message,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM, backgroundColor: Colors.black,);
   }
 
   static void showToastCenter(String message) {
@@ -288,7 +290,7 @@ class Util {
     }
   }
 
-  static callPhoneNumber(String phoneNumber) async {
+  static Future callPhoneNumber(String phoneNumber) async {
     var url = 'tel:' + phoneNumber;
     if (await canLaunch(url)) {
       await launch(url);
@@ -578,9 +580,11 @@ class Util {
         //identifier = build.androidId; //UUID for Android
         return build.androidId;
       } else if (Platform.isIOS) {
+        var iosDeviceInfo = await deviceInfoPlugin.iosInfo;
+        return iosDeviceInfo.identifierForVendor;
 //        var data = await deviceInfoPlugin.iosInfo;
 //        identifier = data.identifierForVendor; //UUID for iOS
-        return SecureStorageUtil.deviceId ?? "";
+//         return SecureStorageUtil.deviceId ?? "";
       }
     } on PlatformException {
       print('Failed to get platform version');
