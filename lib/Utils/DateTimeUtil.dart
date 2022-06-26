@@ -100,15 +100,7 @@ class DateTimeUtil {
 
   static String? getFullDateAndTime(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime.day.toString() +
-        "/" +
-        dateTime.month.toString() +
-        "/" +
-        dateTime.year.toString() +
-        " - " +
-        dateTime.hour.toString() +
-        ":" +
-        dateTime.minute.toString();
+    return dateTime.day.toString() + "/" + dateTime.month.toString() + "/" + dateTime.year.toString() + " - " + dateTime.hour.toString() + ":" + dateTime.minute.toString();
   }
 
   static String? getFullDateAndTimeSecond(DateTime? dateTime) {
@@ -132,13 +124,7 @@ class DateTimeUtil {
 
   static String? getFullDateTime(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime.day.toString() +
-        " thg " +
-        dateTime.month.toString() +
-        ", " +
-        dateTime.year.toString() +
-        ", " +
-        dateTimeToString(dateTime, "HH:mm:ss")!;
+    return dateTime.day.toString() + " thg " + dateTime.month.toString() + ", " + dateTime.year.toString() + ", " + dateTimeToString(dateTime, "HH:mm:ss")!;
   }
 
   static DateTime getDateTimeStartDay(DateTime dateTime) {
@@ -285,10 +271,7 @@ class DateTimeUtil {
     var diff = now.difference(date);
     var time = '';
 
-    if (diff.inSeconds <= 0 ||
-        diff.inSeconds > 0 && diff.inMinutes == 0 ||
-        diff.inMinutes > 0 && diff.inHours == 0 ||
-        diff.inHours > 0 && diff.inDays == 0) {
+    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
       time = format.format(date);
       time = "Hôm nay";
     } else if (diff.inDays > 0 && diff.inDays < 7) {
@@ -393,5 +376,31 @@ class DateTimeUtil {
     timeAgo += timeValue > 1 ? '' : '';
 
     return timeAgo + ' trước';
+  }
+
+  static String weekToString(int week) {
+    if (week == 1) {
+      return "MO";
+    }
+    if (week == 2) {
+      return "TU";
+    }
+    if (week == 3) {
+      return "WE";
+    }
+    if (week == 4) {
+      return "TH";
+    }
+    if (week == 5) {
+      return "FR";
+    }
+    if (week == 6) {
+      return "SA";
+    }
+    if (week == 7) {
+      return "SU";
+    }
+
+    return "";
   }
 }

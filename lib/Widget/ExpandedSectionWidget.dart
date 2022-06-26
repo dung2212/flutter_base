@@ -10,8 +10,7 @@ class ExpandedSectionWidget extends StatefulWidget {
   _ExpandedSectionWidgetState createState() => _ExpandedSectionWidgetState();
 }
 
-class _ExpandedSectionWidgetState extends State<ExpandedSectionWidget>
-    with SingleTickerProviderStateMixin {
+class _ExpandedSectionWidgetState extends State<ExpandedSectionWidget> with SingleTickerProviderStateMixin {
   late AnimationController expandController;
   late Animation<double> animation;
 
@@ -23,8 +22,7 @@ class _ExpandedSectionWidgetState extends State<ExpandedSectionWidget>
 
   ///Setting up the animation
   void prepareAnimations() {
-    expandController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    expandController = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
     var curve = CurvedAnimation(
       parent: expandController,
       curve: Curves.fastOutSlowIn,
@@ -33,6 +31,9 @@ class _ExpandedSectionWidgetState extends State<ExpandedSectionWidget>
       ..addListener(() {
         setState(() {});
       });
+    if (widget.expand) {
+      expandController.forward();
+    }
   }
 
   @override
@@ -53,7 +54,6 @@ class _ExpandedSectionWidgetState extends State<ExpandedSectionWidget>
 
   @override
   Widget build(BuildContext context) {
-    return SizeTransition(
-        axisAlignment: 1.0, sizeFactor: animation, child: widget.child);
+    return SizeTransition(axisAlignment: 1.0, sizeFactor: animation, child: widget.child);
   }
 }
