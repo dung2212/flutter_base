@@ -75,56 +75,55 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   ViewConfiguration createViewConfiguration() {
     final double dpRatio = window.devicePixelRatio;
     bool isTablet;
-    bool isPhone;
-    bool isIos = Platform.isIOS;
-    bool isAndroid = Platform.isAndroid;
-    bool isIphoneX = false;
-    bool hasNotch = false;
+    bool isLandscape = false;
 
     var size = window.physicalSize / dpRatio;
     var width = size.width;
     var height = size.height;
 
+    if (width > height) {
+      isLandscape = true;
+    }
+
     if (dpRatio <= 2 && (width >= 1000 || height >= 1000)) {
       isTablet = true;
-      isPhone = false;
     } else if (dpRatio == 2 && (width >= 1920 || height >= 1920)) {
       isTablet = true;
-      isPhone = false;
     } else {
       isTablet = false;
-      isPhone = true;
     }
     if (AutoSize.getSize().width < size.width && !isTablet) {
       AutoSizeConfig.setDesignWH(width: size.width);
     } else if (size.width > 600 || isTablet) {
       AutoSizeConfig.setDesignWH(width: 600);
     }
-    // if (isTablet) {
-    //   AutoSizeConfig.setDesignWH(width: 600);
-    // }
 
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
-    //if (!ScreenUtil.isGetPixelRatio) {
+    if (!ScreenUtil.isGetPixelRatio) {
       ScreenUtil.screenSize = AutoSize.getSize();
+      ScreenUtil.screenSizeLandscape = Size(
+        ScreenUtil.screenSize!.height,
+        ScreenUtil.screenSize!.width,
+      );
       ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
       ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
       ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
       ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
-      //ScreenUtil.isGetPixelRatio = true;
-    //}
+      ScreenUtil.isGetPixelRatio = true;
+    }
+    if (isLandscape) {
+      return ViewConfiguration(
+        size: ScreenUtil.screenSizeLandscape ?? size,
+        devicePixelRatio: ScreenUtil.pixelRatio,
+      );
+    }
 
     return ViewConfiguration(
       size: ScreenUtil.screenSize ?? size,
       devicePixelRatio: ScreenUtil.pixelRatio,
     );
-
-    // return ViewConfiguration(
-    //   size: size,
-    //   devicePixelRatio: dpRatio,
-    // );
   }
 
   @override
@@ -144,7 +143,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   void _handlePointerDataPacket(ui.PointerDataPacket packet) {
     // We convert pointer data to logical pixels so that e.g. the touch slop can be
     // defined in a device-independent manner.
-    _pendingPointerEvents.addAll(PointerEventConverter.expand(packet.data, AutoSize.getPixelRatio()));
+    _pendingPointerEvents.addAll(PointerEventConverter.expand(packet.data, ScreenUtil.pixelRatio));
     if (!locked) _flushPointerEventQueue();
   }
 

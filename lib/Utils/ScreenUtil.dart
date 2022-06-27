@@ -9,15 +9,17 @@ class ScreenUtil {
   static double pixelRatio = 1;
   static double autoSizeRatio = 1;
   static Size? screenSize;
-  static MediaQueryData? mediaQueryDataApp;
+  static Size? screenSizeLandscape;
+  static late MediaQueryData mediaQueryDataApp;
 
   static void initSize(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    if (size != Size.zero) {
-      final Size autoSize =
-          size.width > size.height ? new Size(size.width / _getPixelRatio(context), AutoSizeConfig.designWidth) : new Size(AutoSizeConfig.designWidth, size.height / _getPixelRatio(context));
-      screenSize = autoSize;
-    }
+    ScreenUtil.mediaQueryDataApp = MediaQuery.of(context).copyWith(
+      textScaleFactor: 1,
+      size: MediaQuery.of(context).size * ScreenUtil.autoSizeRatio,
+      viewInsets: MediaQuery.of(context).viewInsets * ScreenUtil.autoSizeRatio,
+      viewPadding: MediaQuery.of(context).viewPadding * ScreenUtil.autoSizeRatio,
+      padding: MediaQuery.of(context).padding * ScreenUtil.autoSizeRatio,
+    );
   }
 
   static double _getPixelRatio(BuildContext context) {
