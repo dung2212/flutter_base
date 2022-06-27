@@ -315,7 +315,7 @@ class Util {
     }
   }
 
-  Future callPhoneNumber(String phoneNumber) async {
+  static Future callPhoneNumber(String phoneNumber) async {
     var url = 'tel:' + phoneNumber.replaceAll(" ", "");
     openURL(url);
   }
