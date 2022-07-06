@@ -16,7 +16,7 @@ import 'auto_size_config.dart';
 ///
 void runAutoSizeApp(Widget app, {required double width, double? height}) {
   AutoSizeConfig.setDesignWH(width: width, height: height);
-  AutoSizeWidgetsFlutterBinding.ensureInitialized()!
+  AutoSizeWidgetsFlutterBinding.ensureInitialized()
     ..attachRootWidget(app)
     ..scheduleWarmUpFrame();
 }
@@ -58,17 +58,9 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   /// [AutoSizeWidgetsFlutterBinding].
   static T? _ambiguate<T>(T? value) => value;
 
-  static WidgetsBinding? ensureInitialized() {
-    // print("WidgetsBinding.instance ${WidgetsBinding.instance}");
-    // if (_ambiguate(WidgetsBinding.instance) == null) AutoSizeWidgetsFlutterBinding();
-    return _ambiguate(WidgetsBinding.instance)!;
-  }
-  static init(){
-    WidgetsFlutterBinding.ensureInitialized();
-  }
-  static void attachRootWidgets(Widget widget) {
-    _ambiguate(WidgetsBinding.instance)!.attachRootWidget(widget);
-    _ambiguate(WidgetsBinding.instance)!.scheduleWarmUpFrame();
+  static WidgetsBinding ensureInitialized() {
+    AutoSizeWidgetsFlutterBinding();
+    return WidgetsBinding.instance;
   }
 
   @override
