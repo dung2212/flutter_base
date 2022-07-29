@@ -7,7 +7,8 @@ class DashLineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
+      width: double.infinity,
       child: CustomPaint(
         painter: DashedLinePainter(color: this.color),
       ),
@@ -16,17 +17,16 @@ class DashLineWidget extends StatelessWidget {
 }
 
 class DashedLinePainter extends CustomPainter {
-
   final Color color;
 
-  DashedLinePainter({Key? key,required this.color});
+  DashedLinePainter({Key? key, required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
-    double dashWidth = 2, dashSpace = 1, startX = 0;
+    double dashWidth = 6, dashSpace = 4, startX = 0;
     final paint = Paint()
       ..color = this.color
-      ..strokeWidth = 0.5;
+      ..strokeWidth = 0.7;
     while (startX < size.width - dashSpace) {
       canvas.drawLine(Offset(startX, 0), Offset(startX + dashWidth, 0), paint);
       startX += dashWidth + dashSpace;

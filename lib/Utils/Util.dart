@@ -620,6 +620,12 @@ class Util {
     return textNew;
   }
 
+  static String removeAllHtmlTags(String htmlText) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+
+    return htmlText.replaceAll(exp, '');
+  }
+
   static DateTime? currentBackPressTime; //thời gian ấn nút back
   static Future<bool> willPopMainPage({
     required int tabIndexSelected, //tab đang được select
