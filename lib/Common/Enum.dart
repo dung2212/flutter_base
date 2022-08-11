@@ -9,3 +9,9 @@ enum EnumLanguage {
   jp,
   pt,
 }
+
+enum BuildType {
+  test,
+  staging,
+  product,
+}
