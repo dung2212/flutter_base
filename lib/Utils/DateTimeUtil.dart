@@ -120,7 +120,15 @@ class DateTimeUtil {
 
   static String? getFullDateAndTime(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime.day.toString() + "/" + dateTime.month.toString() + "/" + dateTime.year.toString() + " - " + dateTime.hour.toString() + ":" + dateTime.minute.toString();
+    return dateTime.day.toString() +
+        "/" +
+        dateTime.month.toString() +
+        "/" +
+        dateTime.year.toString() +
+        " - " +
+        dateTime.hour.toString() +
+        ":" +
+        dateTime.minute.toString();
   }
 
   static String? getFullDateAndTimeSecond(DateTime? dateTime) {
@@ -201,7 +209,7 @@ class DateTimeUtil {
     return getDateTimeStartDay(date1).difference(getDateTimeStartDay(date2)).inDays;
   }
 
-  static String getTimeMinuteFromSecond(int second) {
+  static String getTimeMinuteFromSecond(int second, {bool isDetail = true}) {
     final duration = Duration(seconds: second);
     var seconds = duration.inSeconds;
     final days = seconds ~/ Duration.secondsPerDay;
@@ -216,13 +224,13 @@ class DateTimeUtil {
       tokens.add('${days}d ');
     }
     if (tokens.isNotEmpty || hours != 0) {
-      tokens.add('${hours}h ');
+      tokens.add(isDetail ? '${hours}h ' : '$hours');
     }
     if (tokens.isNotEmpty || minutes != 0) {
-      tokens.add('${minutes}m ');
+      tokens.add(isDetail ? '${minutes}m ' : '$minutes');
     }
     if (seconds != 0) {
-      tokens.add('${seconds}s ');
+      tokens.add(isDetail ? '${seconds}s ' : '$seconds');
     }
     if (tokens.length == 0) {
       tokens.add('${seconds}s ');
@@ -243,8 +251,11 @@ class DateTimeUtil {
         tokens.removeLast();
       }
     }
-
-    return tokens.join('');
+    if (isDetail) {
+      return tokens.join('');
+    } else {
+      return tokens.join(':');
+    }
   }
 
   static String getTimeMinuteFromSecondVN(int second) {

@@ -480,7 +480,7 @@ class Util {
   }
 
   //lấy random String theo số lượng ký tự
-  static getRandomString({required int length}) {
+  static String getRandomString({required int length}) {
     const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     Random _rnd = Random();
     return String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
@@ -598,6 +598,32 @@ class Util {
       }
     }
     return null;
+  }
+
+  //kiểm tra ký tự số
+  static bool isCheckCharNumber(String text) {
+    var charGood = "0123456789";
+    if (charGood.contains(text)) {
+      return true;
+    }
+    return false;
+  }
+
+  static String getNumberInText(String text) {
+    var textNew = "";
+    for (int i = 0; i < text.length; i++) {
+      var kyTuText = text.substring(i, i + 1);
+      if (isCheckCharNumber(kyTuText)) {
+        textNew += kyTuText;
+      }
+    }
+    return textNew;
+  }
+
+  static String removeAllHtmlTags(String htmlText) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+
+    return htmlText.replaceAll(exp, '');
   }
 
   static DateTime? currentBackPressTime; //thời gian ấn nút back
