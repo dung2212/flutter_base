@@ -73,9 +73,9 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     var width = size.width;
     var height = size.height;
 
-    if (width > height) {
-      isLandscape = true;
-    }
+    // if (width > height) {
+    //   isLandscape = true;
+    // }
 
     if (dpRatio <= 2 && (width >= 1000 || height >= 1000)) {
       isTablet = true;
@@ -103,8 +103,12 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
       ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
       ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
       ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
-      ScreenUtil.isGetPixelRatio = true;
+      //ScreenUtil.isGetPixelRatio = true;
     }
+    else
+      {
+
+      }
     if (isLandscape) {
       return ViewConfiguration(
         size: ScreenUtil.screenSizeLandscape ?? size,
