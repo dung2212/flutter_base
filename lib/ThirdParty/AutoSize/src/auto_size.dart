@@ -26,17 +26,6 @@ class AutoSize {
   /// getSize.
   static Size getSize() {
     final Size size = window.physicalSize;
-    double tiLe = 0;
-    // if (size.width > size.height) {
-    //   tiLe = size.width / size.height;
-    // } else {
-    //   tiLe = size.height / size.width;
-    // }
-    // print("tiLe $tiLe");
-    // if (tiLe <= 3/2) {
-    //   AutoSizeConfig.isTable = true;
-    // }
-
     if (size == Size.zero) return size;
     final Size autoSize = size.width > size.height
         ? new Size(size.width / ScreenUtil.pixelRatio, AutoSizeConfig.designWidth)
@@ -77,7 +66,7 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   @override
   ViewConfiguration createViewConfiguration() {
     final double dpRatio = window.devicePixelRatio;
-    bool isTablet = false;
+    //bool isTablet = false;
     bool isLandscape = false;
 
     var size = window.physicalSize / dpRatio;
@@ -97,16 +86,18 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     //   }
     // }
     //
-    // if (AutoSize.getSize().width < size.width && !isTablet) {
-    //   AutoSizeConfig.setDesignWH(width: 375);
-    // } else if (size.width > 700 || isTablet) {
-    //   AutoSizeConfig.setDesignWH(width: 700);
-    // }
 
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
     if (!ScreenUtil.isGetPixelRatio) {
+      if (AutoSizeConfig.designWidth < size.width && !AutoSizeConfig.isTablet) {
+        if (size.width > size.height) {
+          AutoSizeConfig.setDesignWH(width: size.height);
+        } else {
+          AutoSizeConfig.setDesignWH(width: size.width);
+        }
+      }
       ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
       ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
       ScreenUtil.isGetPixelRatio = true;
@@ -114,10 +105,10 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
 
     ScreenUtil.screenSize = AutoSize.getSize();
 
-    //ScreenUtil.heightTopSafeArea = window.padding.top / ScreenUtil.pixelRatio;
-    //ScreenUtil.heightBottomSafeArea = window.padding.bottom / ScreenUtil.pixelRatio;
+    ScreenUtil.heightTopSafeArea = window.padding.top / ScreenUtil.pixelRatio;
+    ScreenUtil.heightBottomSafeArea = window.padding.bottom / ScreenUtil.pixelRatio;
 
-    //print("------------${ScreenUtil.screenSize ?? size}");
+    print("------------${ScreenUtil.screenSize ?? size}");
     return ViewConfiguration(
       size: ScreenUtil.screenSize ?? size,
       devicePixelRatio: ScreenUtil.pixelRatio,
