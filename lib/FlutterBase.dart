@@ -9,9 +9,9 @@ class FlutterBase {
   static String keyEncrypt = "P@123123123";
 
   static init() {
-    ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
-    ScreenUtil.heightTopSafeArea = ui.window.viewPadding.top / AutoSize.getPixelRatio();
-    ScreenUtil.heightBottomSafeArea = ui.window.viewPadding.bottom / AutoSize.getPixelRatio();
+    //ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
+    ScreenUtil.heightTopSafeArea = ui.window.viewPadding.top / ScreenUtil.pixelRatio;
+    ScreenUtil.heightBottomSafeArea = ui.window.viewPadding.bottom / ScreenUtil.pixelRatio;
     DeviceUtil.initData();
   }
 
