@@ -14,12 +14,12 @@ import 'auto_size_config.dart';
 /// width 设计稿尺寸 宽 dp or pt。
 /// height 设计稿尺寸 高 dp or pt。
 ///
-void runAutoSizeApp(Widget app, {required double width, double? height}) {
-  AutoSizeConfig.setDesignWH(width: width, height: height);
-  AutoSizeWidgetsFlutterBinding.ensureInitialized()
-    ..attachRootWidget(app)
-    ..scheduleWarmUpFrame();
-}
+// void runAutoSizeApp(Widget app, {required double width, double? height}) {
+//   AutoSizeConfig.setDesignWH(width: width, height: height);
+//   AutoSizeWidgetsFlutterBinding.ensureInitialized()
+//     ..attachRootWidget(app)
+//     ..scheduleWarmUpFrame();
+// }
 
 /// AutoSize.
 class AutoSize {
@@ -28,8 +28,8 @@ class AutoSize {
     final Size size = window.physicalSize;
     if (size == Size.zero) return size;
     final Size autoSize = size.width > size.height
-        ? new Size(size.width / getPixelRatio(), AutoSizeConfig.designWidth)
-        : new Size(AutoSizeConfig.designWidth, size.height / getPixelRatio());
+        ? new Size(size.width / ScreenUtil.pixelRatio, AutoSizeConfig.designWidth)
+        : new Size(AutoSizeConfig.designWidth, size.height / ScreenUtil.pixelRatio);
     return autoSize;
   }
 
@@ -66,52 +66,49 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
   @override
   ViewConfiguration createViewConfiguration() {
     final double dpRatio = window.devicePixelRatio;
-    bool isTablet;
+    //bool isTablet = false;
     bool isLandscape = false;
 
     var size = window.physicalSize / dpRatio;
     var width = size.width;
     var height = size.height;
-
-    if (width > height) {
-      isLandscape = true;
-    }
-
-    if (dpRatio <= 2 && (width >= 1000 || height >= 1000)) {
-      isTablet = true;
-    } else if (dpRatio == 2 && (width >= 1920 || height >= 1920)) {
-      isTablet = true;
-    } else {
-      isTablet = false;
-    }
-    if (AutoSize.getSize().width < size.width && !isTablet) {
-      AutoSizeConfig.setDesignWH(width: size.width);
-    } else if (size.width > 600 || isTablet) {
-      AutoSizeConfig.setDesignWH(width: 600);
-    }
+    //
+    // if (dpRatio <= 2 && (width >= 1000 || height >= 1000)) {
+    //   isTablet = true;
+    // } else if (dpRatio == 2 && (width >= 1920 || height >= 1920)) {
+    //   isTablet = true;
+    // } else {
+    //   isTablet = false;
+    // }
+    // if (!isTablet) {
+    //   if (width > height) {
+    //     isLandscape = true;
+    //   }
+    // }
+    //
 
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
     if (!ScreenUtil.isGetPixelRatio) {
-      ScreenUtil.screenSize = AutoSize.getSize();
-      ScreenUtil.screenSizeLandscape = Size(
-        ScreenUtil.screenSize!.height,
-        ScreenUtil.screenSize!.width,
-      );
+      if (AutoSizeConfig.designWidth < size.width && !AutoSizeConfig.isTablet) {
+        if (size.width > size.height) {
+          AutoSizeConfig.setDesignWH(width: size.height);
+        } else {
+          AutoSizeConfig.setDesignWH(width: size.width);
+        }
+      }
       ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
       ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
-      ScreenUtil.heightTopSafeArea = window.padding.top / AutoSize.getPixelRatio();
-      ScreenUtil.heightBottomSafeArea = window.padding.bottom / AutoSize.getPixelRatio();
       ScreenUtil.isGetPixelRatio = true;
-    }
-    if (isLandscape) {
-      return ViewConfiguration(
-        size: ScreenUtil.screenSizeLandscape ?? size,
-        devicePixelRatio: ScreenUtil.pixelRatio,
-      );
-    }
+    } else {}
 
+    ScreenUtil.screenSize = AutoSize.getSize();
+
+    ScreenUtil.heightTopSafeArea = window.padding.top / ScreenUtil.pixelRatio;
+    ScreenUtil.heightBottomSafeArea = window.padding.bottom / ScreenUtil.pixelRatio;
+
+    print("------------${ScreenUtil.screenSize ?? size}");
     return ViewConfiguration(
       size: ScreenUtil.screenSize ?? size,
       devicePixelRatio: ScreenUtil.pixelRatio,
@@ -175,6 +172,4 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     if (result == null) return;
     dispatchEvent(event, result);
   }
-
-
 }
