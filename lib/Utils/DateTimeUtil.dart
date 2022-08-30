@@ -152,7 +152,13 @@ class DateTimeUtil {
 
   static String? getFullDateTime(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime.day.toString() + " thg " + dateTime.month.toString() + ", " + dateTime.year.toString() + ", " + dateTimeToString(dateTime, "HH:mm:ss")!;
+    return dateTime.day.toString() +
+        " thg " +
+        dateTime.month.toString() +
+        ", " +
+        dateTime.year.toString() +
+        ", " +
+        dateTimeToString(dateTime, "HH:mm:ss")!;
   }
 
   static DateTime getDateTimeStartDay(DateTime dateTime) {
@@ -224,16 +230,16 @@ class DateTimeUtil {
       tokens.add('${days}d ');
     }
     if (tokens.isNotEmpty || hours != 0) {
-      tokens.add(isDetail ? '${hours}h ' : '$hours');
+      tokens.add(isDetail ? '${showSecond(hours)}h ' : '${showSecond(hours)}');
     }
     if (tokens.isNotEmpty || minutes != 0) {
-      tokens.add(isDetail ? '${minutes}m ' : '$minutes');
+      tokens.add(isDetail ? '${showSecond(minutes)}m ' : '${showSecond(minutes)}');
     }
-    if (seconds != 0) {
-      tokens.add(isDetail ? '${seconds}s ' : '$seconds');
-    }
+    //if (seconds != 0) {
+    tokens.add(isDetail ? '${showSecond(seconds)}s ' : '${showSecond(seconds)}');
+    //}
     if (tokens.length == 0) {
-      tokens.add('${seconds}s ');
+      tokens.add('${showSecond(seconds)}s ');
     }
     //xử lý nếu giá trị cuối là 0 thì bỏ đi
     //VD 1h0p thì remove 0p đi
@@ -256,6 +262,13 @@ class DateTimeUtil {
     } else {
       return tokens.join(':');
     }
+  }
+
+  static String showSecond(int second) {
+    if (second < 10) {
+      return "0$second";
+    }
+    return "$second";
   }
 
   static String getTimeMinuteFromSecondVN(int second) {
@@ -302,7 +315,10 @@ class DateTimeUtil {
     var diff = now.difference(date);
     var time = '';
 
-    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
+    if (diff.inSeconds <= 0 ||
+        diff.inSeconds > 0 && diff.inMinutes == 0 ||
+        diff.inMinutes > 0 && diff.inHours == 0 ||
+        diff.inHours > 0 && diff.inDays == 0) {
       time = format.format(date);
       time = "Hôm nay";
     } else if (diff.inDays > 0 && diff.inDays < 7) {
