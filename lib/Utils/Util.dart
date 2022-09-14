@@ -223,7 +223,7 @@ class Util {
   static Size textSize(
     String text,
     TextStyle style, {
-    int maxLine = 1,
+    int? maxLine = 1,
     double minWidth = 0,
     double maxWidth = double.infinity,
   }) {
