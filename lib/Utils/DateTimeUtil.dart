@@ -62,6 +62,18 @@ class DateTimeUtil {
     return dateTimeToString(_dateTime, "HH:mm dd/MM/yyyy");
   }
 
+  static String? getTimeShowWithString(String? dateTime, {bool isToLocal = false}) {
+    if (dateTime == null) return '';
+    DateTime? _dateTime;
+    if (isToLocal) {
+      _dateTime = DateTime.tryParse(dateTime)?.toLocal();
+    } else {
+      _dateTime = DateTime.tryParse(dateTime);
+    }
+    if (_dateTime == null) return '';
+    return dateTimeToString(_dateTime, "HH:mm");
+  }
+
   static String showDateNormalWithDateTime(DateTime? dateTime) {
     if (dateTime == null) return '';
     return dateTimeToString(dateTime, "dd/MM/yyyy") ?? "";
