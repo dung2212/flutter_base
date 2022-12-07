@@ -22,6 +22,10 @@ extension StringExtend on String {
     return double.tryParse(this);
   }
 
+  num? toNum() {
+    return num.tryParse(this);
+  }
+
   //lấy giá trị từ TextInput nhập tiền
   int? toIntPrice() {
     var value = this.trim().replaceAll(",", "");
