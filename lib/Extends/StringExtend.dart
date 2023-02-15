@@ -22,6 +22,10 @@ extension StringExtend on String {
     return double.tryParse(this);
   }
 
+  num? toNum() {
+    return num.tryParse(this);
+  }
+
   //lấy giá trị từ TextInput nhập tiền
   int? toIntPrice() {
     var value = this.trim().replaceAll(",", "");
@@ -31,7 +35,7 @@ extension StringExtend on String {
   //lấy giá trị từ TextInput nhập tiền
   double? toDoublePrice() {
     var value = this.trim().replaceAll(",", "");
-    return double.tryParse(this);
+    return double.tryParse(value);
   }
 
   String toMd5() {

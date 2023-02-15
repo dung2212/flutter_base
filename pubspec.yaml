@@ -16,15 +16,15 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  fluttertoast: ^8.0.9
-  shared_preferences: 2.0.13
+  fluttertoast: 8.0.9
+  shared_preferences: 2.0.15
   html: 0.15.0
   #cupertino_icons: 1.0.2
   intl: 0.17.0
   tuple: 2.0.0
   shimmer: 2.0.0
   crypto: 3.0.1
-  url_launcher: 6.1.4
+  url_launcher: 6.1.7
   #sliding_up_panel: 1.0.2
   logger: ^1.1.0
   uni_links: 0.5.1

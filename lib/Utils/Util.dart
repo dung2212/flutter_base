@@ -286,7 +286,7 @@ class Util {
 
   static String intToAreaDouble(dynamic price) {
     if (price == null) return '';
-    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '').format(price).replaceAll(',00', '');
+    return NumberFormat.currency(locale: 'eu', decimalDigits: 2, symbol: '').format(price).replaceAll(',00', '').trim();
     final oCcy = new NumberFormat("#,##0.00", "VN");
     var string = oCcy.format(price);
     return string;

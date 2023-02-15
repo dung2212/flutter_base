@@ -8,6 +8,7 @@ import 'package:FlutterBase/Utils/ScreenUtil.dart';
 
 class FlutterBase {
   static String keyEncrypt = "P@123123123";
+  static Function(String? value)? OnGetLanguage;
 
   static init() {
     //ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
@@ -17,4 +18,10 @@ class FlutterBase {
     FileUtil.init();
   }
 
+  static String? translate(String? value) {
+    if (OnGetLanguage != null) {
+      return OnGetLanguage?.call(value);
+    }
+    return value;
+  }
 }
