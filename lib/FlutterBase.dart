@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:FlutterBase/ThirdParty/AutoSize/auto_size.dart';
 import 'package:FlutterBase/Utils/DeviceUtil.dart';
+import 'package:FlutterBase/Utils/FileUtil.dart';
 import 'package:FlutterBase/Utils/ScreenUtil.dart';
 
 class FlutterBase {
@@ -13,6 +14,7 @@ class FlutterBase {
     ScreenUtil.heightTopSafeArea = ui.window.viewPadding.top / ScreenUtil.pixelRatio;
     ScreenUtil.heightBottomSafeArea = ui.window.viewPadding.bottom / ScreenUtil.pixelRatio;
     DeviceUtil.initData();
+    FileUtil.init();
   }
 
 }

@@ -34,6 +34,22 @@ class DateTimeUtil {
     return DateTime(dateTime.year, dateTime.month, dateTime.day + value);
   }
 
+  static DateTime? getDateTimeSqlite(dynamic dateTime) {
+    try {
+      if (dateTime is int) {
+        return DateTime.fromMicrosecondsSinceEpoch(dateTime);
+      }
+      var time = (int.tryParse(dateTime ?? "") ?? 0) * 1000;
+      return DateTime.fromMicrosecondsSinceEpoch(time.toInt());
+    } catch (ex) {
+      return null;
+    }
+  }
+
+  static int? getValueSqliteSave(DateTime? dateTime) {
+    return dateTime?.microsecondsSinceEpoch;
+  }
+
   static DateTime getDateTimeLaterMonth(DateTime dateTime, int value) {
     return DateTime(dateTime.year, dateTime.month + value, dateTime.day);
   }
@@ -65,6 +81,11 @@ class DateTimeUtil {
   static String showDateNormalWithDateTime(DateTime? dateTime) {
     if (dateTime == null) return '';
     return dateTimeToString(dateTime, "dd/MM/yyyy") ?? "";
+  }
+
+  static String showDateTimeNormalWithDateTime(DateTime? dateTime) {
+    if (dateTime == null) return '';
+    return dateTimeToString(dateTime, "dd/MM/yyyy HH:mm:ss") ?? "";
   }
 
   static String? getDateTimeServerToDate(DateTime? dateTime) {
@@ -152,13 +173,7 @@ class DateTimeUtil {
 
   static String? getFullDateTime(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime.day.toString() +
-        " thg " +
-        dateTime.month.toString() +
-        ", " +
-        dateTime.year.toString() +
-        ", " +
-        dateTimeToString(dateTime, "HH:mm:ss")!;
+    return dateTime.day.toString() + " thg " + dateTime.month.toString() + ", " + dateTime.year.toString() + ", " + dateTimeToString(dateTime, "HH:mm:ss")!;
   }
 
   static DateTime getDateTimeStartDay(DateTime dateTime) {
@@ -315,10 +330,7 @@ class DateTimeUtil {
     var diff = now.difference(date);
     var time = '';
 
-    if (diff.inSeconds <= 0 ||
-        diff.inSeconds > 0 && diff.inMinutes == 0 ||
-        diff.inMinutes > 0 && diff.inHours == 0 ||
-        diff.inHours > 0 && diff.inDays == 0) {
+    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
       time = format.format(date);
       time = "Hôm nay";
     } else if (diff.inDays > 0 && diff.inDays < 7) {

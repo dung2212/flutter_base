@@ -487,7 +487,7 @@ class Util {
   }
 
   static String getFileExtension({required String fileName}) {
-    return "";
+    return "." + fileName.split('.').last;
   }
 
   static String getFileNameInPath({required String path}) {
