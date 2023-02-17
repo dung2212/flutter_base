@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:FlutterBase/Utils/Util.dart';
 import 'package:device_info/device_info.dart';
+
+import 'util.dart';
 
 class DeviceUtil {
   static String? deviceName;

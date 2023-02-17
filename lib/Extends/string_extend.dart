@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:FlutterBase/Utils/Util.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/utils/util.dart';
 
 extension StringExtend on String {
   String base64Encode() {

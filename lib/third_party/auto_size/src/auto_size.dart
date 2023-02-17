@@ -3,10 +3,10 @@ import 'dart:collection';
 import 'dart:io';
 import 'dart:ui' as ui show PointerDataPacket;
 import 'dart:ui';
-import 'package:FlutterBase/Utils/ScreenUtil.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_base/utils/screen_util.dart';
 import 'auto_size_config.dart';
 
 /// runAutoSizeApp.

@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
-import 'Util.dart';
+import 'util.dart';
 
 //Format nhận số thập phân đổi tất cả dấu phẩy thành dấu chấm
 class CommaTextInputFormatter extends TextInputFormatter {

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:FlutterBase/Utils/Util.dart';
+import 'package:flutter_base/utils/util.dart';
+
 
 class ColorExtends extends Color {
   static int _getColorFromHex(String hexColor) {

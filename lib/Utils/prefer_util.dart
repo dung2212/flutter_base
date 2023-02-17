@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:FlutterBase/FlutterBase.dart';
-import 'package:FlutterBase/Utils/CryptoUtil.dart';
 import 'package:crypto/crypto.dart';
+import 'package:flutter_base/flutter_base.dart';
+import 'package:flutter_base/utils/crypto_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferUtil {

@@ -1,4 +1,4 @@
-import 'package:FlutterBase/FlutterBase.dart';
+import 'package:flutter_base/flutter_base.dart';
 import 'package:intl/intl.dart';
 
 class DateTimeUtil {
@@ -392,40 +392,35 @@ class DateTimeUtil {
       timeValue = diffInHours;
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('giờ') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('giờ_s')?.replaceAll("_s", "") ?? "";
       }
     } else if (diffInHours >= 24 && diffInHours < 24 * 7) {
       timeValue = (diffInHours / 24).floor();
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('ngày') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('ngày_s')?.replaceAll("_s", "") ?? "";
       }
     } else if (diffInHours >= 24 * 7 && diffInHours < 24 * 30) {
       timeValue = (diffInHours / (24 * 7)).floor();
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('tuần') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('tuần_s')?.replaceAll("_s", "") ?? "";
       }
     } else if (diffInHours >= 24 * 30 && diffInHours < 24 * 12 * 30) {
       timeValue = (diffInHours / (24 * 30)).floor();
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('tháng') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('tháng_s')?.replaceAll("_s", "") ?? "";
       }
     } else {
       timeValue = (diffInHours / (24 * 365)).round();
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('năm') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('năm_s')?.replaceAll("_s", "") ?? "";
       }
     }
@@ -462,16 +457,14 @@ class DateTimeUtil {
       timeValue = diffInHours;
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('giờ') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('giờ_s')?.replaceAll("_s", "") ?? "";
       }
     } else if (diffInHours >= 24 && diffInHours < 24 * 7) {
       timeValue = (diffInHours / 24).floor();
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('ngày') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('ngày_s')?.replaceAll("_s", "") ?? "";
       }
     } else if (diffInHours >= 24 * 7 && diffInHours < 24 * 30) {
@@ -479,16 +472,14 @@ class DateTimeUtil {
       timeValue = (diffInHours / 24).floor();
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('tuần') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('tuần_s')?.replaceAll("_s", "") ?? "";
       }
     } else if (diffInHours >= 24 * 30 && diffInHours < 24 * 12 * 30) {
       timeValue = (diffInHours / (24 * 30)).floor();
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('tháng') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('tháng_s')?.replaceAll("_s", "") ?? "";
       }
       return "${getDateTimeToDate(videoDate)}";
@@ -496,8 +487,7 @@ class DateTimeUtil {
       timeValue = (diffInHours / (24 * 365)).round();
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('năm') ?? "";
-      }
-      else{
+      } else {
         timeUnit = FlutterBase.translate('năm_s')?.replaceAll("_s", "") ?? "";
       }
       return "${getDateTimeToDate(videoDate)}";

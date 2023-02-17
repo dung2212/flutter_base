@@ -1,25 +1,26 @@
 import 'dart:math';
 import 'dart:ui';
 import 'dart:io' show Platform;
-import 'package:FlutterBase/Extends/DoubleExtend.dart';
-import 'package:FlutterBase/Extends/StringExtend.dart';
+import 'package:flutter_base/extends/double_extend.dart';
+import 'package:flutter_base/extends/string_extend.dart';
 import 'package:device_info/device_info.dart';
-import 'package:FlutterBase/Extends/ColorExtends.dart';
+import 'package:flutter_base/extends/color_extends.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-export 'DateTimeUtil.dart';
-export 'PreferUtil.dart';
 import 'package:flutter/services.dart';
-import 'package:FlutterBase/Utils/SecureStorageUtil.dart';
-export 'package:FlutterBase/Extends/StringExtend.dart';
-export 'package:FlutterBase/Extends/DoubleExtend.dart';
+import 'package:flutter_base/utils/secure_storage_util.dart';
 import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:uuid/uuid.dart';
+
+export 'date_time_util.dart';
+export 'prefer_util.dart';
+export 'package:flutter_base/extends/string_extend.dart';
+export 'package:flutter_base/extends/double_extend.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);

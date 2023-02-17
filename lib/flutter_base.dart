@@ -1,10 +1,9 @@
 import 'dart:ui';
 import 'dart:ui' as ui;
 
-import 'package:FlutterBase/ThirdParty/AutoSize/auto_size.dart';
-import 'package:FlutterBase/Utils/DeviceUtil.dart';
-import 'package:FlutterBase/Utils/FileUtil.dart';
-import 'package:FlutterBase/Utils/ScreenUtil.dart';
+import 'utils/device_util.dart';
+import 'utils/file_util.dart';
+import 'utils/screen_util.dart';
 
 class FlutterBase {
   static String keyEncrypt = "P@123123123";

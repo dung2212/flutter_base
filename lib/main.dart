@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Widget/RestartApp.dart';
+import 'package:flutter_base/widgets/restart_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,5 +9,3 @@ void main() async {
     ),
   );
 }
-
-
