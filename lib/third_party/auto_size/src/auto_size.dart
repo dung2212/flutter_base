@@ -90,10 +90,15 @@ class AutoSizeWidgetsFlutterBinding extends WidgetsFlutterBinding {
     if (size == Size.zero) {
       return super.createViewConfiguration();
     }
-    if (!ScreenUtil.isGetPixelRatio) {
+    if (AutoSizeConfig.isFixWidth) {
+      AutoSizeConfig.setDesignWH(width: AutoSizeConfig.designWidth, isFixWidth: AutoSizeConfig.isFixWidth);
+      ScreenUtil.pixelRatio = AutoSize.getPixelRatio();
+      ScreenUtil.autoSizeRatio = dpRatio / ScreenUtil.pixelRatio;
+      ScreenUtil.isGetPixelRatio = true;
+    } else if (!ScreenUtil.isGetPixelRatio) {
       if (AutoSizeConfig.designWidth < size.width && !AutoSizeConfig.isTablet) {
         if (size.width > size.height) {
-          AutoSizeConfig.setDesignWH(width: size.height);
+          AutoSizeConfig.setDesignWH(width: size.height );
         } else {
           AutoSizeConfig.setDesignWH(width: size.width);
         }
