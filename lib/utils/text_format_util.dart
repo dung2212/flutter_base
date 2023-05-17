@@ -136,3 +136,14 @@ class PositiveNumbersTextInputFormatter extends TextInputFormatter {
     return TextEditingValue(text: value, selection: TextSelection.collapsed(offset: cursorPosition));
   }
 }
+
+//Luôn viết hoa
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
+  }
+}
