@@ -272,7 +272,7 @@ class DateTimeUtil {
     //xử lý nếu giá trị cuối là 0 thì bỏ đi
     //VD 1h0p thì remove 0p đi
     if (tokens.length >= 2) {
-      if (tokens.last == "0s") {
+      if (tokens.last == "0s" ||tokens.last == "00s ") {
         tokens.removeLast();
       }
       if (tokens.last.trim() == "0m") {
