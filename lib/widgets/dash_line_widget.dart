@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DashLineWidget extends StatelessWidget {
   final Color color;
 
-  DashLineWidget({Key? key, this.color = Colors.grey});
+  const DashLineWidget({Key? key, this.color = Colors.grey});
 
   @override
   Widget build(BuildContext context) {
