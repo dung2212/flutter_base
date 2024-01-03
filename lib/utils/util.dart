@@ -321,6 +321,11 @@ class Util {
     openURL(url);
   }
 
+  static Future mailTo(String mail) async {
+    var url = 'mailto:' + mail.replaceAll(" ", "");
+    openURL(url);
+  }
+
   static launchURL(String url) async {
     debugPrint("launchURL: $url");
     var _url = Uri.tryParse(Uri.encodeFull(url));

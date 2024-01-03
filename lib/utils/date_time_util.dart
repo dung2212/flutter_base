@@ -390,7 +390,8 @@ class DateTimeUtil {
     String timeUnit = '';
     int timeValue = 0;
     if (diffInMinute < 1) {
-      final diffInSecond = DateTime.now().difference(dateTime).inSeconds;
+      var diffInSecond = DateTime.now().difference(dateTime).inSeconds;
+      if (diffInSecond < 0) diffInSecond = 0;
       timeValue = diffInSecond;
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('giây') ?? "";
