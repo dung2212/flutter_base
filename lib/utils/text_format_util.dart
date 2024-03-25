@@ -117,6 +117,22 @@ class CurrencyTextInputFormatter extends TextInputFormatter {
   }
 }
 
+//định dạng tiền âm
+class CurrencyNegativeTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    // remove characters to convert the value to double (because one of those may appear in the keyboard)
+    String newText = newValue.text.replaceAll('.', '').replaceAll(',', '').replaceAll('_', '');
+    String value = newText;
+    int cursorPosition = newText.length;
+    if (newText.isNotEmpty && value != "-") {
+      value = Util.intToPriceDouble(newText.toInt());
+      cursorPosition = value.length;
+    }
+    return TextEditingValue(text: value, selection: TextSelection.collapsed(offset: cursorPosition));
+  }
+}
+
 //Định dạng số dương
 class PositiveNumbersTextInputFormatter extends TextInputFormatter {
   @override

@@ -376,11 +376,11 @@ class DateTimeUtil {
   }
 
   static String displayTimeAgoFromTimestamp(DateTime dateTime) {
-    // final year = int.parse(timestamp.substring(0, 4));
-    // final month = int.parse(timestamp.substring(5, 7));
-    // final day = int.parse(timestamp.substring(8, 10));
-    // final hour = int.parse(timestamp.substring(11, 13));
-    // final minute = int.parse(timestamp.substring(14, 16));
+    final year = dateTime.year;
+    final month = dateTime.month;
+    final day = dateTime.day;
+    final hour = dateTime.hour;
+    final minute = dateTime.minute;
 
     //final DateTime videoDate = DateTime(year, month, day, hour, minute);
     final int diffInHours = DateTime.now().difference(dateTime).inHours;
@@ -390,7 +390,8 @@ class DateTimeUtil {
     String timeUnit = '';
     int timeValue = 0;
     if (diffInMinute < 1) {
-      final diffInSecond = DateTime.now().difference(dateTime).inSeconds;
+      var diffInSecond = DateTime.now().difference(dateTime).inSeconds;
+      if (diffInSecond < 0) diffInSecond = 0;
       timeValue = diffInSecond;
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('giây') ?? "";

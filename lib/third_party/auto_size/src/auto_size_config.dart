@@ -15,10 +15,11 @@ class AutoSizeConfig {
   /// Configuration design draft size  screen width, height, density.
   static void setDesignWH({double width = 375, double tabletWidth = 700, bool isFixWidth = false}) {
     AutoSizeConfig.isFixWidth = isFixWidth;
-    if (isFixWidth) {
+    isTablet = Device.get().isTablet;
+    if (isFixWidth && !isTablet) {
       _designWidth = width;
     } else {
-      isTablet = Device.get().isTablet;
+
       if (Device.get().isTablet) {
         _designWidth = tabletWidth;
       } else {
