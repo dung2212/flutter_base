@@ -186,7 +186,13 @@ class DateTimeUtil {
 
   static String? getFullDateTime(DateTime? dateTime) {
     if (dateTime == null) return null;
-    return dateTime.day.toString() + " thg " + dateTime.month.toString() + ", " + dateTime.year.toString() + ", " + dateTimeToString(dateTime, "HH:mm:ss")!;
+    return dateTime.day.toString() +
+        " thg " +
+        dateTime.month.toString() +
+        ", " +
+        dateTime.year.toString() +
+        ", " +
+        dateTimeToString(dateTime, "HH:mm:ss")!;
   }
 
   static DateTime getDateTimeStartDay(DateTime dateTime) {
@@ -272,7 +278,7 @@ class DateTimeUtil {
     //xử lý nếu giá trị cuối là 0 thì bỏ đi
     //VD 1h0p thì remove 0p đi
     if (tokens.length >= 2) {
-      if (tokens.last == "0s" ||tokens.last == "00s ") {
+      if (tokens.last == "0s" || tokens.last == "00s ") {
         tokens.removeLast();
       }
       if (tokens.last.trim() == "0m") {
@@ -343,7 +349,10 @@ class DateTimeUtil {
     var diff = now.difference(date);
     var time = '';
 
-    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
+    if (diff.inSeconds <= 0 ||
+        diff.inSeconds > 0 && diff.inMinutes == 0 ||
+        diff.inMinutes > 0 && diff.inHours == 0 ||
+        diff.inHours > 0 && diff.inDays == 0) {
       time = format.format(date);
       time = "Hôm nay";
     } else if (diff.inDays > 0 && diff.inDays < 7) {
@@ -373,15 +382,24 @@ class DateTimeUtil {
     final hour = dateTime.hour;
     final minute = dateTime.minute;
 
-    final DateTime videoDate = DateTime(year, month, day, hour, minute);
-    final int diffInHours = DateTime.now().difference(videoDate).inHours;
+    //final DateTime videoDate = DateTime(year, month, day, hour, minute);
+    final int diffInHours = DateTime.now().difference(dateTime).inHours;
+    final int diffInMinute = DateTime.now().difference(dateTime).inMinutes;
 
     String timeAgo = '';
     String timeUnit = '';
     int timeValue = 0;
-
-    if (diffInHours < 1) {
-      final diffInMinutes = DateTime.now().difference(videoDate).inMinutes;
+    if (diffInMinute < 1) {
+      var diffInSecond = DateTime.now().difference(dateTime).inSeconds;
+      if (diffInSecond < 0) diffInSecond = 0;
+      timeValue = diffInSecond;
+      if (timeValue == 1) {
+        timeUnit = FlutterBase.translate('giây') ?? "";
+      } else {
+        timeUnit = FlutterBase.translate('giây_s')?.replaceAll("_s", "") ?? "";
+      }
+    } else if (diffInHours < 1) {
+      final diffInMinutes = DateTime.now().difference(dateTime).inMinutes;
       timeValue = diffInMinutes;
       if (timeValue == 1) {
         timeUnit = FlutterBase.translate('phút') ?? "";
