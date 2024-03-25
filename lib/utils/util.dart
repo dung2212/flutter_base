@@ -321,6 +321,11 @@ class Util {
     openURL(url);
   }
 
+  static Future sendSMS(String phoneNumber) async {
+    var url = 'sms:' + phoneNumber.replaceAll(" ", "");
+    openURL(url);
+  }
+
   static launchURL(String url) async {
     debugPrint("launchURL: $url");
     var _url = Uri.tryParse(Uri.encodeFull(url));
