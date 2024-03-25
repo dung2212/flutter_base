@@ -332,9 +332,9 @@ class Util {
     openURL(url);
   }
 
-  static launchURL(String url) async {
+  static launchURL(String url, {bool isEncodeUri = true}) async {
     debugPrint("launchURL: $url");
-    var _url = Uri.tryParse(Uri.encodeFull(url));
+    var _url = Uri.tryParse(isEncodeUri ? Uri.encodeFull(url) : url);
     if (_url != null) {
       if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) throw 'Could not openURL $_url';
     } else {
