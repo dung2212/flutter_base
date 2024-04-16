@@ -21,6 +21,7 @@ export 'date_time_util.dart';
 export 'prefer_util.dart';
 export 'package:flutter_base/extends/string_extend.dart';
 export 'package:flutter_base/extends/double_extend.dart';
+export 'package:flutter_base/extends/text_style_extend.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
