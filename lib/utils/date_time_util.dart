@@ -524,4 +524,30 @@ class DateTimeUtil {
 
     return "";
   }
+
+  static String weekToStringVn(int week) {
+    if (week == 1) {
+      return "Thứ 2";
+    }
+    if (week == 2) {
+      return "Thứ 3";
+    }
+    if (week == 3) {
+      return "Thứ 4";
+    }
+    if (week == 4) {
+      return "Thứ 5";
+    }
+    if (week == 5) {
+      return "Thứ 6";
+    }
+    if (week == 6) {
+      return "Thứ 7";
+    }
+    if (week == 7) {
+      return "Chủ nhật";
+    }
+
+    return "";
+  }
 }

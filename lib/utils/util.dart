@@ -82,8 +82,7 @@ class Util {
 
   //kiểm tra có phải định dạng không
   static bool isEmail(String email) {
-    String p =
-        r"^[a-zA-Z0-9._]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$";
+    String p = r"^[a-zA-Z0-9._]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$";
     RegExp regExp = new RegExp(p);
     return regExp.hasMatch(email);
   }
@@ -306,9 +305,14 @@ class Util {
     return urlRegExp.hasMatch(text);
   }
 
-  static openURL(String url) async {
+  static openURL(String url, {bool isEncode = true}) async {
     debugPrint("openURL: $url");
-    var _url = Uri.tryParse(Uri.encodeFull(url));
+    Uri? _url;
+    if (isEncode) {
+      _url = Uri.tryParse(Uri.encodeFull(url));
+    } else {
+      _url = Uri.tryParse(url);
+    }
     if (_url != null) {
       if (!await launchUrl(_url)) throw 'Could not launch $_url';
     } else {
@@ -329,6 +333,15 @@ class Util {
     } else {
       throw 'Could not openURL $url';
     }
+  }
+
+  static Future<bool> checkScheme(String url) async {
+    debugPrint("launchURL: $url");
+    var _url = Uri.tryParse(Uri.encodeFull(url));
+    if (_url != null) {
+      return await canLaunchUrl(_url);
+    }
+    return false;
   }
 
   static String checkFileType(String fileType) {
