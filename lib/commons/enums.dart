@@ -13,5 +13,6 @@ enum EnumLanguage {
 enum BuildType {
   test,
   staging,
+  beta,
   product,
 }

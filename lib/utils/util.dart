@@ -21,6 +21,7 @@ export 'date_time_util.dart';
 export 'prefer_util.dart';
 export 'package:flutter_base/extends/string_extend.dart';
 export 'package:flutter_base/extends/double_extend.dart';
+export 'package:flutter_base/extends/text_style_extend.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
@@ -100,29 +101,36 @@ class Util {
 
   //so sánh version
   static bool checkNewVersionWithOldVersion({required String oldVersion, required String newVersion}) {
-    if (oldVersion.length == 0) {
+    if (oldVersion.isEmpty) {
       return false;
     }
-    if (newVersion.length == 0) {
+    if (newVersion.isEmpty) {
       return false;
     }
     var arrayOld = oldVersion.split(".");
     var arrayNew = newVersion.split(".");
     var arrayCount = 0;
-    if (arrayOld.length == 0) {
+    if (arrayOld.isEmpty) {
       return false;
     }
-    if (arrayNew.length == 0) {
+    if (arrayNew.isEmpty) {
       return false;
     }
-    if (arrayOld.length > arrayNew.length) {
+    if (arrayOld.length < arrayNew.length) {
       arrayCount = arrayNew.length;
     } else {
       arrayCount = arrayOld.length;
     }
     for (int i = 0; i < arrayCount; i++) {
-      var numberOld = int.parse(arrayOld[i]);
-      var numberNew = int.parse(arrayNew[i]);
+      var numberOld = 0;
+      if (i < arrayOld.length) {
+        numberOld = int.parse(arrayOld[i]);
+      }
+      var numberNew = 0;
+      if (i < arrayNew.length) {
+        numberNew = int.parse(arrayNew[i]);
+      }
+
       if (numberNew > numberOld) {
         return true;
       } else if (numberNew < numberOld) {
@@ -192,7 +200,7 @@ class Util {
     return value.toString().replaceAll(RegExp(r"([.]*0)(?!.*\d)"), "");
   }
 
-  //chuyển tất cả về chữ thường, chữ đầu tiên là chữ hoa
+//chuyển tất cả về chữ thường, chữ đầu tiên là chữ hoa
   static String toLowerCaseNormalType(String value) {
     var text = value.toLowerCase();
     if (value.length > 0) {
@@ -203,7 +211,7 @@ class Util {
     return text;
   }
 
-  //viết tắt
+//viết tắt
   static String acronymString(String? text) //viết tắt
   {
     if (text == null) return '';
@@ -325,9 +333,19 @@ class Util {
     openURL(url);
   }
 
-  static launchURL(String url) async {
+  static Future sendSMS(String phoneNumber) async {
+    var url = 'sms:' + phoneNumber.replaceAll(" ", "");
+    openURL(url);
+  }
+
+  static Future mailTo(String mail) async {
+    var url = 'mailto:' + mail.replaceAll(" ", "");
+    openURL(url);
+  }
+
+  static launchURL(String url, {bool isEncodeUri = true}) async {
     debugPrint("launchURL: $url");
-    var _url = Uri.tryParse(Uri.encodeFull(url));
+    var _url = Uri.tryParse(isEncodeUri ? Uri.encodeFull(url) : url);
     if (_url != null) {
       if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) throw 'Could not openURL $_url';
     } else {
@@ -463,7 +481,7 @@ class Util {
     try {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;
-        //identifier = build.androidId; //UUID for Android
+//identifier = build.androidId; //UUID for Android
         return build.androidId;
       } else if (Platform.isIOS) {
         var iosDeviceInfo = await deviceInfoPlugin.iosInfo;
@@ -475,11 +493,11 @@ class Util {
     } on PlatformException {
       print('Failed to get platform version');
     }
-    //print('identifier= ' + identifier);
+//print('identifier= ' + identifier);
     return null;
   }
 
-  //kiểm tra chữ bắt đầu trong đoạn text: Ví dụ: check chữ Dung có ở đầu câu DungDepTrai không
+//kiểm tra chữ bắt đầu trong đoạn text: Ví dụ: check chữ Dung có ở đầu câu DungDepTrai không
   static bool checkTextBegin(String? textBegin, String? textFull) {
     if (textBegin == null || textFull == null) return false;
     if (textBegin.length >= textFull.length) return textBegin == textFull;
@@ -487,13 +505,13 @@ class Util {
     return textBegin == cutTextFull;
   }
 
-  //kiểm tra text này có phải url không
+//kiểm tra text này có phải url không
   static bool isValidUrl(String url) {
     bool _validURL = Uri.parse(url).isAbsolute;
     return _validURL;
   }
 
-  //lấy random String theo số lượng ký tự
+//lấy random String theo số lượng ký tự
   static String getRandomString({required int length}) {
     const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     Random _rnd = Random();
@@ -587,7 +605,7 @@ class Util {
     return ((d * mod).round().toDouble() / mod);
   }
 
-  //lấy list param trong url get
+//lấy list param trong url get
   static Map<String, String>? getParamInUrl({required String? url}) {
     if (url == null) return null;
     var uri = Uri.dataFromString(url);
@@ -595,14 +613,14 @@ class Util {
     return uri.queryParameters;
   }
 
-  //lấy giá trị trong param url get
+//lấy giá trị trong param url get
   static String? getValueInParamUrl({required String? url, required String key}) {
     if (url == null) return null;
     var param = getParamInUrl(url: url);
     if (param != null) return param[key];
   }
 
-  //lấy text quá số ký tự
+//lấy text quá số ký tự
   static String? getTextOverWithLength({required String? text, required int length}) {
     if (text != null) {
       if (text.trim().length < length + 1) {
@@ -614,7 +632,7 @@ class Util {
     return null;
   }
 
-  //kiểm tra ký tự số
+//kiểm tra ký tự số
   static bool isCheckCharNumber(String text) {
     var charGood = "0123456789";
     if (charGood.contains(text)) {
