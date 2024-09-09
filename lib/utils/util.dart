@@ -21,6 +21,7 @@ export 'date_time_util.dart';
 export 'prefer_util.dart';
 export 'package:flutter_base/extends/string_extend.dart';
 export 'package:flutter_base/extends/double_extend.dart';
+export 'package:flutter_base/extends/text_style_extend.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
@@ -316,9 +317,14 @@ class Util {
     return urlRegExp.hasMatch(text);
   }
 
-  static openURL(String url) async {
+  static openURL(String url, {bool isEncode = true}) async {
     debugPrint("openURL: $url");
-    var _url = Uri.tryParse(Uri.encodeFull(url));
+    Uri? _url;
+    if (isEncode) {
+      _url = Uri.tryParse(Uri.encodeFull(url));
+    } else {
+      _url = Uri.tryParse(url);
+    }
     if (_url != null) {
       if (!await launchUrl(_url)) throw 'Could not launch $_url';
     } else {
@@ -328,6 +334,11 @@ class Util {
 
   static Future callPhoneNumber(String phoneNumber) async {
     var url = 'tel:' + phoneNumber.replaceAll(" ", "");
+    openURL(url);
+  }
+
+  static Future sendSMS(String phoneNumber) async {
+    var url = 'sms:' + phoneNumber.replaceAll(" ", "");
     openURL(url);
   }
 
@@ -351,6 +362,15 @@ class Util {
     var _url = Uri.tryParse(isEncodeUri ? Uri.encodeFull(url) : url);
     if (_url != null) {
       return canLaunchUrl(_url);
+    }
+    return false;
+  }
+
+  static Future<bool> checkScheme(String url) async {
+    debugPrint("launchURL: $url");
+    var _url = Uri.tryParse(Uri.encodeFull(url));
+    if (_url != null) {
+      return await canLaunchUrl(_url);
     }
     return false;
   }

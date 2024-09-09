@@ -5,6 +5,7 @@ class DashLineWidget extends StatelessWidget {
   final bool isVertical;
   final double? dashWidth;
   final double? dashSpace;
+  final double? widthLine;
 
   const DashLineWidget({
     Key? key,
@@ -12,6 +13,7 @@ class DashLineWidget extends StatelessWidget {
     this.isVertical = false,
     this.dashWidth,
     this.dashSpace,
+    this.widthLine,
   });
 
   @override
@@ -25,6 +27,7 @@ class DashLineWidget extends StatelessWidget {
             isVertical: isVertical,
             dashSpace: dashSpace,
             dashWidth: dashWidth,
+            widthLine: widthLine,
           ),
         ),
       );
@@ -37,6 +40,7 @@ class DashLineWidget extends StatelessWidget {
             isVertical: isVertical,
             dashSpace: dashSpace,
             dashWidth: dashWidth,
+            widthLine: widthLine,
           ),
         ),
       );
@@ -47,8 +51,11 @@ class DashLineWidget extends StatelessWidget {
 class DashedLinePainter extends CustomPainter {
   final Color color;
   final bool isVertical;
+
   final double? dashWidth;
   final double? dashSpace;
+
+  final double? widthLine;
 
   DashedLinePainter({
     Key? key,
@@ -56,6 +63,7 @@ class DashedLinePainter extends CustomPainter {
     required this.isVertical,
     this.dashWidth,
     this.dashSpace,
+    required this.widthLine,
   });
 
   @override
@@ -63,7 +71,7 @@ class DashedLinePainter extends CustomPainter {
     double dashWidth = this.dashWidth ?? 6, dashSpace = this.dashSpace ?? 4;
     final paint = Paint()
       ..color = this.color
-      ..strokeWidth = 0.7;
+      ..strokeWidth = (widthLine ?? 0.7) / 2;
     if (isVertical) {
       double startY = 0;
       while (startY < size.height - dashSpace) {

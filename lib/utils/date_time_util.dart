@@ -562,13 +562,13 @@ class DateTimeUtil {
     if (week == 6) {
       return "Thứ bảy";
     }
+
     if (week == 7) {
       return "Chủ nhật";
     }
 
     return "";
   }
-
 
   static String displayTimeTo(DateTime dateTime) {
     var now = DateTime.now();
