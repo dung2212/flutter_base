@@ -542,4 +542,99 @@ class DateTimeUtil {
 
     return "";
   }
+
+  static String weekToStringVNName(int week) {
+    if (week == 1) {
+      return "Thứ hai";
+    }
+    if (week == 2) {
+      return "Thứ ba";
+    }
+    if (week == 3) {
+      return "Thứ tư";
+    }
+    if (week == 4) {
+      return "Thứ năm ";
+    }
+    if (week == 5) {
+      return "Thứ sáu";
+    }
+    if (week == 6) {
+      return "Thứ bảy";
+    }
+    if (week == 7) {
+      return "Chủ nhật";
+    }
+
+    return "";
+  }
+
+
+  static String displayTimeTo(DateTime dateTime) {
+    var now = DateTime.now();
+    final int diffInHours = dateTime.difference(now).inHours;
+    final int diffInMinute = dateTime.difference(now).inMinutes;
+
+    String timeAgo = '';
+    String timeUnit = '';
+    int timeValue = 0;
+    if (diffInMinute < 1) {
+      var diffInSecond = dateTime.difference(now).inSeconds;
+      if (diffInSecond < 0) diffInSecond = 0;
+      timeValue = diffInSecond;
+      if (timeValue == 1) {
+        timeUnit = FlutterBase.translate('giây') ?? "";
+      } else {
+        timeUnit = FlutterBase.translate('giây_s')?.replaceAll("_s", "") ?? "";
+      }
+    } else if (diffInHours < 1) {
+      final diffInMinutes = dateTime.difference(now).inMinutes;
+      timeValue = diffInMinutes;
+      if (timeValue == 1) {
+        timeUnit = FlutterBase.translate('phút') ?? "";
+      } else {
+        timeUnit = FlutterBase.translate('phút_s')?.replaceAll("_s", "") ?? "";
+      }
+    } else if (diffInHours < 24) {
+      timeValue = diffInHours;
+      if (timeValue == 1) {
+        timeUnit = FlutterBase.translate('giờ') ?? "";
+      } else {
+        timeUnit = FlutterBase.translate('giờ_s')?.replaceAll("_s", "") ?? "";
+      }
+    } else if (diffInHours >= 24 && diffInHours < 24 * 7) {
+      timeValue = (diffInHours / 24).floor();
+      if (timeValue == 1) {
+        timeUnit = FlutterBase.translate('ngày') ?? "";
+      } else {
+        timeUnit = FlutterBase.translate('ngày_s')?.replaceAll("_s", "") ?? "";
+      }
+    } else if (diffInHours >= 24 * 7 && diffInHours < 24 * 30) {
+      timeValue = (diffInHours / (24 * 7)).floor();
+      if (timeValue == 1) {
+        timeUnit = FlutterBase.translate('tuần') ?? "";
+      } else {
+        timeUnit = FlutterBase.translate('tuần_s')?.replaceAll("_s", "") ?? "";
+      }
+    } else if (diffInHours >= 24 * 30 && diffInHours < 24 * 12 * 30) {
+      timeValue = (diffInHours / (24 * 30)).floor();
+      if (timeValue == 1) {
+        timeUnit = FlutterBase.translate('tháng') ?? "";
+      } else {
+        timeUnit = FlutterBase.translate('tháng_s')?.replaceAll("_s", "") ?? "";
+      }
+    } else {
+      timeValue = (diffInHours / (24 * 365)).round();
+      if (timeValue == 1) {
+        timeUnit = FlutterBase.translate('năm') ?? "";
+      } else {
+        timeUnit = FlutterBase.translate('năm_s')?.replaceAll("_s", "") ?? "";
+      }
+    }
+
+    timeAgo = timeValue.toString() + ' ' + timeUnit;
+    timeAgo += timeValue > 1 ? '' : '';
+
+    return timeAgo;
+  }
 }

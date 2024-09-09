@@ -51,7 +51,7 @@ extension StringExtend on String {
   }
 
   //chuyển mã hex sang color
-  Color get toColor {
+  Color? get toColor {
     return Util.hexToColor(this);
   }
 

@@ -30,8 +30,12 @@ class Util {
     return Uuid().v4();
   }
 
-  static Color hexToColor(String code) {
-    return ColorExtends(code);
+  static Color? hexToColor(String code) {
+    try {
+      return ColorExtends(code);
+    } catch (ex) {
+      return null;
+    }
   }
 
   static String colorToHex(
@@ -342,6 +346,15 @@ class Util {
     }
   }
 
+  static Future<bool> isLaunchUrl(String url, {bool isEncodeUri = true}) async {
+    debugPrint("launchURL: $url");
+    var _url = Uri.tryParse(isEncodeUri ? Uri.encodeFull(url) : url);
+    if (_url != null) {
+      return canLaunchUrl(_url);
+    }
+    return false;
+  }
+
   static String checkFileType(String fileType) {
 //    switch (fileType){
 //      case () :
@@ -450,9 +463,9 @@ class Util {
     var charr = getAvatarName(name).toLowerCase();
     var hex = listColor[charr];
     if (hex == null || hex.isEmpty) {
-      return hexToColor("FC427B");
+      return hexToColor("FC427B") ?? Colors.blueAccent;
     }
-    return hexToColor(hex);
+    return hexToColor(hex) ?? Colors.blueAccent;
   }
 
   static Future<String?> getDeviceIdentifier() async {

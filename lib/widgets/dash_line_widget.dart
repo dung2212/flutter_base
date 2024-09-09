@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 class DashLineWidget extends StatelessWidget {
   final Color color;
   final bool isVertical;
+  final double? dashWidth;
+  final double? dashSpace;
 
-  const DashLineWidget({Key? key, this.color = Colors.grey, this.isVertical = false});
+  const DashLineWidget({
+    Key? key,
+    this.color = Colors.grey,
+    this.isVertical = false,
+    this.dashWidth,
+    this.dashSpace,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +23,20 @@ class DashLineWidget extends StatelessWidget {
           painter: DashedLinePainter(
             color: this.color,
             isVertical: isVertical,
+            dashSpace: dashSpace,
+            dashWidth: dashWidth,
           ),
         ),
       );
-    }
-    else {
+    } else {
       return SizedBox(
         width: double.infinity,
         child: CustomPaint(
           painter: DashedLinePainter(
             color: this.color,
             isVertical: isVertical,
+            dashSpace: dashSpace,
+            dashWidth: dashWidth,
           ),
         ),
       );
@@ -36,16 +47,20 @@ class DashLineWidget extends StatelessWidget {
 class DashedLinePainter extends CustomPainter {
   final Color color;
   final bool isVertical;
+  final double? dashWidth;
+  final double? dashSpace;
 
   DashedLinePainter({
     Key? key,
     required this.color,
     required this.isVertical,
+    this.dashWidth,
+    this.dashSpace,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    double dashWidth = 6, dashSpace = 4;
+    double dashWidth = this.dashWidth ?? 6, dashSpace = this.dashSpace ?? 4;
     final paint = Paint()
       ..color = this.color
       ..strokeWidth = 0.7;
