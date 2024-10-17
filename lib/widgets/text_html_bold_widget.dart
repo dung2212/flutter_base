@@ -4,8 +4,10 @@ class TextHtmlBoldWidget extends StatelessWidget {
   final String content;
   final TextStyle? style;
   final TextAlign? textAlign;
+  final int? maxLine;
+  final TextOverflow overflow;
 
-  const TextHtmlBoldWidget(this.content, {Key? key, this.style, this.textAlign}) : super(key: key);
+  const TextHtmlBoldWidget(this.content, {Key? key, this.style, this.textAlign, this.maxLine, this.overflow = TextOverflow.clip}) : super(key: key);
 
   TextStyle _getTextStyle() {
     return style ?? const TextStyle(fontSize: 16);
@@ -32,6 +34,8 @@ class TextHtmlBoldWidget extends StatelessWidget {
     }).toList();
 
     return RichText(
+      maxLines: maxLine,
+      overflow: overflow,
       textAlign: textAlign ?? TextAlign.start,
       text: TextSpan(
         children: textSpans,
