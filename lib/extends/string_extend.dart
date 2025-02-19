@@ -51,7 +51,7 @@ extension StringExtend on String {
   }
 
   //chuyển mã hex sang color
-  Color get toColor {
+  Color? get toColor {
     return Util.hexToColor(this);
   }
 
@@ -59,4 +59,10 @@ extension StringExtend on String {
   String get toEN {
     return Util.convertVNtoEN(this);
   }
+
+  //'hello world' -> 'Hello world'
+  String toCapitalized() => length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+
+  //'hello world' -> 'Hello World'
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
 }

@@ -11,4 +11,9 @@ extension DoubleExtend on double {
   String? toStringRound() {
     return this.toString().replaceAll(RegExp(r"([.]*0)(?!.*\d)"), "");
   }
+
+  ///Height figma to Height TextField
+  double toFigmaHeight(double fontSize) {
+    return this / fontSize;
+  }
 }

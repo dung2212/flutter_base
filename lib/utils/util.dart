@@ -21,6 +21,7 @@ export 'date_time_util.dart';
 export 'prefer_util.dart';
 export 'package:flutter_base/extends/string_extend.dart';
 export 'package:flutter_base/extends/double_extend.dart';
+export 'package:flutter_base/extends/text_style_extend.dart';
 
 typedef VoidOnAction = void Function();
 typedef VoidOnActionInt = void Function(int value);
@@ -30,8 +31,12 @@ class Util {
     return Uuid().v4();
   }
 
-  static Color hexToColor(String code) {
-    return ColorExtends(code);
+  static Color? hexToColor(String code) {
+    try {
+      return ColorExtends(code);
+    } catch (ex) {
+      return null;
+    }
   }
 
   static String colorToHex(
@@ -312,9 +317,14 @@ class Util {
     return urlRegExp.hasMatch(text);
   }
 
-  static openURL(String url) async {
+  static openURL(String url, {bool isEncode = true}) async {
     debugPrint("openURL: $url");
-    var _url = Uri.tryParse(Uri.encodeFull(url));
+    Uri? _url;
+    if (isEncode) {
+      _url = Uri.tryParse(Uri.encodeFull(url));
+    } else {
+      _url = Uri.tryParse(url);
+    }
     if (_url != null) {
       if (!await launchUrl(_url)) throw 'Could not launch $_url';
     } else {
@@ -345,6 +355,24 @@ class Util {
     } else {
       throw 'Could not openURL $url';
     }
+  }
+
+  static Future<bool> isLaunchUrl(String url, {bool isEncodeUri = true}) async {
+    debugPrint("launchURL: $url");
+    var _url = Uri.tryParse(isEncodeUri ? Uri.encodeFull(url) : url);
+    if (_url != null) {
+      return canLaunchUrl(_url);
+    }
+    return false;
+  }
+
+  static Future<bool> checkScheme(String url) async {
+    debugPrint("launchURL: $url");
+    var _url = Uri.tryParse(Uri.encodeFull(url));
+    if (_url != null) {
+      return await canLaunchUrl(_url);
+    }
+    return false;
   }
 
   static String checkFileType(String fileType) {
@@ -455,9 +483,9 @@ class Util {
     var charr = getAvatarName(name).toLowerCase();
     var hex = listColor[charr];
     if (hex == null || hex.isEmpty) {
-      return hexToColor("FC427B");
+      return hexToColor("FC427B") ?? Colors.blueAccent;
     }
-    return hexToColor(hex);
+    return hexToColor(hex) ?? Colors.blueAccent;
   }
 
   static Future<String?> getDeviceIdentifier() async {
