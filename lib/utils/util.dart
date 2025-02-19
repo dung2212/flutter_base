@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'dart:ui';
 import 'dart:io' show Platform;
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_base/extends/double_extend.dart';
 import 'package:flutter_base/extends/string_extend.dart';
-import 'package:device_info/device_info.dart';
 import 'package:flutter_base/extends/color_extends.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as material;
@@ -467,7 +467,7 @@ class Util {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;
 //identifier = build.androidId; //UUID for Android
-        return build.androidId;
+        return build.id;
       } else if (Platform.isIOS) {
         var iosDeviceInfo = await deviceInfoPlugin.iosInfo;
         return iosDeviceInfo.identifierForVendor;
